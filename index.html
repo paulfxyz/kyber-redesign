@@ -11,10 +11,10 @@
   // theme + lang before paint
   (function(){
     try{
-      var t = localStorage.getItem('kyber-theme') || (matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+      var t = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
       document.documentElement.dataset.theme = t;
       var q = new URLSearchParams(location.search).get('lang');
-      var l = q || localStorage.getItem('kyber-lang') || 'en';
+      var l = q || 'en';
       document.documentElement.lang = l;
       document.documentElement.dir = (l==='ar'||l==='he') ? 'rtl' : 'ltr';
     }catch(e){}

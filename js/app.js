@@ -36,7 +36,7 @@
     try { D = await load(l); } catch (e) { l = 'en'; D = EN; }
     LANG = l; loadFont(l);
     const html = document.documentElement; html.lang = l; html.dir = (l === 'ar' || l === 'he') ? 'rtl' : 'ltr';
-    localStorage.setItem('kyber-lang', l);
+    try { const u = new URL(location.href); if (l === 'en') u.searchParams.delete('lang'); else u.searchParams.set('lang', l); history.replaceState(null, '', u); } catch (e) { }
     $('#langCode').textContent = l.toUpperCase();
     $$('#langList button').forEach(b => b.setAttribute('aria-selected', b.dataset.l === l));
     document.title = t('meta.title');
@@ -712,7 +712,7 @@
   }
 
   /* ---------------- router ---------------- */
-  let first = true, lastPath = null;
+  let first = true, lastPath = null, pendingAnchor = null;
   function parse() { const h = location.hash.replace(/^#\/?/, ''); return h.split('?')[0]; }
   async function route(force) {
     const path = parse();
@@ -736,7 +736,7 @@
     $$('.hdr__nav>a').forEach(a => a.classList.toggle('is-active', a.getAttribute('href') === '#/' + active && active));
     $('.dd').classList.toggle('is-active', active === 'solutions');
     closeMenus();
-    const anchor = sessionStorage.getItem('kyber-anchor'); sessionStorage.removeItem('kyber-anchor');
+    const anchor = pendingAnchor; pendingAnchor = null;
     if (!force || lastPath !== path) { lenis ? lenis.scrollTo(0, { immediate: true }) : scrollTo(0, 0); }
     lastPath = path;
     animate(main);
@@ -766,7 +766,7 @@
     ddb.addEventListener('click', () => { const o = !dd.classList.contains('open'); dd.classList.toggle('open', o); ddb.setAttribute('aria-expanded', o); });
     const lg = $('.lang'), lgb = $('.lang__btn');
     lgb.addEventListener('click', (e) => { e.stopPropagation(); const o = !lg.classList.contains('open'); lg.classList.toggle('open', o); lgb.setAttribute('aria-expanded', o); });
-    $('#langList').addEventListener('click', (e) => { const b = e.target.closest('button[data-l]'); if (!b) return; closeMenus(); const u = new URL(location); u.searchParams.delete('lang'); history.replaceState(null, '', u); setLang(b.dataset.l); });
+    $('#langList').addEventListener('click', (e) => { const b = e.target.closest('button[data-l]'); if (!b) return; closeMenus(); setLang(b.dataset.l); });
     document.addEventListener('click', (e) => { if (!e.target.closest('.lang')) { lg.classList.remove('open'); lgb.setAttribute('aria-expanded', false); } if (!e.target.closest('.dd')) dd.classList.remove('open'); });
     document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeMenus(); });
     $('#burger').addEventListener('click', () => {
@@ -777,14 +777,14 @@
     document.addEventListener('click', (e) => {
       const a = e.target.closest('a[href^="#"]'); if (!a) return;
       const href = a.getAttribute('href');
-      if (a.dataset.anchor) sessionStorage.setItem('kyber-anchor', a.dataset.anchor);
+      if (a.dataset.anchor) pendingAnchor = a.dataset.anchor;
       if (href === '#play' || href === '#main') { e.preventDefault(); const el = document.querySelector(href); lenis ? lenis.scrollTo(el, { offset: -60 }) : el.scrollIntoView({ behavior: 'smooth' }); }
       else if (href === location.hash || (href === '#/' && !parse())) { e.preventDefault(); if (a.dataset.anchor) route(true); else lenis ? lenis.scrollTo(0) : scrollTo({ top: 0, behavior: 'smooth' }); closeMenus(); }
     });
     // theme
     $('#themeBtn').addEventListener('click', (e) => {
       const next = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
-      const apply = () => { document.documentElement.dataset.theme = next; localStorage.setItem('kyber-theme', next); $('meta[name="theme-color"]').content = next === 'dark' ? '#040706' : '#eef3f1'; };
+      const apply = () => { document.documentElement.dataset.theme = next; $('meta[name="theme-color"]').content = next === 'dark' ? '#040706' : '#eef3f1'; };
       if (document.startViewTransition && !RM) {
         const r = e.currentTarget.getBoundingClientRect(); const x = r.left + r.width / 2, y = r.top + r.height / 2;
         const rad = Math.hypot(Math.max(x, innerWidth - x), Math.max(y, innerHeight - y));
@@ -820,7 +820,7 @@
     if (window.gsap && window.ScrollTrigger) gsap.registerPlugin(ScrollTrigger);
     const loaderNum = $('#loaderNum'), bar = $('#loaderBar');
     const q = new URLSearchParams(location.search).get('lang');
-    const want = q || localStorage.getItem('kyber-lang') || 'en';
+    const want = q || 'en';
     const loadP = (async () => { EN = await load('en'); await setLang(want, false); })();
     ui();
     // loader: count latency down 200 → 8
