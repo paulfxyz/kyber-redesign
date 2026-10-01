@@ -4,6 +4,10 @@
   const $$ = (s, r = document) => [...r.querySelectorAll(s)];
   const RM = FX.RM;
   const K = 'https://kyber.tech';
+  const DOCS = 'https://kyber-27201e.gitlab.io/';
+  const GL = 'https://gitlab.com/kyber/kyber';
+  const CLONE = 'git clone https://gitlab.com/kyber/kyber.git';
+  const REPO = { stars: 83, forks: 35, last: '2026-06-24T19:28:39Z', live: false };
   document.documentElement.classList.add('js');
 
   /* ---------------- i18n ---------------- */
@@ -76,33 +80,127 @@
   const headline = (a, b, cls = 'phero__title', tag = 'h1') => `<${tag} class="${cls} split">${T(a)} <span class="serif">${T(b)}</span></${tag}>`;
   const kicker = (k) => `<span class="kicker">${T(k)}</span>`;
   const btnSdk = (cls = 'btn--solid') => `<a class="btn ${cls} magnetic" href="#/sdk">${T('common.getSdk')} ${ARR}</a>`;
-  const btnSales = (cls = 'btn--ghost') => `<a class="btn ${cls} magnetic" href="#/contact">${T('common.talkSales')} ${ARR}</a>`;
-  const btnDocs = (cls = 'btn--ghost') => `<a class="btn ${cls}" href="${K}/Documentation/" target="_blank" rel="noopener">${T('common.viewDocs')} ${ARRUR}</a>`;
+  const btnSales = (cls = 'btn--ghost') => `<a class="btn ${cls} magnetic" href="#/connect">${T('common.talkSales')} ${ARR}</a>`;
+  const STAR = '<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="color:var(--warn)"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4l-5.9 3.1 1.2-6.5L2.5 9.4l6.6-.9z"/></svg>';
+  const btnStar = (cls = 'btn--ghost') => `<a class="btn ${cls} magnetic" href="${GL}" target="_blank" rel="noopener">${STAR} ${T('common.star')} <span class="mono js-stars" style="opacity:.7">${REPO.stars}</span></a>`;
+  const relTime = (iso) => { try { const d = (Date.parse(iso) - Date.now()) / 864e5; const rtf = new Intl.RelativeTimeFormat(LANG, { numeric: 'auto' }); const a = Math.abs(d); return a < 1 ? rtf.format(Math.round(d * 24), 'hour') : a < 31 ? rtf.format(Math.round(d), 'day') : rtf.format(Math.round(d / 30), 'month'); } catch (e) { return iso.slice(0, 10); } };
+  const btnDocs = (cls = 'btn--ghost') => `<a class="btn ${cls}" href="${DOCS}" target="_blank" rel="noopener">${T('common.viewDocs')} ${ARRUR}</a>`;
 
   const ctaBlock = () => `
   <section class="sec" style="padding-bottom:0">
     <div class="wrap">
       <div class="cta">
-        <div class="ccard ccard--accent rv">
-          <div>${kicker('cta.devKicker')}</div>
-          <div><h3>${T('cta.devTitle')}</h3><p style="margin-top:1rem"><code>git clone https://gitlab.com/kyber/kyber.git</code></p></div>
-          <div class="btns">${btnSdk()} ${btnDocs()}</div>
+        <div class="ccard ccard--accent rv" data-tilt>
+          <div style="display:flex;justify-content:space-between;gap:1rem;align-items:center">${kicker('cta.devKicker')}<span class="stars">${STAR}<span class="js-stars">${REPO.stars}</span> · AGPL v3</span></div>
+          <div><h3>${T('cta.devTitle')}</h3>
+            <div class="clone"><code class="mono">${CLONE}</code><button data-copy="${CLONE}">${T('common.copy')}</button></div></div>
+          <div class="btns">${btnSdk()} ${btnStar()} ${btnDocs()}</div>
         </div>
-        <div class="ccard rv">
+        <div class="ccard rv" data-tilt>
           <canvas class="bgfx" data-fx="mini-field"></canvas>
           <div>${kicker('cta.entKicker')}</div>
           <h3>${T('cta.entTitle')}</h3>
-          <div class="btns">${btnSales('btn--solid')}</div>
+          <div class="btns"><a class="btn btn--solid magnetic" href="#/connect">${T('nav.connect')} ${ARR}</a></div>
         </div>
       </div>
     </div>
     <div class="bigwrap"><div class="bigline" data-fx="bigline">${T('cta.bigLine')} <span class="serif">8 ms</span> ${T('cta.bigLine')} <span class="serif">8 ms</span></div></div>
   </section>`;
 
+  const ossBlock = () => `
+  <section class="sec" id="oss" style="padding-top:0"><div class="wrap oss">
+    <div>
+      ${kicker('home.ossKicker')}
+      <h2 class="h-display split" style="margin-top:1rem">${T('home.ossTitle')}</h2>
+      <p class="lead rv" style="margin-top:1.4rem">${T('home.ossLead')}</p>
+      <ol class="oss__steps rv">
+        <li><span class="n">01</span><b>${T('home.ossStep1')}</b><a href="${GL}" target="_blank" rel="noopener">GitLab ${ARRUR}</a></li>
+        <li><span class="n">02</span><b>${T('home.ossStep2')}</b><a href="${DOCS}" target="_blank" rel="noopener">Docs ${ARRUR}</a></li>
+        <li><span class="n">03</span><b>${T('home.ossStep3')}</b><a href="#/sdk">SDK ${ARR}</a></li>
+      </ol>
+      <div class="btns">${btnSdk('btn--accent')} ${btnStar()}</div>
+    </div>
+    <div class="rv">
+      <div class="term" data-tilt>
+        <div class="term__bar"><i></i><i></i><i></i>
+          <div class="term__tabs" role="tablist"><button role="tab" aria-selected="true" data-tab="0">clone</button><button role="tab" aria-selected="false" data-tab="1">docs</button><button role="tab" aria-selected="false" data-tab="2">session</button></div>
+          <span>~/kyber</span><button data-copy="${CLONE}">${T('common.copy')}</button></div>
+        <pre class="js-term"></pre>
+      </div>
+      <div class="repo">
+        <div><small>${T('home.ossStars')}</small><b class="js-stars">${REPO.stars}</b></div>
+        <div><small>${T('home.ossForks')}</small><b class="js-forks">${REPO.forks}</b></div>
+        <div><small>${T('home.ossUpdated')}</small><b class="js-last" style="font-size:var(--t-sm)">${relTime(REPO.last)}</b></div>
+        <div><small>${T('home.ossLicence')}</small><b>AGPL v3</b></div>
+      </div>
+      <div class="repo__live mono"><i></i>${T('home.ossLive')} · gitlab.com/kyber/kyber</div>
+    </div>
+  </div></section>`;
+
+  const TL = [['2001', 't2001'], ['2003', 't2003'], ['2004', 't2004'], ['2006', 't2006'], ['2008', 't2008'], ['2009', 't2009'], ['2012', 't2012'], ['2024', 't2024', 1], ['2025', 't2025'], ['2026', 't2026a', 1], ['2026', 't2026b']];
+  const vlcBlock = () => `
+  <section class="tl" id="tl"><div class="tl__pin">
+    <div class="wrap">
+      <div class="sechead"><div>${kicker('home.tlKicker')}<h2 class="h1 split">${T('home.tlTitle')}</h2></div><p class="lead rv">${T('home.vlcLead')}</p></div>
+    </div>
+    <div class="tl__track" id="tlTrack">${TL.map(([y, k, kb]) => `<div class="tl__item${kb ? ' k' : ''}"><div class="yr">${y}</div><div class="rail"></div><p>${T('home.' + k)}</p></div>`).join('')}</div>
+    <div class="wrap"><p class="tl__hint mono">${T('home.vlcAlso')}</p></div>
+  </div></section>
+  <section class="sec" style="padding-top:2rem"><div class="wrap">
+    <div class="vstats">
+      <div class="rv"><div class="vlc__num"><span data-count="7">0</span><sup>B+</sup></div><p>${T('home.vlcS1')}</p></div>
+      <div class="rv"><div class="vlc__num"><span data-count="500">0</span><sup>M</sup></div><p>${T('home.vlcS2')}</p></div>
+      <div class="rv"><div class="vlc__num">~<span data-count="1000">0</span></div><p>${T('home.vlcS3')}</p></div>
+      <div class="rv"><div class="vlc__num accent"><span data-count="8">0</span><sup>ms</sup></div><p>${T('home.vlcS4')}</p></div>
+    </div>
+  </div></section>`;
+
+  const LEADS = [['SL', 'simon', 'Simon Latapie', 'https://www.linkedin.com/in/simon-latapie-120bb4119'], ['JZ', 'julien', 'Julien Zouein', 'https://www.linkedin.com/in/julien-zouein'], ['IG', 'ilhan', 'Ilhan Gendron', 'https://www.linkedin.com/in/ilhangendron'], ['NH', 'natacha', 'Natacha Holtzhausser', 'https://www.linkedin.com/in/natachaholtzhausser']];
+  const LI = '<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM9 9h3.8v1.7h.1c.5-1 1.8-2 3.8-2 4 0 4.8 2.6 4.8 6V21h-4v-5.6c0-1.3 0-3-1.9-3s-2.1 1.4-2.1 2.9V21H9z"/></svg>';
+  const teamBlock = (full) => `
+  <section class="sec" id="team" style="padding-top:0"><div class="wrap">
+    <div class="sechead"><div>${kicker('team.kicker')}<h2 class="h1 split">${T('team.title')}</h2></div><p class="lead rv">${T('team.lead')}</p></div>
+    <div class="team">
+      <article class="jb rv" data-tilt>
+        <div class="jb__img"><img src="img/jb.webp" alt="Jean-Baptiste Kempf" loading="lazy"><span class="scanbar"></span></div>
+        <div class="jb__body">
+          <h3>Jean-Baptiste Kempf</h3><span class="role">${T('team.jbRole')}</span>
+          <p>${T('team.jbBio')}</p>
+          ${full ? `<p class="mono" style="font-size:var(--t-xs);color:var(--faint)">${T('team.jbAwards')}</p>` : ''}
+          <blockquote>“${T('team.jbQuote')}”</blockquote>
+          <div class="jb__links">
+            <a class="chip" href="https://www.linkedin.com/in/jbkempf" target="_blank" rel="noopener">${LI} LinkedIn</a>
+            <a class="chip" href="https://jbkempf.com/" target="_blank" rel="noopener">jbkempf.com ↗</a>
+            <a class="chip" href="https://en.wikipedia.org/wiki/Jean-Baptiste_Kempf" target="_blank" rel="noopener">Wikipedia ↗</a>
+            <a class="chip" href="https://techcrunch.com/2026/06/19/he-made-your-free-video-player-run-smoothly-now-hes-doing-that-for-robots/" target="_blank" rel="noopener">TechCrunch ↗</a>
+          </div>
+          <a class="jb__credit" href="https://commons.wikimedia.org/wiki/File:Jean-Baptiste_Kempf_par_Axelle_Manfrini,_Janvier_2021,_Paris.jpg" target="_blank" rel="noopener">${T('team.photo')}</a>
+        </div>
+      </article>
+      <div class="leads">
+        ${LEADS.map(([ini, k, n, u], i) => `<a class="lead-card rv" data-tilt href="${u}" target="_blank" rel="noopener"><div class="avatar" style="--a:${i * 90}deg">${ini}</div><div><h4>${n}</h4><span class="role">${T('team.' + k + 'Role')}</span><p>${T('team.' + k + 'Bio')}</p></div><span class="li">${LI} LinkedIn ↗</span></a>`).join('')}
+        <div class="team__count rv"><b>25+</b><p>${T('team.lead')}</p><a class="btn btn--ghost btn--sm" href="#/about" data-anchor="careers">${T('team.join')} ${ARR}</a></div>
+      </div>
+    </div>
+    ${full ? `
+    <h3 class="h2" style="margin-top:5rem">${T('team.investors')}</h3>
+    <div class="inv">
+      <a class="rv" href="https://lsvp.com/" target="_blank" rel="noopener"><b>Lightspeed</b><span>${T('team.inv1')} · Antoine Moyroud</span></a>
+      <a class="rv" href="https://www.ovni.vc/" target="_blank" rel="noopener"><b>OVNI Capital</b><span>${T('team.inv2')}</span></a>
+      <a class="rv" href="https://www.kimaventures.com/" target="_blank" rel="noopener"><b>Kima Ventures</b><span>${T('team.inv3')}</span></a>
+    </div>
+    <h3 class="h2" style="margin-top:5rem">${T('team.press')}</h3>
+    <div class="press">
+      <a class="rv" href="https://techcrunch.com/2026/06/19/he-made-your-free-video-player-run-smoothly-now-hes-doing-that-for-robots/" target="_blank" rel="noopener"><small>TechCrunch · 19.06.2026</small><h4>He made your free video player run smoothly. Now he’s doing that for robots.</h4></a>
+      <a class="rv" href="https://thenextweb.com/news/vlc-developer-kyber-5-million-lightspeed-robotics-remote-control" target="_blank" rel="noopener"><small>The Next Web · 2026</small><h4>The developer behind VLC’s 6 billion downloads now…</h4></a>
+      <a class="rv" href="https://techcrunch.com/2026/08/31/vlc-crosses-7-billion-downloads/" target="_blank" rel="noopener"><small>TechCrunch · 31.08.2026</small><h4>VLC crosses 7 billion downloads</h4></a>
+    </div>` : ''}
+  </div></section>`;
+
   const faqBlock = () => `
   <section class="sec"><div class="wrap faq">
     <div><span class="kicker">FAQ</span><h2 class="h1 split" style="margin-top:1rem">${T('faq.title')}</h2>
-      <a class="btn btn--ghost" style="margin-top:2rem" href="#/contact">${T('common.contactUs')} ${ARR}</a></div>
+      <a class="btn btn--ghost" style="margin-top:2rem" href="#/connect">${T('common.contactUs')} ${ARR}</a></div>
     <div>${[1, 2, 3, 4, 5].map(i => `<details class="rv"><summary>${T('faq.q' + i)}<i></i></summary><div class="ans">${linkify(T('faq.a' + i))}</div></details>`).join('')}</div>
   </div></section>`;
   const linkify = (s) => s.replace(/gitlab\.com\/kyber\/kyber/g, '<a class="accent" href="https://gitlab.com/kyber/kyber#where-to-start" target="_blank" rel="noopener">gitlab.com/kyber/kyber</a>').replace(/r\/kyber/g, '<a class="accent" href="https://www.reddit.com/r/kyber/" target="_blank" rel="noopener">r/kyber</a>');
@@ -122,7 +220,7 @@
         <div class="hero__row">
           <div>
             <p class="hero__lead rv">${T('home.lead')}</p>
-            <div class="btns rv">${btnSdk('btn--accent')} <a class="btn btn--ghost" href="#play">${T('home.ctaSecondary')} ${ARR}</a></div>
+            <div class="btns rv">${btnSdk('btn--accent')} ${btnStar()}</div>
           </div>
           <div class="hud rv" aria-hidden="true">
             <div><small>${T('home.hudLatency')}</small><b class="accent"><span id="hudMs">8.2</span> ms</b><canvas class="spark" id="spark"></canvas></div>
@@ -139,7 +237,8 @@
       <p class="mani__text" id="mani">${T('home.manifesto')}</p>
     </div></section>
 
-    <section class="sec" id="play" style="padding-top:0"><div class="wrap play">
+    ${ossBlock()}
+    <section class="sec" id="play"><div class="wrap play">
       <div>
         ${kicker('home.playKicker')}
         <h2 class="h1 split" style="margin-top:1rem">${T('home.playTitle')}</h2>
@@ -203,17 +302,8 @@
       <div class="pipe__total"><b><span id="pipeTotal">0.0</span><small style="font-size:.35em"> ms</small></b><span>${T('home.statsLead')}</span></div>
     </div></div></section>
 
-    <section class="sec vlc"><div class="wrap">
-      ${kicker('home.vlcKicker')}
-      <h2 class="h1 split" style="margin-top:1rem;max-width:20ch">${T('home.vlcTitle')}</h2>
-      <p class="lead rv" style="margin-top:1.4rem">${T('home.vlcLead')}</p>
-      <div class="vlc__grid">
-        <div class="rv"><div class="vlc__num"><span data-count="20">0</span><sup>yrs</sup></div><p>${T('home.vlcStat1')}</p></div>
-        <div class="rv"><div class="vlc__num"><span data-count="1">0</span><sup>B+</sup></div><p>${T('home.vlcStat2')}</p></div>
-        <div class="rv"><div class="vlc__num accent"><span data-count="8">0</span><sup>ms</sup></div><p>${T('home.vlcStat3')}</p></div>
-      </div>
-    </div></section>
-
+    ${vlcBlock()}
+    ${teamBlock(false)}
     <section class="sec" style="padding-top:0"><div class="wrap">
       <div class="sechead"><div>${kicker('home.newsKicker')}<h2 class="h1 split">${T('home.newsTitle')}</h2></div>
         <div style="justify-self:end"><a class="btn btn--ghost" href="#/blog">${T('nav.blog')} ${ARR}</a></div></div>
@@ -246,7 +336,7 @@
 
     <section class="sec" style="padding-top:var(--sec)"><div class="wrap">
       <div class="sechead"><div>${kicker('solution.capabilities')}<h2 class="h1 split">${T(P('capTitle'))}</h2></div></div>
-      <div class="caps">${[1, 2, 3].map(i => `<article class="cap rv"><div class="viz">${capViz[i - 1]}</div><h3 class="h3">${T(P('c' + i + 't'))}</h3><p>${T(P('c' + i + 'd'))}</p></article>`).join('')}</div>
+      <div class="caps">${[1, 2, 3].map(i => `<article class="cap rv" data-tilt><div class="viz">${capViz[i - 1]}</div><h3 class="h3">${T(P('c' + i + 't'))}</h3><p>${T(P('c' + i + 'd'))}</p></article>`).join('')}</div>
     </div></section>
 
     <section class="sec" style="padding-top:0"><div class="wrap">
@@ -370,13 +460,10 @@
       <div><p class="rv">${T('about.story1')}</p><p class="rv"><strong>${T('about.story2')}</strong></p></div>
     </div></section>
     <section class="sec" style="padding-top:0"><div class="wrap">
-      <div class="sechead"><div>${kicker('home.vlcKicker')}<h2 class="h-display split">${T('about.teamTitle')}</h2></div><p class="lead rv">${T('about.teamLead')}</p></div>
-      <div class="vlc__grid">
-        <div class="rv"><div class="vlc__num"><span data-count="20">0</span><sup>yrs</sup></div><p>${T('home.vlcStat1')}</p></div>
-        <div class="rv"><div class="vlc__num"><span data-count="1">0</span><sup>B+</sup></div><p>${T('home.vlcStat2')}</p></div>
-        <div class="rv"><div class="vlc__num accent"><span data-count="8">0</span><sup>ms</sup></div><p>${T('home.vlcStat3')}</p></div>
-      </div>
+      <div class="sechead"><div>${kicker('home.vlcKicker')}<h2 class="h1 split">${T('about.teamTitle')}</h2></div><p class="lead rv">${T('about.teamLead')}</p></div>
     </div></section>
+    ${vlcBlock()}
+    ${teamBlock(true)}
     <section class="sec" style="padding-top:0"><div class="wrap">
       <h2 class="h1 split">${T('about.valuesTitle')}</h2>
       <div class="vals">${[1, 2, 3, 4, 5].map(i => `<div class="val rv"><span class="mono">0${i}</span><h3>${T('about.v' + i + 't')}</h3><p>${T('about.v' + i + 'd')}</p></div>`).join('')}</div>
@@ -421,12 +508,12 @@
     <section class="phero"><div class="wrap">
       <div class="phero__grid" style="align-items:center">
         <div>${kicker('sdk.kicker')}${headline('sdk.titleA', 'sdk.titleB')}<p class="lead rv">${T('sdk.lead')}</p>
-          <div class="btns rv" style="margin-top:2rem"><a class="btn btn--accent magnetic" href="${K}/get-the-sdk/" target="_blank" rel="noopener">${T('sdk.download')} ${ARRUR}</a> ${btnDocs()}</div></div>
+          <div class="btns rv" style="margin-top:2rem"><a class="btn btn--accent magnetic" href="${K}/get-the-sdk/" target="_blank" rel="noopener">${T('sdk.download')} ${ARRUR}</a> ${btnStar()} ${btnDocs()}</div></div>
         <div class="term rv"><div class="term__bar"><i></i><i></i><i></i><span>~/kyber — zsh</span><button id="copyBtn">${T('sdk.copy')}</button></div><pre id="termPre"></pre></div>
       </div>
     </div></section>
     <section class="sec" style="padding-top:2rem"><div class="wrap">
-      <div class="kits">${[1, 2, 3].map(i => `<div class="kit rv">${ICO[[3, 5, 0][i - 1]]}<h3>${T('sdk.k' + i + 't')}</h3><p>${T('sdk.k' + i + 'd')}</p></div>`).join('')}</div>
+      <div class="kits">${[1, 2, 3].map(i => `<div class="kit rv" data-tilt>${ICO[[3, 5, 0][i - 1]]}<h3>${T('sdk.k' + i + 't')}</h3><p>${T('sdk.k' + i + 'd')}</p></div>`).join('')}</div>
       <div style="margin-top:4rem">${kicker('sdk.platforms')}<div class="plats">${plats.map(p => `<span class="chip rv">${p}</span>`).join('')}</div></div>
     </div></section>
     <section class="sec" style="padding-top:0"><div class="wrap">
@@ -447,27 +534,156 @@
       <div class="filters" role="group">
         <button aria-pressed="true" data-f="*">${T('blog.all')}</button><button aria-pressed="false" data-f="r">${T('blog.releases')}</button><button aria-pressed="false" data-f="a">${T('blog.announcements')}</button>
       </div>
-      <div class="posts" id="posts">${POSTS.map((p, i) => `<a class="post rv${i === 0 ? ' post--feat' : ''}" data-c="${p.c}" href="${K}${p.u}" target="_blank" rel="noopener"><div class="post__img">${cover(p)}</div><div class="post__b"><div class="post__m"><span>${T(p.c === 'r' ? 'blog.releases' : 'blog.announcements')}</span><span>${fmtDate(p.d)}</span></div><h3>${T('blog.' + p.k)}</h3><div class="post__m"><span>${p.m} ${T('common.minRead')}</span><span>${T('common.readArticle')} ${ARRUR}</span></div></div></a>`).join('')}</div>
+      <div class="posts" id="posts">${POSTS.map((p, i) => `<a data-tilt class="post rv${i === 0 ? ' post--feat' : ''}" data-c="${p.c}" href="${K}${p.u}" target="_blank" rel="noopener"><div class="post__img">${cover(p)}</div><div class="post__b"><div class="post__m"><span>${T(p.c === 'r' ? 'blog.releases' : 'blog.announcements')}</span><span>${fmtDate(p.d)}</span></div><h3>${T('blog.' + p.k)}</h3><div class="post__m"><span>${p.m} ${T('common.minRead')}</span><span>${T('common.readArticle')} ${ARRUR}</span></div></div></a>`).join('')}</div>
     </div></section>
     ${ctaBlock()}`;
   }
 
-  function pageContact() {
-    const fld = (id, k, type = 'text', req = true, full = false) => `<div class="fld${full ? ' full' : ''}"><input id="${id}" name="${id}" type="${type}" placeholder=" " ${req ? 'required' : ''} autocomplete="${{ fn: 'given-name', ln: 'family-name', em: 'email', ph: 'tel' }[id] || 'off'}"><label for="${id}">${T(k)}${req ? ' *' : ''}</label><span class="em">${T(type === 'email' ? 'contact.invalidEmail' : 'contact.required')}</span></div>`;
+  const RICO = [
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg>',
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/><path d="M7 10l3 2-3 2" /></svg>',
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 20h18M6 16V9M11 16V5M16 16v-4M21 16V8"/></svg>',
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3l9 5-9 5-9-5 9-5z"/><path d="M6 10v5c3 2 9 2 12 0v-5"/></svg>',
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 19V5h11l5 5v9z"/><path d="M8 13h8M8 16h5M15 5v5h5"/></svg>',
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5h6v2"/><path d="M3 13h18"/></svg>'
+  ];
+  let FS = null;
+  const freshFS = () => ({ step: 0, role: null, name: '', email: '', company: '', need: [], stack: null, lat: 20, scale: null, timeline: null, job: null, link: '', channel: null, day: null, time: null, note: '' });
+  function pageConnect() {
+    if (!FS) FS = freshFS();
+    const jobs = ['j1', 'j2', 'j3', 'j4', 'j5'];
+    const days = []; const d0 = new Date(); let d = new Date(d0); d.setDate(d.getDate() + 1);
+    while (days.length < 10) { if (d.getDay() % 6 !== 0) days.push(new Date(d)); d.setDate(d.getDate() + 1); }
+    const fmtD = (x, o) => { try { return new Intl.DateTimeFormat(LANG, o).format(x); } catch (e) { return x.toDateString(); } };
+    const tz = (() => { try { return Intl.DateTimeFormat().resolvedOptions().timeZone; } catch (e) { return 'UTC'; } })();
+    const pill = (grp, val, label, multi) => `<button type="button" class="pill" data-g="${grp}" data-v="${esc(val)}"${multi ? ' data-multi="1"' : ''} aria-pressed="false">${label}</button>`;
+    const fld = (id, k, type = 'text', full) => `<div class="fld${full ? ' full' : ''}"><input id="f_${id}" data-k="${id}" type="${type}" placeholder=" " autocomplete="${{ name: 'name', email: 'email', company: 'organization', link: 'url' }[id] || 'off'}"><label for="f_${id}">${T(k)}</label></div>`;
     return `
-    <section class="phero"><div class="wrap ctc">
-      <div>${kicker('contact.kicker')}<h1 class="phero__title split" style="font-size:clamp(2.6rem,1rem + 5vw,6.4rem)">${T('contact.title')}</h1><p class="lead rv">${T('contact.lead')}</p>
-        <div class="tick-row rv"><span>${T('footer.cities')}</span></div>
-        <div class="tick-row rv"><a class="accent" href="https://www.linkedin.com/company/kyber-tech/" target="_blank" rel="noopener">LinkedIn ↗</a><a class="accent" href="https://gitlab.com/kyber/kyber" target="_blank" rel="noopener">GitLab ↗</a><a class="accent" href="https://www.reddit.com/r/kyber/" target="_blank" rel="noopener">r/kyber ↗</a></div>
+    <section class="phero" style="padding-bottom:var(--sec)"><div class="wrap flow">
+      <aside class="flow__aside">
+        ${kicker('flow.kicker')}
+        <h1 class="phero__title split" style="font-size:clamp(2.4rem,1rem + 4.4vw,5.6rem)">${T('flow.title')}</h1>
+        <p class="lead rv">${T('flow.lead')}</p>
+        <ol class="steps rv">${[1, 2, 3, 4].map(i => `<li data-st="${i - 1}"><span class="n">0${i}</span><span>${T('flow.s' + i)}</span></li>`).join('')}</ol>
+        <div class="flow__bar"><i id="flowBar"></i></div>
+        <div class="tick-row rv"><a class="accent" href="${GL}" target="_blank" rel="noopener">GitLab ↗</a><a class="accent" href="https://www.reddit.com/r/kyber/" target="_blank" rel="noopener">r/kyber ↗</a><a class="accent" href="https://www.linkedin.com/company/kyber-tech/" target="_blank" rel="noopener">LinkedIn ↗</a></div>
+      </aside>
+      <div class="panel rv" id="panel">
+        <div class="stage" data-s="0">
+          <h2 class="q">${T('flow.q1')}</h2>
+          <div class="roles">${[1, 2, 3, 4, 5, 6].map(i => `<button type="button" class="chipbtn" data-g="role" data-v="r${i}" aria-pressed="false">${RICO[i - 1]}<span>${T('flow.r' + i)}</span></button>`).join('')}</div>
+          <div class="hintbox" id="devHint" hidden><span>${T('flow.devHint')}</span><a class="btn btn--accent btn--sm" href="#/sdk">${T('common.getSdk')} ${ARR}</a></div>
+          <div class="grid2">${fld('name', 'flow.name')}${fld('email', 'flow.email', 'email')}${fld('company', 'flow.company', 'text', true)}</div>
+        </div>
+        <div class="stage" data-s="1">
+          <div class="grp" data-show="nojob">
+            <h2 class="q">${T('flow.q2')}</h2>
+            <div class="pills">${SOL.map(x => pill('need', x, T(`solutions.${x}.name`), 1)).join('')}${pill('need', 'other', T('flow.other'), 1)}</div>
+            <p class="qs">${T('flow.q2b')}</p>
+            <div class="pills">${[1, 2, 3, 4].map(i => pill('stack', 'st' + i, T('flow.st' + i))).join('')}</div>
+            <p class="qs">${T('flow.q2c')}</p>
+            <div class="latpick"><div class="latpick__val"><b id="latVal">20 ms</b><span id="latTxt"></span></div><input type="range" class="range" id="latR" min="5" max="250" value="20"></div>
+            <p class="qs">${T('flow.q2d')}</p>
+            <div class="pills">${['1–10', '10–100', '100–1k', '1k+'].map(v => pill('scale', v, v + ' ' + T('flow.machines'))).join('')}</div>
+            <p class="qs">${T('flow.q2e')}</p>
+            <div class="pills">${[1, 2, 3].map(i => pill('timeline', 'tl' + i, T('flow.tl' + i))).join('')}</div>
+          </div>
+          <div class="grp" data-show="job" hidden>
+            <h2 class="q">${T('flow.jobQ')}</h2>
+            <div class="pills">${jobs.map(j => pill('job', j, T('about.' + j))).join('')}</div>
+            <div class="grid2">${fld('link', 'flow.linkedin', 'url', true)}</div>
+          </div>
+        </div>
+        <div class="stage" data-s="2">
+          <h2 class="q">${T('flow.q3')}</h2>
+          <div class="pills">${[1, 2, 3, 4].map(i => pill('channel', 'c' + i, T('flow.c' + i))).join('')}</div>
+          <div class="grp" data-show="when">
+            <p class="qs">${T('flow.q3b')}</p>
+            <div class="days">${days.map(x => `<button type="button" class="day" data-g="day" data-v="${x.toISOString().slice(0, 10)}" aria-pressed="false"><small>${fmtD(x, { weekday: 'short' })}</small><b>${fmtD(x, { day: 'numeric' })}</b><small>${fmtD(x, { month: 'short' })}</small></button>`).join('')}</div>
+            <p class="qs">${T('flow.q3c')}</p>
+            <div class="pills">${['morning', 'afternoon', 'evening'].map(v => pill('time', v, T('flow.' + v))).join('')}</div>
+            <div class="tzline"><span>${T('flow.tz')}: ${esc(tz)}</span><span>${T('flow.parisTime')}: <b id="parisNow" style="direction:ltr;display:inline-block">--:--</b></span></div>
+          </div>
+          <div class="grid2"><div class="fld full"><textarea id="f_note" data-k="note" placeholder=" "></textarea><label for="f_note">${T('flow.note')}</label></div></div>
+        </div>
+        <div class="stage" data-s="3">
+          <h2 class="q">${T('flow.review')}</h2>
+          <dl class="sum" id="sum"></dl>
+          <p class="mono" style="font-size:var(--t-xs);color:var(--faint);margin-top:1rem">${T('contact.demoNote')}</p>
+        </div>
+        <div class="flow__nav">
+          <button type="button" class="btn btn--ghost btn--sm" id="fBack">${T('common.back2')}</button>
+          <span class="flow__err" id="fErr" role="alert">${T('flow.required')}</span>
+          <button type="button" class="btn btn--accent magnetic" id="fNext">${T('common.continue')} ${ARR}</button>
+        </div>
+        <div class="doneview" role="status">
+          <div class="pulse-ring"><i></i><i></i><i></i><b>✓</b></div>
+          <div class="big">${T('flow.done')}</div>
+          <div class="ms" id="doneMs">8.3 ms</div>
+          <p>${T('flow.doneLead')}</p>
+          <div class="btns">${btnSdk('btn--accent')} <button type="button" class="btn btn--ghost" id="fRestart">${T('flow.restart')}</button></div>
+        </div>
       </div>
-      <form class="form rv" id="form" novalidate>
-        ${fld('fn', 'contact.first')}${fld('ln', 'contact.last')}${fld('em', 'contact.email', 'email')}${fld('ph', 'contact.phone', 'tel', false)}
-        <div class="fld full"><select id="sj" name="sj"><option value="">${T('contact.subjectPh')}</option><option>${T('contact.s1')}</option><option>${T('contact.s2')}</option><option>${T('contact.s3')}</option></select><label for="sj">${T('contact.subject')}</label><svg class="chev" width="12" height="8" viewBox="0 0 12 8"><path d="M1 1l5 5 5-5" stroke="currentColor" fill="none" stroke-width="1.5"/></svg></div>
-        <div class="fld full"><textarea id="ms" name="ms" placeholder=" " required></textarea><label for="ms">${T('contact.message')} *</label><span class="em">${T('contact.required')}</span></div>
-        <div class="row"><span class="note">${T('contact.demoNote')}</span><button class="btn btn--accent magnetic" type="submit">${T('contact.submit')} ${ARR}</button></div>
-        <div class="ok" role="status"><span class="kicker">✓ 8 ms</span><p style="margin-top:1rem">${T('contact.thanks')}</p></div>
-      </form>
     </div></section>`;
+  }
+
+  function initFlow(main) {
+    const panel = $('#panel', main); if (!panel) return;
+    const st = FS; const G = window.gsap;
+    const stages = $$('.stage', panel), stepsEl = $$('.steps li', main), bar = $('#flowBar', main), err = $('#fErr', main);
+    const isJob = () => st.role === 'r6';
+    const sync = () => {
+      $$('[data-g]', panel).forEach(b => { const g = b.dataset.g, v = b.dataset.v; const cur = st[g]; b.setAttribute('aria-pressed', Array.isArray(cur) ? cur.includes(v) : cur === v); });
+      $$('[data-k]', panel).forEach(i => { if (document.activeElement !== i) i.value = st[i.dataset.k] || ''; });
+      $('#devHint', panel).hidden = st.role !== 'r1';
+      $$('[data-show="nojob"]', panel).forEach(e => e.hidden = isJob()); $$('[data-show="job"]', panel).forEach(e => e.hidden = !isJob());
+      $$('[data-show="when"]', panel).forEach(e => e.hidden = st.channel === 'c3');
+      const lr = $('#latR', panel); lr.value = st.lat; $('#latVal', panel).textContent = st.lat + ' ms';
+      const lk = st.lat <= 10 ? 'lat1' : st.lat <= 100 ? 'lat2' : st.lat <= 300 ? 'lat3' : 'lat4'; $('#latTxt', panel).textContent = '≈ ' + t('home.' + lk);
+    };
+    const show = (n, dir = 1) => {
+      st.step = n;
+      stages.forEach((x, i) => x.classList.toggle('on', i === n));
+      stepsEl.forEach((x, i) => { x.classList.toggle('on', i === n); x.classList.toggle('done', i < n); });
+      bar.style.width = (n / 3 * 100) + '%';
+      $('#fBack', main).style.visibility = n ? 'visible' : 'hidden';
+      $('#fNext', main).innerHTML = (n === 3 ? T('flow.send') : T('common.continue')) + ' ' + ARR;
+      err.classList.remove('on');
+      if (n === 3) renderSum();
+      const cur = stages[n];
+      if (G && !RM) G.fromTo(cur.children, { opacity: 0, y: 24 * dir, filter: 'blur(6px)' }, { opacity: 1, y: 0, filter: 'blur(0px)', duration: .7, stagger: .04, ease: 'expo.out' });
+    };
+    const valid = (n) => {
+      if (n === 0) return st.role && st.name.trim() && /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(st.email);
+      if (n === 1) return isJob() ? !!st.job : (st.need.length && st.timeline);
+      if (n === 2) return st.channel && (st.channel === 'c3' || (st.day && st.time));
+      return true;
+    };
+    const renderSum = () => {
+      const role = st.role ? t('flow.' + st.role) : '—';
+      const need = isJob() ? t('about.' + st.job) : [st.need.map(x => x === 'other' ? t('flow.other') : t(`solutions.${x}.name`)).join(', '), st.stack ? t('flow.' + st.stack) : '', st.lat + ' ms', st.scale ? st.scale + ' ' + t('flow.machines') : '', st.timeline ? t('flow.' + st.timeline) : ''].filter(Boolean).join(' · ');
+      let when = st.channel ? t('flow.' + st.channel) : '—';
+      if (st.channel !== 'c3' && st.day) { try { when += ' · ' + new Intl.DateTimeFormat(LANG, { weekday: 'long', day: 'numeric', month: 'long' }).format(new Date(st.day + 'T12:00')); } catch (e) { when += ' · ' + st.day; } if (st.time) when += ' · ' + t('flow.' + st.time); }
+      const rows = [[t('flow.summaryRole'), `${esc(role)}<br><span class="muted">${esc(st.name)} · ${esc(st.email)}${st.company ? ' · ' + esc(st.company) : ''}</span>`, 0], [t('flow.summaryNeed'), esc(need) + (st.link ? `<br><span class="muted">${esc(st.link)}</span>` : ''), 1], [t('flow.summaryWhen'), esc(when) + (st.note ? `<br><span class="muted">“${esc(st.note)}”</span>` : ''), 2]];
+      $('#sum', panel).innerHTML = rows.map(([k, v, s2]) => `<div><dt>${esc(k)}</dt><dd>${v}</dd><button type="button" data-goto="${s2}">${T('flow.edit')}</button></div>`).join('');
+    };
+    panel.addEventListener('click', (e) => {
+      const b = e.target.closest('[data-g]');
+      if (b) { const g = b.dataset.g, v = b.dataset.v; if (b.dataset.multi) { const a = st[g]; const i = a.indexOf(v); i < 0 ? a.push(v) : a.splice(i, 1); } else st[g] = st[g] === v && g !== 'role' ? null : v; sync(); err.classList.remove('on'); return; }
+      const go = e.target.closest('[data-goto]'); if (go) show(+go.dataset.goto, -1);
+    });
+    panel.addEventListener('input', (e) => { const k = e.target.dataset.k; if (k) st[k] = e.target.value; if (e.target.id === 'latR') { st.lat = +e.target.value; sync(); } });
+    panel.addEventListener('keydown', (e) => { if (e.key === 'Enter' && e.target.matches('input')) { e.preventDefault(); $('#fNext', main).click(); } });
+    $('#fBack', main).addEventListener('click', () => show(Math.max(0, st.step - 1), -1));
+    $('#fNext', main).addEventListener('click', () => {
+      if (!valid(st.step)) { err.classList.add('on'); if (G) G.fromTo(stages[st.step], { x: -8 }, { x: 0, duration: .5, ease: 'elastic.out(1,.3)' }); return; }
+      if (st.step < 3) return show(st.step + 1);
+      const nb = $('#fNext', main); nb.textContent = t('flow.sending'); nb.disabled = true;
+      setTimeout(() => { panel.classList.add('sent'); $('#doneMs', main).textContent = '⟶ ' + (7.6 + Math.random() * 1.6).toFixed(1) + ' ms'; stepsEl.forEach(x => { x.classList.remove('on'); x.classList.add('done'); }); bar.style.width = '100%'; if (G && !RM) G.from($('.doneview', panel).children, { opacity: 0, y: 30, stagger: .08, duration: .9, ease: 'expo.out' }); }, 650);
+    });
+    $('#fRestart', main).addEventListener('click', () => { FS = freshFS(); route(true); });
+    const pn = $('#parisNow', main); const tick = () => { try { pn.textContent = new Intl.DateTimeFormat('en-GB', { hour: '2-digit', minute: '2-digit', timeZone: 'Europe/Paris' }).format(new Date()); } catch (e) { } }; tick(); const id = setInterval(tick, 15000); on(() => clearInterval(id));
+    sync(); show(st.step || 0);
   }
 
   /* ---------------- chrome (nav panels, footer) ---------------- */
@@ -476,15 +692,15 @@
       <div class="dd__grid">${SOL.map(s => `<a class="dd__item" href="#/solutions/${s}"><img src="${img(s)}" alt=""><span><b>${T(`solutions.${s}.name`)}</b><small>${T(`solutions.${s}.short`)}</small></span></a>`).join('')}</div>`;
     $('#langList').innerHTML = LANGS.map(([c, n]) => `<li><button role="option" data-l="${c}" aria-selected="${c === LANG}" lang="${c}"><span>${n}</span><span class="mono">${c.toUpperCase()}</span></button></li>`).join('');
     $('#mnav').innerHTML = `
-      <div><a class="big" href="#/">Kyber</a><a class="big" href="#/technology">${T('nav.technology')}</a><a class="big" href="#/sdk">${T('nav.sdk')}</a><a class="big" href="#/about">${T('nav.about')}</a><a class="big" href="#/blog">${T('nav.blog')}</a><a class="big" href="#/contact">${T('nav.contact')}</a></div>
+      <div><a class="big" href="#/">Kyber</a><a class="big" href="#/technology">${T('nav.technology')}</a><a class="big" href="#/sdk">${T('nav.sdk')}</a><a class="big" href="#/about">${T('nav.about')}</a><a class="big" href="#/blog">${T('nav.blog')}</a><a class="big" href="#/connect">${T('nav.connect')}</a></div>
       <div><div class="kicker">${T('nav.solutions')}</div><div class="sub">${SOL.map(s => `<a href="#/solutions/${s}">${T(`solutions.${s}.name`)}</a>`).join('')}</div></div>
-      <div class="btns">${btnSdk('btn--accent')}</div>`;
+      <div class="btns">${btnSdk('btn--accent')} ${btnStar()}</div>`;
     $('#ftr').innerHTML = `
       <div class="ftr__top">
         <div class="ftr__brand"><svg viewBox="0 0 18.1 18.7" width="34" fill="currentColor" aria-hidden="true"><path d="M12.79 18.605h5.233v-4.652l-5.232-4.65-5.233 4.65zM2.326 9.302l5.232-4.65V0H0v18.605h7.558V9.302zM18.023.0h-5.232L7.558 4.651v4.651h5.233l5.232-4.65z"/></svg><p>${T('footer.tagline')}</p></div>
-        <div><h4>${T('footer.product')}</h4><ul><li><a href="#/technology">${T('nav.technology')}</a></li><li><a href="#/sdk">${T('common.getSdk')}</a></li><li><a href="${K}/get-the-sdk/" target="_blank" rel="noopener">${T('footer.getApp')}</a></li><li><a href="${K}/Documentation/" target="_blank" rel="noopener">${T('footer.docs')}</a></li></ul></div>
+        <div><h4>${T('footer.product')}</h4><ul><li><a href="#/technology">${T('nav.technology')}</a></li><li><a href="#/sdk">${T('common.getSdk')}</a></li><li><a href="${K}/get-the-sdk/" target="_blank" rel="noopener">${T('footer.getApp')}</a></li><li><a href="${DOCS}" target="_blank" rel="noopener">${T('footer.docs')}</a></li></ul></div>
         <div><h4>${T('nav.solutions')}</h4><ul>${SOL.map(s => `<li><a href="#/solutions/${s}">${T(`solutions.${s}.name`)}</a></li>`).join('')}</ul></div>
-        <div><h4>${T('footer.company')}</h4><ul><li><a href="#/about">${T('nav.about')}</a></li><li><a href="#/about" data-anchor="careers">${T('footer.careers')}</a></li><li><a href="#/blog">${T('nav.blog')}</a></li><li><a href="#/contact">${T('nav.contact')}</a></li><li><a href="https://www.linkedin.com/company/kyber-tech/" target="_blank" rel="noopener">LinkedIn ↗</a></li></ul></div>
+        <div><h4>${T('footer.company')}</h4><ul><li><a href="#/about">${T('nav.about')}</a></li><li><a href="#/about" data-anchor="careers">${T('footer.careers')}</a></li><li><a href="#/blog">${T('nav.blog')}</a></li><li><a href="#/connect">${T('nav.connect')}</a></li><li><a href="${GL}" target="_blank" rel="noopener">GitLab ↗</a></li><li><a href="https://www.linkedin.com/company/kyber-tech/" target="_blank" rel="noopener">LinkedIn ↗</a></li></ul></div>
       </div>
       <div class="ftr__mark" aria-hidden="true"><svg viewBox="0 0 93 24" fill="currentColor">${$('.hdr__logo svg').innerHTML}</svg></div>
       <div class="ftr__bot"><span>Kyber ©2026 · ${T('footer.rights')} · ${T('footer.cities')}</span><span>${T('footer.proposal')}</span></div>`;
@@ -522,6 +738,13 @@
       const words = splitWords(el);
       if (!G || RM) return;
       const inHero = el.closest('.hero,.phero');
+      if (el.classList.contains('hero__title')) {
+        // "single clock" reveal: words arrive out of sync, then lock onto one timeline
+        G.set(words, { yPercent: () => G.utils.random(-130, 130), opacity: 0, filter: 'blur(12px)' });
+        G.to(words, { yPercent: 0, opacity: 1, filter: 'blur(0px)', duration: 1.3, ease: 'expo.out', stagger: { each: .07, from: 'random' }, delay: .1,
+          onComplete: () => { G.fromTo(el, { textShadow: '0 0 0px transparent' }, { keyframes: [{ scale: 1.012, duration: .12 }, { scale: 1, duration: .5, ease: 'expo.out' }] }); } });
+        return;
+      }
       G.set(words, { yPercent: 110 });
       const tl = { yPercent: 0, duration: 1.1, ease: 'expo.out', stagger: .045, delay: inHero ? .15 : 0 };
       if (inHero) G.to(words, tl); else G.to(words, { ...tl, scrollTrigger: { trigger: el, start: 'top 88%' } });
@@ -541,7 +764,46 @@
       const go = () => FX.count(el, +el.dataset.count, 1.8);
       if (ST && !RM) ST.create({ trigger: el, start: 'top 90%', once: true, onEnter: go }); else go();
     });
-    FX.magnetic(main); FX.spotlight(main);
+    FX.magnetic(main); FX.spotlight(main); FX.tilt(main);
+    initFlow(main); applyRepo();
+    // kicker scramble
+    if (ST && !RM) $$('.kicker', main).forEach(k => ST.create({ trigger: k, start: 'top 92%', once: true, onEnter: () => FX.scramble(k) }));
+    // terminal tabs
+    const tp = $('.js-term', main);
+    if (tp) {
+      const TABS = [
+        [['c', '# Open source core · AGPL v3'], ['p', '$ ', CLONE], ['o', "Cloning into 'kyber'..."], ['p', '$ ', 'cd kyber && ls'], ['o', 'README.md  docs/  …']],
+        [['c', '# Architecture, guides and API reference'], ['p', '$ ', 'open ' + DOCS], ['p', '$ ', 'open ' + GL + '#where-to-start']],
+        [['c', '# demo session readout'], ['k', '▸ kyber  ', 'transport  quic/h3 · 1 port · e2e'], ['k', '▸ kyber  ', 'streams    video · audio · control · telemetry'], ['k', '▸ kyber  ', 'clock      unified · drift 0.00 ms'], ['s', '▸ kyber  ', 'latency    8.4 ms glass-to-glass ✓']]
+      ];
+      const html = (l) => l[0] === 'c' ? `<span class="c">${esc(l[1])}</span>` : l[0] === 'o' ? `<span class="c">${esc(l[1])}</span>` : l[0] === 'p' ? `<span class="p">${l[1]}</span>${esc(l[2])}` : `<span class="${l[0]}">${l[1]}</span>${esc(l[2])}`;
+      let tmr; const typeTab = (n) => {
+        clearTimeout(tmr); const lines = TABS[n]; let i = 0, c = 0; const out = [];
+        if (RM) { tp.innerHTML = lines.map(html).join('\n'); return; }
+        const step = () => {
+          if (i >= lines.length) { tp.innerHTML = out.join('\n') + '\n<span class="caret"></span>'; return; }
+          const l = lines[i]; const pre = l.length === 3 ? l[1] : ''; const body = l.length === 3 ? l[2] : l[1]; c += 3;
+          const part = body.slice(0, c); const fake = l.length === 3 ? [l[0], pre, part] : [l[0], part];
+          tp.innerHTML = [...out, html(fake)].join('\n') + '<span class="caret"></span>';
+          if (c >= body.length) { out.push(html(l)); i++; c = 0; tmr = setTimeout(step, 160); } else tmr = setTimeout(step, 16);
+        }; step();
+      };
+      const tabs = $$('.term__tabs button', main);
+      tabs.forEach(b => b.addEventListener('click', () => { tabs.forEach(x => x.setAttribute('aria-selected', x === b)); typeTab(+b.dataset.tab); }));
+      const io = new IntersectionObserver(([e]) => { if (e.isIntersecting) { typeTab(0); io.disconnect(); } }); io.observe(tp);
+      on(() => { clearTimeout(tmr); io.disconnect(); });
+    }
+    // VLC → Kyber timeline
+    const tl = $('#tl', main);
+    if (tl) {
+      const track = $('#tlTrack', tl), items = $$('.tl__item', tl);
+      if (ST && G && !RM && innerWidth > 760) {
+        const rtl = document.documentElement.dir === 'rtl';
+        const dist = () => Math.max(0, track.scrollWidth - innerWidth + 40);
+        G.to(track, { x: () => (rtl ? 1 : -1) * dist(), ease: 'none', scrollTrigger: { trigger: tl, start: 'top top', end: () => '+=' + (dist() + innerHeight * .4), pin: $('.tl__pin', tl), scrub: .6, invalidateOnRefresh: true,
+          onUpdate: (sx) => { const k = sx.progress * (items.length - .2); items.forEach((it, i) => it.classList.toggle('on', i <= k)); } } });
+      } else items.forEach(i => i.classList.add('on'));
+    }
 
     // hero
     const gl = $('#heroGl', main); if (gl) on(FX.hero(gl));
@@ -711,6 +973,18 @@
     else { st.k = 0; draw(); }
   }
 
+  function applyRepo() {
+    $$('.js-stars').forEach(e => e.textContent = num(REPO.stars));
+    $$('.js-forks').forEach(e => e.textContent = num(REPO.forks));
+    $$('.js-last').forEach(e => e.textContent = relTime(REPO.last));
+  }
+  async function fetchRepo() {
+    try {
+      const r = await fetch('https://gitlab.com/api/v4/projects/kyber%2Fkyber'); if (!r.ok) return;
+      const d = await r.json(); REPO.stars = d.star_count ?? REPO.stars; REPO.forks = d.forks_count ?? REPO.forks; REPO.last = d.last_activity_at || REPO.last; REPO.live = true; applyRepo();
+    } catch (e) { }
+  }
+
   /* ---------------- router ---------------- */
   let first = true, lastPath = null, pendingAnchor = null;
   function parse() { const h = location.hash.replace(/^#\/?/, ''); return h.split('?')[0]; }
@@ -730,7 +1004,7 @@
     else if (path === 'about') html = pageAbout();
     else if (path === 'sdk') html = pageSdk();
     else if (path === 'blog') html = pageBlog();
-    else if (path === 'contact') html = pageContact();
+    else if (path === 'contact' || path === 'connect') { html = pageConnect(); active = 'connect'; }
     else { html = pageHome(); active = ''; }
     main.innerHTML = html;
     $$('.hdr__nav>a').forEach(a => a.classList.toggle('is-active', a.getAttribute('href') === '#/' + active && active));
@@ -740,7 +1014,7 @@
     if (!force || lastPath !== path) { lenis ? lenis.scrollTo(0, { immediate: true }) : scrollTo(0, 0); }
     lastPath = path;
     animate(main);
-    window.ScrollTrigger && ScrollTrigger.refresh();
+    if (window.ScrollTrigger) { ScrollTrigger.sort && ScrollTrigger.sort(); ScrollTrigger.refresh(); }
     const rf = () => window.ScrollTrigger && ScrollTrigger.refresh();
     document.fonts && document.fonts.ready.then(rf);
     $$('img', main).forEach(im => !im.complete && im.addEventListener('load', rf, { once: true }));
@@ -781,6 +1055,12 @@
       if (href === '#play' || href === '#main') { e.preventDefault(); const el = document.querySelector(href); lenis ? lenis.scrollTo(el, { offset: -60 }) : el.scrollIntoView({ behavior: 'smooth' }); }
       else if (href === location.hash || (href === '#/' && !parse())) { e.preventDefault(); if (a.dataset.anchor) route(true); else lenis ? lenis.scrollTo(0) : scrollTo({ top: 0, behavior: 'smooth' }); closeMenus(); }
     });
+    // copy buttons (delegated)
+    document.addEventListener('click', (e) => {
+      const b = e.target.closest('[data-copy]'); if (!b) return;
+      try { navigator.clipboard && navigator.clipboard.writeText(b.dataset.copy); } catch (x) { }
+      const o = b.textContent; b.textContent = t('common.copied'); setTimeout(() => b.textContent = t('common.copy'), 1500);
+    });
     // theme
     $('#themeBtn').addEventListener('click', (e) => {
       const next = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
@@ -800,11 +1080,16 @@
       if (y < lastY - 2) hdr.classList.remove('is-hidden');
       lastY = y;
       const h = document.documentElement.scrollHeight - innerHeight; prog.style.transform = `scaleX(${h > 0 ? y / h : 0})`;
+      const p = parse(); const hideDock = p === 'sdk' || p === 'connect' || p === 'contact';
+      $('#dock').classList.toggle('on', y > innerHeight * .8 && !hideDock && h - y > 300);
     };
     // smooth scroll
     if (window.Lenis && !RM) {
       lenis = new Lenis({ lerp: .11, smoothWheel: true });
-      lenis.on('scroll', (e) => { window.ScrollTrigger && ScrollTrigger.update(); onScroll(e.scroll); });
+      lenis.on('scroll', (e) => {
+        window.ScrollTrigger && ScrollTrigger.update(); onScroll(e.scroll);
+        const m = $('.marq__t'); if (m && m.getAnimations) { const a = m.getAnimations()[0]; if (a) a.playbackRate = 1 + Math.min(6, Math.abs(e.velocity || 0) * .25); }
+      });
       if (window.gsap) { gsap.ticker.add((t) => lenis.raf(t * 1000)); gsap.ticker.lagSmoothing(0); }
       else { const r = (t) => { lenis.raf(t); requestAnimationFrame(r); }; requestAnimationFrame(r); }
     } else addEventListener('scroll', () => onScroll(scrollY), { passive: true });
@@ -831,6 +1116,7 @@
     await loadP;
     route(true);
     $('#loader').classList.add('done');
+    fetchRepo();
   }
   boot();
 })();

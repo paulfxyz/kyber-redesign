@@ -115,20 +115,61 @@ void main(){
     });
   };
 
-  /* ---------------- Custom cursor + magnetic + spotlight ---------------- */
+  /* ---------------- Pointer FX: zero-lag native cursor + idle signal + click sparks ---------------- */
   FX.cursor = function () {
+    const cv = document.getElementById('fxlayer'); if (!cv) return;
+    const ctx = cv.getContext('2d');
+    const fine = matchMedia('(hover:hover) and (pointer:fine)').matches;
+    if (fine) document.body.classList.add('has-cursor');
+    let x = -99, y = -99, lastMove = 0, lastWave = 0, inside = false;
+    const waves = [], sparks = [];
+    const col = () => css('--accent');
+    addEventListener('pointermove', (e) => { x = e.clientX; y = e.clientY; lastMove = performance.now(); inside = true; }, { passive: true });
+    document.addEventListener('pointerleave', () => inside = false);
+    addEventListener('pointerdown', (e) => {
+      if (RM) return;
+      const n = e.pointerType === 'touch' ? 14 : 20;
+      for (let i = 0; i < n; i++) { const a = Math.random() * Math.PI * 2, sp = 2 + Math.random() * 5.5; sparks.push({ x: e.clientX, y: e.clientY, vx: Math.cos(a) * sp, vy: Math.sin(a) * sp, life: 1, len: 6 + Math.random() * 12, hot: Math.random() < .25 }); }
+      waves.push({ x: e.clientX, y: e.clientY, r: 4, life: 1, strong: true });
+    }, { passive: true });
+    let running = false;
+    function frame(now) {
+      const d = Math.min(2, devicePixelRatio || 1);
+      if (cv.width !== innerWidth * d || cv.height !== innerHeight * d) { cv.width = innerWidth * d; cv.height = innerHeight * d; }
+      ctx.setTransform(d, 0, 0, d, 0, 0); ctx.clearRect(0, 0, innerWidth, innerHeight);
+      // idle signal: once the pointer rests, emit soft concentric pings
+      if (fine && inside && !RM && now - lastMove > 420 && now - lastWave > 1100) { waves.push({ x, y, r: 6, life: 1 }); lastWave = now; }
+      const c = col();
+      ctx.lineCap = 'round';
+      for (let i = waves.length - 1; i >= 0; i--) {
+        const w = waves[i]; w.r += w.strong ? 3.2 : 1.1; w.life -= w.strong ? .035 : .012;
+        if (w.life <= 0) { waves.splice(i, 1); continue; }
+        ctx.strokeStyle = c; ctx.globalAlpha = w.life * (w.strong ? .8 : .45); ctx.lineWidth = w.strong ? 1.6 : 1;
+        ctx.beginPath(); ctx.arc(w.x, w.y, w.r, 0, Math.PI * 2); ctx.stroke();
+        if (!w.strong) { ctx.globalAlpha = w.life * .25; ctx.beginPath(); ctx.arc(w.x, w.y, w.r * .55, 0, Math.PI * 2); ctx.stroke(); }
+      }
+      for (let i = sparks.length - 1; i >= 0; i--) {
+        const p = sparks[i]; p.x += p.vx; p.y += p.vy; p.vx *= .92; p.vy = p.vy * .92 + .12; p.life -= .03;
+        if (p.life <= 0) { sparks.splice(i, 1); continue; }
+        const sp = Math.hypot(p.vx, p.vy) || 1;
+        ctx.strokeStyle = p.hot ? css('--hot') : c; ctx.globalAlpha = p.life; ctx.lineWidth = 1.6 * p.life + .4;
+        ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(p.x - p.vx / sp * p.len * p.life, p.y - p.vy / sp * p.len * p.life); ctx.stroke();
+      }
+      ctx.globalAlpha = 1;
+      requestAnimationFrame(frame);
+    }
+    if (!running) { running = true; requestAnimationFrame(frame); }
+  };
+  FX.tilt = function (scope) {
     if (!matchMedia('(hover:hover) and (pointer:fine)').matches || RM) return;
-    document.body.classList.add('has-cursor');
-    const root = document.querySelector('.cursor'), dot = root.querySelector('.cursor__dot'), ring = root.querySelector('.cursor__ring');
-    let x = innerWidth / 2, y = innerHeight / 2, rx = x, ry = y;
-    addEventListener('pointermove', (e) => { x = e.clientX; y = e.clientY; root.classList.remove('is-hidden'); }, { passive: true });
-    document.addEventListener('pointerleave', () => root.classList.add('is-hidden'));
-    document.addEventListener('pointerover', (e) => {
-      const t = e.target.closest('a,button,summary,input,select,textarea,[data-hover],.play__field');
-      root.classList.toggle('is-hover', !!t && !t.closest('.play__field'));
-      root.style.opacity = t && t.closest('.play__field') ? 0 : '';
+    scope.querySelectorAll('[data-tilt]').forEach(el => {
+      el.addEventListener('pointermove', (e) => {
+        const r = el.getBoundingClientRect(); const px = (e.clientX - r.left) / r.width - .5, py = (e.clientY - r.top) / r.height - .5;
+        el.style.transform = `perspective(900px) rotateX(${(-py * 6).toFixed(2)}deg) rotateY(${(px * 8).toFixed(2)}deg) translateZ(0)`;
+        el.style.setProperty('--gx', (px + .5) * 100 + '%'); el.style.setProperty('--gy', (py + .5) * 100 + '%');
+      });
+      el.addEventListener('pointerleave', () => { el.style.transform = ''; });
     });
-    (function tick() { rx += (x - rx) * .22; ry += (y - ry) * .22; dot.style.transform = `translate(${x}px,${y}px)`; ring.style.transform = `translate(${rx}px,${ry}px)`; requestAnimationFrame(tick); })();
   };
   FX.magnetic = function (scope) {
     if (!matchMedia('(hover:hover)').matches || RM) return;
@@ -259,28 +300,28 @@ void main(){
       const W = Math.max(12, Math.round(cw * scale)), H = Math.max(8, Math.round(ch * scale));
       off.width = W; off.height = H; const t = now / 1000;
       // scene: perspective grid + drone
-      o.fillStyle = '#05100d'; o.fillRect(0, 0, W, H);
-      const g = o.createLinearGradient(0, 0, 0, H); g.addColorStop(0, '#0b2a26'); g.addColorStop(.55, '#05100d'); o.fillStyle = g; o.fillRect(0, 0, W, H * .55);
-      o.strokeStyle = 'rgba(125,255,214,.55)'; o.lineWidth = Math.max(.5, W / 600);
+      o.fillStyle = '#05080f'; o.fillRect(0, 0, W, H);
+      const g = o.createLinearGradient(0, 0, 0, H); g.addColorStop(0, '#0d1a2e'); g.addColorStop(.55, '#05080f'); o.fillStyle = g; o.fillRect(0, 0, W, H * .55);
+      o.strokeStyle = 'rgba(141,180,255,.55)'; o.lineWidth = Math.max(.5, W / 600);
       const hz = H * .55;
       for (let i = -12; i <= 12; i++) { o.beginPath(); o.moveTo(W / 2 + i * W * .02, hz); o.lineTo(W / 2 + i * W * .22, H); o.stroke(); }
       for (let j = 0; j < 14; j++) { const z = ((j + (t * 1.4) % 1) / 14); const y = hz + Math.pow(z, 2.2) * (H - hz); o.globalAlpha = z; o.beginPath(); o.moveTo(0, y); o.lineTo(W, y); o.stroke(); }
       o.globalAlpha = 1;
       // drone
       const dx = W * (.5 + Math.sin(t * .7) * .2), dy = H * (.36 + Math.sin(t * 1.3) * .05), s = W / 22;
-      o.fillStyle = '#e4f3f1'; o.strokeStyle = '#e4f3f1'; o.lineWidth = Math.max(1, s / 6);
+      o.fillStyle = '#e9f1f3'; o.strokeStyle = '#e9f1f3'; o.lineWidth = Math.max(1, s / 6);
       o.beginPath(); o.moveTo(dx - s, dy - s * .5); o.lineTo(dx + s, dy + s * .5); o.moveTo(dx + s, dy - s * .5); o.lineTo(dx - s, dy + s * .5); o.stroke();
       [[-1, -.5], [1, .5], [1, -.5], [-1, .5]].forEach(([a, b]) => { o.beginPath(); o.ellipse(dx + a * s, dy + b * s, s * .55, s * .14, 0, 0, 7); o.fill(); });
-      o.fillStyle = '#7dffd6'; o.beginPath(); o.arc(dx, dy, s * .28, 0, 7); o.fill();
+      o.fillStyle = '#8db4ff'; o.beginPath(); o.arc(dx, dy, s * .28, 0, 7); o.fill();
       // reticle
       o.strokeStyle = 'rgba(255,91,58,.9)'; o.lineWidth = Math.max(1, W / 500); o.strokeRect(dx - s * 1.8, dy - s * 1.3, s * 3.6, s * 2.6);
       // draw upscaled
       ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.imageSmoothingEnabled = q > .55; ctx.drawImage(off, 0, 0, cv.width, cv.height);
       // packet loss artifacts
-      const loss = (1 - q) * .3; ctx.fillStyle = 'rgba(5,16,13,.9)';
+      const loss = (1 - q) * .3; ctx.fillStyle = 'rgba(5,8,15,.9)';
       for (let k = 0; k < loss * 40; k++) { if (Math.random() < .5) { const bh = cv.height / 18; ctx.fillRect(0, Math.floor(Math.random() * 18) * bh, cv.width * (.2 + Math.random() * .8), bh * .4); } }
       // HUD text
-      ctx.setTransform(d, 0, 0, d, 0, 0); ctx.font = '500 12px Geist Mono, monospace'; ctx.fillStyle = '#7dffd6'; ctx.textAlign = 'left';
+      ctx.setTransform(d, 0, 0, d, 0, 0); ctx.font = '500 12px Geist Mono, monospace'; ctx.fillStyle = '#8db4ff'; ctx.textAlign = 'left';
       ctx.fillText('CTRL ⟶ ' + (8 + Math.random() * 1.2).toFixed(1) + ' ms', 14, 22);
       ctx.fillStyle = 'rgba(228,243,241,.7)'; ctx.fillText(Math.round(scale * 1080) + 'p · FEC ' + (q < .9 ? 'ON' : 'IDLE'), 14, 40);
     });
