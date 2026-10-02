@@ -124,7 +124,8 @@ void main(){
     let x = -99, y = -99, lastMove = 0, lastWave = 0, inside = false;
     const waves = [], sparks = [];
     const col = () => css('--accent');
-    addEventListener('pointermove', (e) => { x = e.clientX; y = e.clientY; lastMove = performance.now(); inside = true; }, { passive: true });
+    const hist = [];
+    addEventListener('pointermove', (e) => { x = e.clientX; y = e.clientY; lastMove = performance.now(); inside = true; hist.push({ x, y, t: lastMove }); if (hist.length > 400) hist.splice(0, 100); }, { passive: true });
     document.addEventListener('pointerleave', () => inside = false);
     addEventListener('pointerdown', (e) => {
       if (RM) return;
@@ -154,6 +155,12 @@ void main(){
         const sp = Math.hypot(p.vx, p.vy) || 1;
         ctx.strokeStyle = p.hot ? css('--hot') : c; ctx.globalAlpha = p.life; ctx.lineWidth = 1.6 * p.life + .4;
         ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(p.x - p.vx / sp * p.len * p.life, p.y - p.vy / sp * p.len * p.life); ctx.stroke();
+      }
+      if (FX.lag > 0 && hist.length) {
+        const tt = now - FX.lag; let g = hist[0]; for (let i = hist.length - 1; i >= 0; i--) { if (hist[i].t <= tt) { g = hist[i]; break; } }
+        ctx.globalAlpha = .85; ctx.strokeStyle = css('--hot'); ctx.lineWidth = 1.5; ctx.beginPath(); ctx.arc(g.x, g.y, 9, 0, 7); ctx.stroke();
+        ctx.font = '500 10px Geist Mono, monospace'; ctx.fillStyle = css('--hot'); ctx.fillText('+' + FX.lag + ' ms', g.x + 13, g.y + 4);
+        ctx.setLineDash([2, 3]); ctx.beginPath(); ctx.moveTo(g.x, g.y); ctx.lineTo(x, y); ctx.stroke(); ctx.setLineDash([]);
       }
       ctx.globalAlpha = 1;
       requestAnimationFrame(frame);
@@ -341,6 +348,114 @@ void main(){
     let f = 0; const tot = 18;
     const id = setInterval(() => { f++; el.textContent = fin.split('').map((c, i) => (i < (f / tot) * fin.length || c === ' ') ? c : ch[Math.floor(Math.random() * ch.length)]).join(''); if (f >= tot) { clearInterval(id); el.textContent = fin; } }, 30);
   };
+
+
+  /* ================= REAL browser metrics (no fake numbers) ================= */
+  const M = FX.metrics = { iv: new Float32Array(240), n: 0, i: 0, last: 0, frames: 0, longF: 0, p50: 16.7, p95: 16.7, hz: 60, input: null, inputNext: null, inputs: [], listeners: new Set() };
+  const HZ = [24, 30, 48, 50, 60, 72, 75, 90, 100, 120, 144, 165, 180, 240, 360];
+  function stats() {
+    const k = Math.min(M.n, M.iv.length); if (k < 8) return;
+    const a = Array.from(M.iv.subarray(0, k)).sort((x, y) => x - y);
+    M.p50 = a[Math.floor(k * .5)]; M.p95 = a[Math.floor(k * .95)];
+    const raw = 1000 / M.p50; M.hz = HZ.reduce((b, h) => Math.abs(h - raw) < Math.abs(b - raw) ? h : b, 60);
+  }
+  (function tick(now) {
+    if (M.last && !document.hidden) {
+      const d = now - M.last;
+      if (d < 1000) { M.iv[M.i] = d; M.i = (M.i + 1) % M.iv.length; M.n++; if (d > 50) M.longF++; }
+    }
+    M.last = now; M.frames++;
+    if (M.frames % 15 === 0) { stats(); M.listeners.forEach(f => { try { f(M); } catch (e) { } }); }
+    requestAnimationFrame(tick);
+  })(performance.now());
+  document.addEventListener('visibilitychange', () => { M.last = 0; });
+  const onInput = (e) => {
+    // handler delay = time from the OS/browser event timestamp to our handler running
+    const t0 = e.timeStamp, h = performance.now() - t0;
+    requestAnimationFrame((ft) => { M.input = Math.max(0, h); M.inputNext = Math.max(0, ft - t0); M.inputs.push({ t: performance.now(), d: M.inputNext }); if (M.inputs.length > 40) M.inputs.shift(); M.listeners.forEach(f => { try { f(M); } catch (x) { } }); });
+  };
+  addEventListener('pointerdown', onInput, { passive: true, capture: true });
+  addEventListener('keydown', onInput, { passive: true, capture: true });
+  FX.onMetrics = (f) => { M.listeners.add(f); return () => M.listeners.delete(f); };
+  FX.recent = (k = 120) => { const out = []; const n = Math.min(M.n, M.iv.length, k); for (let j = n; j > 0; j--) out.push(M.iv[(M.i - j + M.iv.length) % M.iv.length]); return out; };
+
+  /* Real frame-interval sparkline */
+  FX.realSpark = function (cv) {
+    const ctx = cv.getContext('2d');
+    return loop(cv, () => {
+      const { w, h, d } = fitCanvas(cv); const pts = FX.recent(90); ctx.clearRect(0, 0, w, h);
+      const max = Math.max(34, ...pts) ; ctx.lineWidth = 1.1 * d; ctx.strokeStyle = css('--accent'); ctx.beginPath();
+      pts.forEach((v, i) => { const x = i / 89 * w, y = h - Math.min(1, v / max) * h * .9 - 1; i ? ctx.lineTo(x, y) : ctx.moveTo(x, y); }); ctx.stroke();
+    });
+  };
+
+  /* Oscilloscope of real frame intervals + input-delay markers */
+  FX.scope = function (cv) {
+    const ctx = cv.getContext('2d');
+    return loop(cv, (now) => {
+      const { d, cw, ch } = fitCanvas(cv, 1.5); ctx.setTransform(d, 0, 0, d, 0, 0); ctx.clearRect(0, 0, cw, ch);
+      const pad = 34, H = ch - 28, max = 50; const y = (v) => 10 + (1 - Math.min(v, max) / max) * (H - 10);
+      ctx.font = '500 10px Geist Mono, monospace'; ctx.textBaseline = 'middle';
+      // grid: 4.2 / 8.3 / 16.7 / 33.3 ms (240/120/60/30 Hz)
+      [[4.17, '240 Hz'], [8.33, '120 Hz'], [16.67, '60 Hz'], [33.3, '30 Hz']].forEach(([v, l]) => {
+        ctx.strokeStyle = css('--line'); ctx.setLineDash([3, 4]); ctx.beginPath(); ctx.moveTo(pad, y(v)); ctx.lineTo(cw, y(v)); ctx.stroke(); ctx.setLineDash([]);
+        ctx.fillStyle = css('--faint'); ctx.textAlign = 'left'; ctx.fillText(v.toFixed(1), 2, y(v)); ctx.textAlign = 'right'; ctx.fillText(l, cw - 4, y(v) - 7);
+      });
+      // Kyber band 8–10 ms
+      ctx.fillStyle = css('--glow'); ctx.globalAlpha = .35; ctx.fillRect(pad, y(10), cw - pad, y(8) - y(10)); ctx.globalAlpha = 1;
+      const pts = FX.recent(240); const n = pts.length; const step = (cw - pad) / 239;
+      ctx.lineWidth = 1.5; ctx.strokeStyle = css('--accent'); ctx.shadowColor = css('--accent'); ctx.shadowBlur = 8; ctx.beginPath();
+      pts.forEach((v, i) => { const x = pad + (240 - n + i) * step; i ? ctx.lineTo(x, y(v)) : ctx.moveTo(x, y(v)); }); ctx.stroke(); ctx.shadowBlur = 0;
+      // phosphor dot
+      if (n) { const x = pad + 239 * step, yy = y(pts[n - 1]); ctx.fillStyle = css('--ink'); ctx.beginPath(); ctx.arc(x, yy, 3, 0, 7); ctx.fill(); }
+      // input markers (last 10s)
+      const span = 240 * (M.p50 || 16.7);
+      M.inputs.forEach(ev => { const age = now - ev.t; if (age > span) return; const x = cw - (age / span) * (cw - pad); ctx.strokeStyle = css('--hot'); ctx.lineWidth = 1.2; ctx.beginPath(); ctx.moveTo(x, H + 4); ctx.lineTo(x, y(ev.d)); ctx.stroke(); ctx.fillStyle = css('--hot'); ctx.textAlign = 'center'; ctx.fillText(ev.d.toFixed(1), x, H + 14); });
+    });
+  };
+
+  /* XOR-parity FEC teaching bench (DOM) */
+  FX.fec = function (root, L) {
+    const data = [0x4b, 0x59, 0x42, 0x52]; const parity = data.reduce((a, b) => a ^ b, 0);
+    const lost = new Set(); const hex = (v) => '0x' + v.toString(16).padStart(2, '0').toUpperCase();
+    const pk = root.querySelectorAll('[data-pk]'), out = root.querySelector('[data-out]'), eq = root.querySelector('[data-eq]');
+    function render() {
+      pk.forEach(b => { const i = +b.dataset.pk; const v = i < 4 ? data[i] : parity; const isLost = lost.has(i); b.classList.toggle('lost', isLost); b.setAttribute('aria-pressed', isLost); b.querySelector('b').textContent = isLost ? '— —' : hex(v); b.classList.remove('rebuilt'); });
+      if (!lost.size) { out.className = 'fec__out'; out.textContent = L.intact; eq.textContent = data.map(hex).join(' ⊕ ') + ' = ' + hex(parity); return; }
+      if (lost.size === 1) {
+        const i = [...lost][0]; const others = [0, 1, 2, 3, 4].filter(k => k !== i); const vals = others.map(k => k < 4 ? data[k] : parity); const rec = vals.reduce((a, b) => a ^ b, 0);
+        out.className = 'fec__out ok'; out.textContent = L.ok; eq.textContent = vals.map(hex).join(' ⊕ ') + ' = ' + hex(rec) + '  → P' + (i < 4 ? i : 'x');
+        const b = root.querySelector(`[data-pk="${i}"]`); setTimeout(() => { b.classList.add('rebuilt'); b.querySelector('b').textContent = hex(rec); }, 380);
+      } else { out.className = 'fec__out fail'; out.textContent = L.fail; eq.textContent = lost.size + ' × lost  ⇒  1 equation, ' + lost.size + ' unknowns'; }
+    }
+    pk.forEach(b => b.addEventListener('click', () => { const i = +b.dataset.pk; lost.has(i) ? lost.delete(i) : lost.add(i); render(); }));
+    root.querySelector('[data-reset]').addEventListener('click', () => { lost.clear(); render(); });
+    render();
+  };
+
+  /* Packet inspector (seeded schematic simulation, DOM rows) */
+  FX.inspector = function (tbody, L, lossEl) {
+    const streams = [['video', 'V', 33], ['audio', 'A', 20], ['control', 'C', 120], ['telemetry', 'T', 50]];
+    const seq = { V: 1040, A: 880, C: 312, T: 5120 }; const rows = []; let t = 0, id;
+    const add = (r) => { rows.unshift(r); if (rows.length > 9) rows.pop(); };
+    function step() {
+      t += 50; const loss = lossEl && lossEl.checked;
+      streams.forEach(([n, k, per]) => {
+        if (t % per > 50 && Math.random() > .35) return;
+        const s = ++seq[k];
+        if (k === 'V' && loss && Math.random() < .4) add({ k, n, s, age: (Math.random() * 30 + 20).toFixed(1), st: L.skipped, c: 'skip' });
+        else if (k === 'C' && loss && Math.random() < .5) { add({ k, n, s, age: (Math.random() * 4 + 6).toFixed(1), st: L.retx, c: 'retx' }); setTimeout(() => { add({ k, n, s, age: (Math.random() * 3 + 8).toFixed(1), st: L.acked, c: 'ack' }); draw(); }, 140); }
+        else add({ k, n, s, age: (Math.random() * 2.4 + (k === 'C' ? 6.2 : 7.4)).toFixed(1), st: k === 'C' ? L.acked : L.delivered, c: k === 'C' ? 'ack' : 'ok' });
+      });
+      draw();
+    }
+    function draw() { tbody.innerHTML = rows.map(r => `<tr class="r-${r.c}"><td><i class="sw sw-${r.k}"></i>${r.n}</td><td>#${r.s}</td><td>${r.age} ms</td><td>${r.st}</td></tr>`).join(''); }
+    id = setInterval(step, RM ? 1000 : 260); step();
+    return () => clearInterval(id);
+  };
+
+  /* Ghost cursor: visualize what added delay feels like (console: lag <ms>) */
+  FX.lag = 0;
 
   window.FX = FX;
 })();

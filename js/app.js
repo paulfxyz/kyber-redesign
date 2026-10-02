@@ -28,7 +28,7 @@
   const T = (k) => esc(t(k));
   async function load(l) {
     if (cache[l]) return cache[l];
-    const r = await fetch(`i18n/${l}.json?v=1790897962`); if (!r.ok) throw new Error('lang'); return (cache[l] = await r.json());
+    const r = await fetch(`i18n/${l}.json?v=1790900815`); if (!r.ok) throw new Error('lang'); return (cache[l] = await r.json());
   }
   function loadFont(l) {
     if (!FONTS[l] || document.getElementById('font-' + l)) return;
@@ -133,11 +133,22 @@
         <div><small>${T('home.ossUpdated')}</small><b class="js-last" style="font-size:var(--t-sm)">${relTime(REPO.last)}</b></div>
         <div><small>${T('home.ossLicence')}</small><b>AGPL v3</b></div>
       </div>
-      <div class="repo__live mono"><i></i>${T('home.ossLive')} · gitlab.com/kyber/kyber</div>
+      <div class="repo__live mono"><i></i><span class="js-livestate">${T('home.ossSnapshot')} · 2026-10-02</span> · <a href="https://gitlab.com/kyber" target="_blank" rel="noopener">gitlab.com/kyber</a></div>
+      ${releaseCard()}
     </div>
+  </div>
+  <div class="wrap" style="margin-top:4rem">
+    <div class="sechead"><div><span class="kicker">${T('home.ossRepos')}</span></div><p class="lead rv" style="font-size:var(--t-base)">${T('home.ossRepoLead')}</p></div>
+    ${repoWall()}
   </div></section>`;
 
-  const TL = [['2001', 't2001'], ['2003', 't2003'], ['2004', 't2004'], ['2006', 't2006'], ['2008', 't2008'], ['2009', 't2009'], ['2012', 't2012'], ['2024', 't2024', 1], ['2025', 't2025'], ['2026', 't2026a', 1], ['2026', 't2026b']];
+  const REPOS = [['kyber/kyber', 'rk_kyber', 'docs'], ['kyber/core/kysdk', 'rk_kysdk', 'core'], ['kyber/core/kyctl', 'rk_kyctl', 'core'], ['kyber/core/kymux', 'rk_kymux', 'core'], ['kyber/core/kynput', 'rk_kynput', 'core'], ['kyber/core/kymedia', 'rk_kymedia', 'core'], ['kyber/core/kyutil', 'rk_kyutil', 'core'], ['kyber/apps/kyber-desktop', 'rk_desktop', 'apps'], ['kyber/apps/kyber-web', 'rk_web', 'apps'], ['kyber/apps/kyber-installer', 'rk_installer', 'apps']];
+  const REPOSNAP = { 'kyber/kyber': [83, '2026-06-24'], 'kyber/core/kysdk': [2, '2026-08-19'], 'kyber/core/kyctl': [2, '2026-08-19'], 'kyber/core/kymux': [1, '2026-08-19'], 'kyber/core/kynput': [1, '2026-08-19'], 'kyber/core/kymedia': [1, '2026-08-19'], 'kyber/core/kyutil': [1, '2026-08-19'], 'kyber/apps/kyber-desktop': [16, '2026-08-19'], 'kyber/apps/kyber-web': [4, '2026-08-19'], 'kyber/apps/kyber-installer': [8, '2026-08-19'] };
+  const repoWall = () => `<div class="repos">${REPOS.map(([path, k, grp]) => { const [st, last] = REPOSNAP[path]; const name = path.split('/').pop(); return `<a class="repo-c rv" data-tilt href="https://gitlab.com/${path}" target="_blank" rel="noopener" data-repo="${path}"><div class="repo-c__h"><span class="mono grp">${grp}/</span><b class="mono">${name}</b><span class="dotok" title="active"></span></div><p>${T('home.' + k)}</p><div class="repo-c__m mono"><span>★ <span class="js-rs">${st}</span></span><span class="js-rl">${last}</span></div></a>`; }).join('')}</div>`;
+  const REL = { tag: '0.28.0-1', date: '2026-08-19', url: 'https://gitlab.com/kyber/apps/kyber-installer/-/releases/0.28.0-1', file: 'kyber-installer-win64-0.28.0.exe', dl: 'https://gitlab.com/api/v4/projects/78083474/packages/generic/kyber-installer/0.28.0/kyber-installer-win64-0.28.0.exe' };
+  const releaseCard = () => `<div class="relcard rv"><div><span class="mono faint">${T('home.ossLatest')} · ${T('home.ossInstaller')}</span><b class="mono js-reltag">${REL.tag}</b><span class="mono faint js-reldate">${REL.date}</span></div><div class="btns"><a class="btn btn--accent btn--sm js-reldl" href="${REL.dl}" rel="noopener">${T('home.ossDownload')} .exe</a><a class="btn btn--ghost btn--sm js-relurl" href="${REL.url}" target="_blank" rel="noopener">${T('sdk.readNotes')} ${ARRUR}</a></div></div>`;
+
+  const TL = [['2001', 't2001'], ['2003', 't2003'], ['2004', 't2004'], ['2006', 't2006'], ['2008', 't2008'], ['2009', 't2009'], ['2012', 't2012'], ['2020', 't2020', 1], ['2022', 't2022', 1], ['2023', 't2023', 1], ['2025', 't2025', 1], ['2026', 't2026a', 1], ['2026', 't2026b']];
   const vlcBlock = () => `
   <section class="tl" id="tl"><div class="tl__pin">
     <div class="wrap">
@@ -152,6 +163,15 @@
       <div class="rv"><div class="vlc__num"><span data-count="500">0</span><sup>M</sup></div><p>${T('home.vlcS2')}</p></div>
       <div class="rv"><div class="vlc__num">~<span data-count="1000">0</span></div><p>${T('home.vlcS3')}</p></div>
       <div class="rv"><div class="vlc__num accent"><span data-count="8">0</span><sup>ms</sup></div><p>${T('home.vlcS4')}</p></div>
+    </div>
+  </div></section>
+  <section class="sec" style="padding-top:0"><div class="wrap">
+    <div class="sechead"><div>${kicker('home.proofKicker')}<h2 class="h1 split">${T('home.proofTitle')}</h2></div></div>
+    <div class="proof">
+      <a class="rv" data-tilt href="${K}/article/first-fundraising-announcement/" target="_blank" rel="noopener"><span class="mono">01</span><b>${T('home.proof1t')}</b><p>${T('home.proof1d')}</p></a>
+      <a class="rv" data-tilt href="${K}/article/avatar-medical-and-kyber-awarded/" target="_blank" rel="noopener"><span class="mono">02</span><b>${T('home.proof2t')}</b><p>${T('home.proof2d')}</p></a>
+      <a class="rv" data-tilt href="${K}/article/kyberatvivatech/" target="_blank" rel="noopener"><span class="mono">03</span><b>${T('home.proof3t')}</b><p>${T('home.proof3d')}</p></a>
+      <a class="rv" data-tilt href="${K}/article/first-fundraising-announcement/" target="_blank" rel="noopener"><span class="mono">04</span><b>${T('home.proof4t')}</b><p>${T('home.proof4d')}</p></a>
     </div>
   </div></section>`;
 
@@ -203,13 +223,12 @@
       <a class="btn btn--ghost" style="margin-top:2rem" href="#/connect">${T('common.contactUs')} ${ARR}</a></div>
     <div>${[1, 2, 3, 4, 5].map(i => `<details class="rv"><summary>${T('faq.q' + i)}<i></i></summary><div class="ans">${linkify(T('faq.a' + i))}</div></details>`).join('')}</div>
   </div></section>`;
-  const linkify = (s) => s.replace(/gitlab\.com\/kyber\/kyber/g, '<a class="accent" href="https://gitlab.com/kyber/kyber#where-to-start" target="_blank" rel="noopener">gitlab.com/kyber/kyber</a>').replace(/r\/kyber/g, '<a class="accent" href="https://www.reddit.com/r/kyber/" target="_blank" rel="noopener">r/kyber</a>');
+  const linkify = (s) => s.replace(/gitlab\.com\/kyber\/kyber|r\/kyber/g, (m) => m.startsWith('gitlab') ? '<a class="accent" href="https://gitlab.com/kyber/kyber#where-to-start" target="_blank" rel="noopener">gitlab.com/kyber/kyber</a>' : '<a class="accent" href="https://www.reddit.com/r/kyber/" target="_blank" rel="noopener">r/kyber</a>');
 
   /* ---------------- pages ---------------- */
   function pageHome() {
     const lats = [[8, '--accent', 'lat1'], [75, '--accent2', 'lat2'], [220, '--warn', 'lat3'], [450, '--hot', 'lat4']];
     const plats = ['Windows', 'Linux', 'macOS', 'Android', 'iOS', 'Meta Quest', 'Apple Vision Pro', 'ROS', 'Unity', 'Unreal', 'Vulkan', 'D3D11', 'Web', 'Starlink'];
-    const stageMs = [1.2, 1.9, 2.8, 1.5, 0.8];
     return `
     <section class="hero" id="top">
       <canvas class="hero__gl" id="heroGl" aria-hidden="true"></canvas>
@@ -222,10 +241,10 @@
             <p class="hero__lead rv">${T('home.lead')}</p>
             <div class="btns rv">${btnSdk('btn--accent')} ${btnStar()}</div>
           </div>
-          <div class="hud rv" aria-hidden="true">
-            <div><small>${T('home.hudLatency')}</small><b class="accent"><span id="hudMs">8.2</span> ms</b><canvas class="spark" id="spark"></canvas></div>
-            <div><small>${T('home.hudClock')}</small><b id="hudClock">00:00:00.000</b></div>
-            <div><small>QUIC · H3</small><b>1 port</b><small style="margin:.4rem 0 0">E2E · AES-GCM</small></div>
+          <div class="hud rv">
+            <div title="${T('common.measured')}"><small>${T('home.hudFrame')}</small><b class="accent"><span class="js-p50">16.7</span> ms</b><canvas class="spark" id="spark" aria-hidden="true"></canvas><small class="hud__sub"><span class="js-hz">60</span> Hz · p95 <span class="js-p95">—</span> ms</small></div>
+            <div title="${T('common.measured')}"><small>${T('home.hudInput')}</small><b><span class="js-input">—</span></b><small class="hud__sub js-inputhint">${T('home.hudTap')}</small></div>
+            <div><small>${T('home.hudClaim')}</small><b>8–10 ms</b><small class="hud__sub">${T('home.hudClaimNote')} · QUIC/HTTP3</small></div>
           </div>
         </div>
       </div>
@@ -252,6 +271,7 @@
         <div class="play__read"><b class="mono" id="playErr">0</b><small class="mono">px drift</small></div>
         <span class="play__hint mono">${T('home.playHint')}</span>
       </div>
+      <p class="mono note-s" style="grid-column:1/-1">${T('home.playNote')}</p>
     </div></section>
 
     <section class="sec" style="padding-top:0"><div class="wrap">
@@ -279,7 +299,7 @@
         <div class="show__stage" aria-hidden="true">
           ${SOL.map((s, i) => `<figure class="${i === 0 ? 'is-on' : ''}"><img src="${img(s)}" alt="" loading="lazy"><figcaption><span>${T(`solutions.${s}.name`)}</span><span>0${i + 1} / 06</span></figcaption></figure>`).join('')}
           <div class="scan"></div><div class="reticle"><i></i><i></i><i></i><i></i></div>
-          <div class="tag mono"><i></i>${T('common.live')} · <span id="stageMs">8.4</span> ms</div>
+          <div class="tag mono"><i></i>REC · frame <span class="js-frame">0</span></div>
         </div>
       </div>
     </div></section>
@@ -296,10 +316,15 @@
           <g id="pipePk"></g>
         </svg>
         <div class="pipe__nodes">
-          ${[1, 2, 3, 4, 5].map((i) => `<div class="pnode"><span class="mono">0${i}</span><b>${T('home.p' + i)}</b><span class="t">+${num(stageMs[i - 1], { minimumFractionDigits: 1 })} ms</span></div>`).join('')}
+          ${[1, 2, 3, 4, 5].map((i) => `<div class="pnode"><span class="mono">0${i}</span><b>${T('home.p' + i)}</b></div>`).join('')}
         </div>
       </div>
-      <div class="pipe__total"><b><span id="pipeTotal">0.0</span><small style="font-size:.35em"> ms</small></b><span>${T('home.statsLead')}</span></div>
+      <div class="pipe__total"><b><span id="pipeTotal">0</span><small style="font-size:.35em">–10 ms</small></b><span>${T('home.pipeFits')}</span></div>
+      <div class="ruler" id="ruler">
+        <div class="ruler__row"><span>${T('home.pipeFrame')} <em class="mono">· ${T('common.measured')}</em></span><div class="ruler__bar"><i class="js-rframe" style="--c:var(--ink)"></i></div><b class="mono"><span class="js-p50">16.7</span> ms</b></div>
+        <div class="ruler__row"><span>${T('home.pipeKyber')}</span><div class="ruler__bar"><i style="--c:var(--accent);--w:5%"></i></div><b class="mono">8–10 ms</b></div>
+        <div class="ruler__row"><span>${T('home.pipeCall')}</span><div class="ruler__bar"><i style="--c:var(--hot);--w:100%"></i></div><b class="mono">100–200 ms</b></div>
+      </div>
     </div></div></section>
 
     ${vlcBlock()}
@@ -330,7 +355,7 @@
         <div class="btns rv" style="justify-content:flex-end">${btnSdk()} ${btnSales()}</div>
       </div>
       <div class="phero__media rv"><img src="${img(slug)}" alt="${T(P('name'))}" data-parallax>
-        <div class="hudline"><span class="chip">● ${T('common.live')}</span><span class="chip">8–10 ms</span><span class="chip">${T('tech.sVideo')} · ${T('tech.sAudio')} · ${T('tech.sControl')} · ${T('tech.sTelemetry')}</span><span class="chip">QUIC/HTTP3 · E2E</span></div>
+        <div class="hudline"><span class="chip">8–10 ms · ${T('home.hudClaimNote')}</span><span class="chip">${T('tech.sVideo')} · ${T('tech.sAudio')} · ${T('tech.sControl')} · ${T('tech.sTelemetry')}</span><span class="chip">QUIC/HTTP3 · E2E</span></div>
       </div>
     </div></section>
 
@@ -339,6 +364,10 @@
       <div class="caps">${[1, 2, 3].map(i => `<article class="cap rv" data-tilt><div class="viz">${capViz[i - 1]}</div><h3 class="h3">${T(P('c' + i + 't'))}</h3><p>${T(P('c' + i + 'd'))}</p></article>`).join('')}</div>
     </div></section>
 
+    ${get(EN, `solutions.${slug}.xTitle`) ? `<section class="sec" style="padding-top:0"><div class="wrap">
+      <h2 class="h1 split">${T(P('xTitle'))}</h2>
+      <div class="xloop">${[1, 2, 3].map(i => `<div class="rv"><span class="mono">0${i}</span><h3 class="h3">${T(P('x' + i + 't'))}</h3><p>${T(P('x' + i + 'd'))}</p></div>`).join('<i class="xarrow" aria-hidden="true">→</i>')}</div>
+    </div></section>` : ''}
     <section class="sec" style="padding-top:0"><div class="wrap">
       <div class="sechead"><div>${kicker('solution.benefits')}<h2 class="h1 split">${T(P('benTitle'))}</h2></div></div>
       <div class="bens">${[1, 2, 3, 4].map(i => `<div class="ben rv"><span class="n">0${i}</span><h3>${T(P('b' + i + 't'))}</h3><p>${T(P('b' + i + 'd'))}</p></div>`).join('')}</div>
@@ -364,7 +393,22 @@
 
     <section class="sec" style="padding-top:2rem"><div class="wrap">
       <div class="sechead"><div><span class="kicker">01</span><h2 class="h1 split">${T('tech.thrTitle')}</h2></div><p class="lead rv">${T('tech.thrLead')}</p></div>
-      <div class="thr" id="thr">${bars.map(([l, v, c]) => `<div class="thr__row" style="--c:var(${c})"><span>${l}</span><div class="bar"><i data-w="${v / 300 * 100}"></i></div><b>${v} ms</b></div>`).join('')}</div>
+      <div class="thr" id="thr" data-note="${T('home.hudClaimNote')}">${bars.map(([l, v, c]) => `<div class="thr__row" style="--c:var(${c})"><span>${l}</span><div class="bar"><i data-w="${v / 300 * 100}"></i></div><b>${v} ms</b></div>`).join('')}</div>
+    </div></section>
+
+    <section class="sec" style="padding-top:0"><div class="wrap">
+      <div class="sechead"><div><span class="kicker">${T('common.measured')}</span><h2 class="h1 split">${T('tech.scopeTitle')}</h2></div><p class="lead rv">${T('tech.scopeLead')}</p></div>
+      <div class="scope rv">
+        <canvas id="scopeCv" role="img" aria-label="${T('tech.scopeTitle')}"></canvas>
+        <div class="scope__m">
+          <div><small>${T('tech.scopeFrame')}</small><b class="mono"><span class="js-p50">—</span> ms</b></div>
+          <div><small>${T('tech.scopeJitter')}</small><b class="mono"><span class="js-jit">—</span> ms</b></div>
+          <div><small>${T('tech.scopeHz')}</small><b class="mono"><span class="js-hz">—</span> Hz</b></div>
+          <div><small>${T('tech.scopeInput')}</small><b class="mono"><span class="js-input">—</span></b></div>
+          <div><small>${T('tech.scopeLong')}</small><b class="mono js-long">0</b></div>
+        </div>
+        <p class="mono note-s">${T('tech.scopeTry')}</p>
+      </div>
     </div></section>
 
     <section class="sec" style="padding-top:0"><div class="wrap">
@@ -384,8 +428,8 @@
     <section class="sec" style="padding-top:0"><div class="wrap">
       <div class="sechead"><div><span class="kicker">04</span><h2 class="h1 split">${T('tech.connTitle')}</h2></div><p class="lead rv">${T('tech.connLead')}</p></div>
       <div class="arch" style="grid-template-columns:1fr 1fr">
-        <div class="rv"><svg viewBox="0 0 400 140" fill="none">${Array.from({ length: 25 }, (_, i) => `<path d="M20 ${8 + i * 5} H380" stroke="var(--hot)" stroke-opacity=".5" stroke-dasharray="${2 + i % 4} ${3 + i % 3}"/>`).join('')}</svg><b>WebRTC / legacy</b><p>25 ports · STUN · TURN · ICE · SDP · ${T('tech.cmpMany')}</p></div>
-        <div class="rv"><svg viewBox="0 0 400 140" fill="none"><path d="M20 70 H380" stroke="var(--accent)" stroke-width="3" style="filter:drop-shadow(0 0 8px var(--accent))"/><circle r="6" fill="var(--accent)"><animate attributeName="cx" values="20;380" dur="1.2s" repeatCount="indefinite"/><animate attributeName="cy" values="70;70" dur="1.2s" repeatCount="indefinite"/></circle><text x="20" y="110" font-family="Geist Mono" font-size="12" fill="var(--muted)">QUIC / HTTP3 · 1 port · E2E</text></svg><b>Kyber</b><p>${T('tech.sVideo')} · ${T('tech.sAudio')} · ${T('tech.sControl')} · ${T('tech.sTelemetry')}</p></div>
+        <div class="rv"><svg viewBox="0 0 400 140" fill="none">${Array.from({ length: 25 }, (_, i) => `<path d="M20 ${8 + i * 5} H380" stroke="var(--hot)" stroke-opacity=".5" stroke-dasharray="${2 + i % 4} ${3 + i % 3}"/>`).join('')}</svg><b>${T('tech.connLegacy')}</b><p>${T('tech.connLegacyD')}</p></div>
+        <div class="rv"><svg viewBox="0 0 400 140" fill="none"><path d="M20 70 H380" stroke="var(--accent)" stroke-width="3" style="filter:drop-shadow(0 0 8px var(--accent))"/><circle r="6" fill="var(--accent)"><animate attributeName="cx" values="20;380" dur="1.2s" repeatCount="indefinite"/><animate attributeName="cy" values="70;70" dur="1.2s" repeatCount="indefinite"/></circle><text x="20" y="110" font-family="Geist Mono" font-size="12" fill="var(--muted)">QUIC / HTTP3 · E2E</text></svg><b>Kyber</b><p>${T('tech.sVideo')} · ${T('tech.sAudio')} · ${T('tech.sControl')} · ${T('tech.sTelemetry')}</p></div>
       </div>
     </div></section>
 
@@ -394,6 +438,10 @@
       <div class="prio">
         <div class="prio__box rv"><b>${T('tech.prioMedia')}</b><canvas id="prioA"></canvas><p>${T('tech.prioMediaList')}</p></div>
         <div class="prio__box rv"><b>${T('tech.prioCtrl')}</b><canvas id="prioB"></canvas><p>${T('tech.prioCtrlList')}</p></div>
+      </div>
+      <div class="insp rv">
+        <div class="insp__h"><b class="mono">${T('tech.inspTitle')}</b><span class="chip">${T('common.schematic')}</span><label class="insp__loss"><input type="checkbox" id="inspLoss"> ${T('tech.inspLoss')}</label></div>
+        <div class="tablewrap"><table class="insp__t mono"><thead><tr><th>${T('tech.inspStream')}</th><th>${T('tech.inspSeq')}</th><th>${T('tech.inspAge')}</th><th>${T('tech.inspState')}</th></tr></thead><tbody id="inspBody"></tbody></table></div>
       </div>
     </div></section>
 
@@ -404,11 +452,16 @@
         <div class="net__panel rv">
           <div class="net__metric"><span>${T('tech.netQuality')}</span><b id="nQ">1080p</b></div>
           <div class="net__metric"><span>${T('tech.netLoss')}</span><b id="nL" style="color:var(--warn)">0%</b></div>
-          <div class="net__metric"><span>${T('tech.netLatency')}</span><b class="accent" id="nC">8.2 ms</b></div>
+          <div class="net__metric"><span>${T('tech.netLatency')}</span><b class="accent" id="nC">8–10 ms</b></div><p class="mono note-s">${T('tech.netNote')}</p>
           <label><span class="mono muted" style="font-size:var(--t-xs)">${T('tech.netSlider')}</span><input type="range" class="range" id="netR" min="0" max="100" value="100" style="margin-top:1rem"></label>
         </div>
       </div>
       <div class="tri">${[1, 2, 3].map(i => `<div class="rv"><b>${T('tech.n' + i + 't')}</b><p>${T('tech.n' + i + 'd')}</p></div>`).join('')}</div>
+      <div class="fec rv" id="fec">
+        <div class="fec__head"><div><h3 class="h2">${T('tech.fecTitle')}</h3><p class="muted" style="margin-top:.6rem;max-width:60ch">${T('tech.fecLead')}</p></div><span class="chip">${T('tech.fecModel')}</span></div>
+        <div class="fec__row">${[0, 1, 2, 3].map(i => `<button type="button" class="fec__pk" data-pk="${i}" aria-pressed="false"><small class="mono">P${i}</small><b class="mono">0x00</b></button>`).join('')}<span class="fec__x mono">⊕</span><button type="button" class="fec__pk par" data-pk="4" aria-pressed="false"><small class="mono">XOR</small><b class="mono">0x00</b></button></div>
+        <div class="fec__foot"><div><div class="fec__out" data-out role="status"></div><code class="mono fec__eq" data-eq dir="ltr"></code></div><div style="display:flex;gap:.6rem;align-items:center"><span class="mono note-s">${T('tech.fecDrop')}</span><button type="button" class="btn btn--ghost btn--sm" data-reset>${T('tech.fecReset')}</button></div></div>
+      </div>
     </div></section>
 
     <section class="sec" style="padding-top:0"><div class="wrap">
@@ -426,14 +479,13 @@
     <section class="sec" style="padding-top:0"><div class="wrap">
       <div class="sechead"><div><span class="kicker">09</span><h2 class="h-display split">${T('tech.notTitleA')} <span class="serif">${T('tech.notTitleB')}</span></h2></div><p class="lead rv">${T('tech.notLead')}</p></div>
       <div class="tablewrap rv"><table class="cmp">
-        <thead><tr><th></th><th>Kyber</th><th>WebRTC</th><th>Legacy remote desktop</th></tr></thead>
+        <thead><tr><th></th><th>Kyber</th><th>WebRTC</th></tr></thead>
         <tbody>
-          <tr><td>${T('tech.cmpLatency')}</td><td class="k">8–10 ms</td><td class="o">100–200 ms</td><td class="o">150–300 ms</td></tr>
-          <tr><td>${T('tech.cmpClock')}</td><td class="k">✓</td><td class="o">—</td><td class="o">—</td></tr>
-          <tr><td>${T('tech.cmpPorts')}</td><td class="k">${T('tech.cmpOne')}</td><td class="o">${T('tech.cmpMany')}</td><td class="o">${T('tech.cmpMany')}</td></tr>
-          <tr><td>${T('tech.cmpPriority')}</td><td class="k">✓</td><td class="o">—</td><td class="o">—</td></tr>
-          <tr><td>${T('tech.cmpIntegrate')}</td><td class="k">${T('tech.cmpWeeks')}</td><td class="o">${T('tech.cmpYears')}</td><td class="o">—</td></tr>
-        </tbody></table></div>
+          <tr><td>${T('tech.cmpDesigned')}</td><td class="k">${T('tech.kDesigned')}</td><td class="o">${T('tech.wDesigned')}</td></tr>
+          <tr><td>${T('tech.cmpOptimizes')}</td><td class="k">${T('tech.kOpt')}</td><td class="o">${T('tech.wOpt')}</td></tr>
+          <tr><td>${T('tech.cmpLate')}</td><td class="k">${T('tech.kLate')}</td><td class="o">${T('tech.wLate')}</td></tr>
+          <tr><td>${T('tech.cmpCtrl')}</td><td class="k">${T('tech.kCtrl')}</td><td class="o">${T('tech.wCtrl')}</td></tr>
+        </tbody></table><p class="mono note-s" style="margin-top:1rem">${T('tech.cmpNote')}</p></div>
     </div></section>
     ${ctaBlock()}`;
   }
@@ -470,7 +522,8 @@
     </div></section>
     <section class="sec" id="careers" style="padding-top:0"><div class="wrap">
       <div class="sechead"><div>${kicker('footer.careers')}<h2 class="h1 split">${T('about.careersTitle')}</h2></div><p class="lead rv">${T('about.careersLead')}</p></div>
-      <div class="jobs">${jobs.map(([k, u]) => `<a class="job rv" href="${K}${u}" target="_blank" rel="noopener"><h3>${T('about.' + k)}</h3><span class="chip">${T('about.contract')}</span><span class="chip">${T('about.paris')}</span><span class="go">${ARRUR}</span></a>`).join('')}</div>
+      <div class="jobs">${jobs.map(([k, u]) => `<a class="job rv" href="${K}${u}" target="_blank" rel="noopener"><h3>${T('about.' + k)}</h3><span class="chip">${T('about.contract')}</span><span class="chip">${T(k === 'j5' ? 'about.jobLocFde' : 'about.jobLoc')}</span><span class="go">${ARRUR}</span></a>`).join('')}</div>
+      <p class="mono stackline rv"><span class="accent">$</span> cat stack.txt → ${T('about.stackLine')}</p>
     </div></section>
     <section class="sec" style="padding-top:0"><div class="wrap">
       <div class="sechead"><div><span class="kicker">${T('about.hq')}</span><h2 class="h1 split">${T('about.officesTitle')}</h2></div><p class="lead rv">${T('about.officesLead')}</p></div>
@@ -514,7 +567,20 @@
     </div></section>
     <section class="sec" style="padding-top:2rem"><div class="wrap">
       <div class="kits">${[1, 2, 3].map(i => `<div class="kit rv" data-tilt>${ICO[[3, 5, 0][i - 1]]}<h3>${T('sdk.k' + i + 't')}</h3><p>${T('sdk.k' + i + 'd')}</p></div>`).join('')}</div>
-      <div style="margin-top:4rem">${kicker('sdk.platforms')}<div class="plats">${plats.map(p => `<span class="chip rv">${p}</span>`).join('')}</div></div>
+    </div></section>
+    <section class="sec" style="padding-top:0"><div class="wrap">
+      <div class="sechead"><div><span class="kicker">README</span><h2 class="h1 split">${T('sdk.matTitle')}</h2></div><p class="lead rv">${T('sdk.matLead')}</p></div>
+      ${matrix()}
+      <div class="bind rv"><b class="mono">${T('sdk.bindTitle')}</b><p>${T('sdk.bindD')}</p></div>
+      <div style="margin-top:2rem">${releaseCard()}</div>
+    </div></section>
+    <section class="sec" style="padding-top:0"><div class="wrap">
+      <div class="sechead"><div><span class="kicker">CHANGELOG</span><h2 class="h1 split">${T('sdk.clTitle')}</h2></div><p class="lead rv">${T('sdk.clLead')}</p></div>
+      ${microscope()}
+    </div></section>
+    <section class="sec" style="padding-top:0"><div class="wrap">
+      <div class="sechead"><div><span class="kicker">${T('home.ossRepos')}</span></div><p class="lead rv" style="font-size:var(--t-base)">${T('home.ossRepoLead')}</p></div>
+      ${repoWall()}
     </div></section>
     <section class="sec" style="padding-top:0"><div class="wrap">
       <h2 class="h1 split">${T('sdk.licTitle')}</h2>
@@ -524,6 +590,23 @@
       </div>
     </div></section>
     ${faqBlock()}${ctaBlock()}`;
+  }
+
+  function matrix() {
+    const ok = `<span class="m ok">${T('sdk.ok')}</span>`, al = `<span class="m al">${T('sdk.alpha')}</span>`, so = `<span class="m so">${T('sdk.soon')}</span>`, na = '<span class="m na">—</span>';
+    const rows = [['Windows', ok, ok], ['macOS', ok, al], ['Linux (X11)', ok, ok], ['Linux (Wayland)', so, so], ['Web browser', ok, na], ['Android', so, na], ['iOS', so, na]];
+    return `<div class="tablewrap rv"><table class="cmp mat"><thead><tr><th></th><th>${T('sdk.client')}</th><th>${T('sdk.server')}</th></tr></thead><tbody>${rows.map(r => `<tr><td class="mono">${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td></tr>`).join('')}</tbody></table><p class="note-s" style="margin-top:1rem">${T('sdk.matNotes')}</p></div>`;
+  }
+  function microscope() {
+    const R = [
+      ['0.28', '2026-08-20', '/article/v-028/', [['r28a', 'macOS host · ScreenCaptureKit · VideoToolbox'], ['r28b', 'click → video rect only'], ['r28c', 'backend = "libavconv"'], ['r28d', 'Position → kynput_Position']]],
+      ['0.27', '2026-06-26', '/article/v-027/', [['r27a', '[kycontroller] multi_client = true'], ['r27b', 'server · network · browser'], ['r27c', 'auth = OIDC']]],
+      ['0.26', '2026-05-13', '/article/v-026/', [['r26a', 'FFmpeg 8.1 · AMF · VAAPI']]],
+      ['0.25', '2026-03-31', '/article/v-025/', [['r25a', 'IPv6 · DRM/KMS · kyctl jwt']]]
+    ];
+    return `<div class="micro">${R.map(([v, d, u, items], n) => `<details class="micro__r rv"${n === 0 ? ' open' : ''}><summary><b class="mono">v${v}</b><span class="mono faint">${d}</span><span class="micro__c mono">${items.length} changes</span><i></i></summary>
+      <ul>${items.map(([k, code]) => `<li><span>${T('sdk.' + k)}</span><code class="mono" dir="ltr">${esc(code)}</code></li>`).join('')}</ul>
+      <a class="accent mono" href="${K}${u}" target="_blank" rel="noopener">${T('sdk.readNotes')} ↗</a></details>`).join('')}</div>`;
   }
 
   function pageBlog() {
@@ -548,7 +631,7 @@
     '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5h6v2"/><path d="M3 13h18"/></svg>'
   ];
   let FS = null;
-  const freshFS = () => ({ step: 0, role: null, name: '', email: '', company: '', need: [], stack: null, lat: 20, scale: null, timeline: null, job: null, link: '', channel: null, day: null, time: null, note: '' });
+  const freshFS = () => ({ step: 0, role: null, name: '', email: '', company: '', need: [], stack: null, lat: 20, scale: null, timeline: null, job: null, link: '', phone: '', channel: null, day: null, time: null, note: '' });
   function pageConnect() {
     if (!FS) FS = freshFS();
     const jobs = ['j1', 'j2', 'j3', 'j4', 'j5'];
@@ -592,11 +675,13 @@
             <h2 class="q">${T('flow.jobQ')}</h2>
             <div class="pills">${jobs.map(j => pill('job', j, T('about.' + j))).join('')}</div>
             <div class="grid2">${fld('link', 'flow.linkedin', 'url', true)}</div>
+            <div class="hintbox"><span>${T('about.stackLine')}</span><a class="btn btn--accent btn--sm" id="jobGo" href="${K}/about#careers" target="_blank" rel="noopener">${T('flow.jobApply')} ${ARRUR}</a></div>
           </div>
         </div>
         <div class="stage" data-s="2">
           <h2 class="q">${T('flow.q3')}</h2>
           <div class="pills">${[1, 2, 3, 4].map(i => pill('channel', 'c' + i, T('flow.c' + i))).join('')}</div>
+          <div class="grp" data-show="phone"><div class="grid2">${fld('phone', 'flow.phone', 'tel', true)}</div></div>
           <div class="grp" data-show="when">
             <p class="qs">${T('flow.q3b')}</p>
             <div class="days">${days.map(x => `<button type="button" class="day" data-g="day" data-v="${x.toISOString().slice(0, 10)}" aria-pressed="false"><small>${fmtD(x, { weekday: 'short' })}</small><b>${fmtD(x, { day: 'numeric' })}</b><small>${fmtD(x, { month: 'short' })}</small></button>`).join('')}</div>
@@ -619,9 +704,9 @@
         <div class="doneview" role="status">
           <div class="pulse-ring"><i></i><i></i><i></i><b>✓</b></div>
           <div class="big">${T('flow.done')}</div>
-          <div class="ms" id="doneMs">8.3 ms</div>
+          <div class="ms mono" id="doneMs"></div>
           <p>${T('flow.doneLead')}</p>
-          <div class="btns">${btnSdk('btn--accent')} <button type="button" class="btn btn--ghost" id="fRestart">${T('flow.restart')}</button></div>
+          <div class="btns"><a class="btn btn--accent" id="fMail" href="mailto:contact@kyber.tech">${T('flow.sendEmail')} ${ARR}</a> ${btnSdk('btn--ghost')} <button type="button" class="btn btn--ghost" id="fRestart">${T('flow.restart')}</button></div>
         </div>
       </div>
     </div></section>`;
@@ -638,6 +723,8 @@
       $('#devHint', panel).hidden = st.role !== 'r1';
       $$('[data-show="nojob"]', panel).forEach(e => e.hidden = isJob()); $$('[data-show="job"]', panel).forEach(e => e.hidden = !isJob());
       $$('[data-show="when"]', panel).forEach(e => e.hidden = st.channel === 'c3');
+      $$('[data-show="phone"]', panel).forEach(e => e.hidden = st.channel !== 'c2');
+      const jg = $('#jobGo', panel); if (jg) { const J = { j1: '/job/senior-windows-systems-developer', j2: '/job/3ddxr-developpper', j3: '/job/network-systems-developer', j4: '/job/sdr-developpper', j5: '/job/forward-deployed-engineer' }; jg.href = K + (J[st.job] || '/about#careers'); }
       const lr = $('#latR', panel); lr.value = st.lat; $('#latVal', panel).textContent = st.lat + ' ms';
       const lk = st.lat <= 10 ? 'lat1' : st.lat <= 100 ? 'lat2' : st.lat <= 300 ? 'lat3' : 'lat4'; $('#latTxt', panel).textContent = '≈ ' + t('home.' + lk);
     };
@@ -656,7 +743,7 @@
     const valid = (n) => {
       if (n === 0) return st.role && st.name.trim() && /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(st.email);
       if (n === 1) return isJob() ? !!st.job : (st.need.length && st.timeline);
-      if (n === 2) return st.channel && (st.channel === 'c3' || (st.day && st.time));
+      if (n === 2) return st.channel && (st.channel !== 'c2' || st.phone.trim().length > 5) && (st.channel === 'c3' || (st.day && st.time));
       return true;
     };
     const renderSum = () => {
@@ -664,7 +751,7 @@
       const need = isJob() ? t('about.' + st.job) : [st.need.map(x => x === 'other' ? t('flow.other') : t(`solutions.${x}.name`)).join(', '), st.stack ? t('flow.' + st.stack) : '', st.lat + ' ms', st.scale ? st.scale + ' ' + t('flow.machines') : '', st.timeline ? t('flow.' + st.timeline) : ''].filter(Boolean).join(' · ');
       let when = st.channel ? t('flow.' + st.channel) : '—';
       if (st.channel !== 'c3' && st.day) { try { when += ' · ' + new Intl.DateTimeFormat(LANG, { weekday: 'long', day: 'numeric', month: 'long' }).format(new Date(st.day + 'T12:00')); } catch (e) { when += ' · ' + st.day; } if (st.time) when += ' · ' + t('flow.' + st.time); }
-      const rows = [[t('flow.summaryRole'), `${esc(role)}<br><span class="muted">${esc(st.name)} · ${esc(st.email)}${st.company ? ' · ' + esc(st.company) : ''}</span>`, 0], [t('flow.summaryNeed'), esc(need) + (st.link ? `<br><span class="muted">${esc(st.link)}</span>` : ''), 1], [t('flow.summaryWhen'), esc(when) + (st.note ? `<br><span class="muted">“${esc(st.note)}”</span>` : ''), 2]];
+      const rows = [[t('flow.summaryRole'), `${esc(role)}<br><span class="muted">${esc(st.name)} · ${esc(st.email)}${st.company ? ' · ' + esc(st.company) : ''}${st.phone ? ' · ' + esc(st.phone) : ''}</span>`, 0], [t('flow.summaryNeed'), esc(need) + (st.link ? `<br><span class="muted">${esc(st.link)}</span>` : ''), 1], [t('flow.summaryWhen'), esc(when) + (st.note ? `<br><span class="muted">“${esc(st.note)}”</span>` : ''), 2]];
       $('#sum', panel).innerHTML = rows.map(([k, v, s2]) => `<div><dt>${esc(k)}</dt><dd>${v}</dd><button type="button" data-goto="${s2}">${T('flow.edit')}</button></div>`).join('');
     };
     panel.addEventListener('click', (e) => {
@@ -679,7 +766,10 @@
       if (!valid(st.step)) { err.classList.add('on'); if (G) G.fromTo(stages[st.step], { x: -8 }, { x: 0, duration: .5, ease: 'elastic.out(1,.3)' }); return; }
       if (st.step < 3) return show(st.step + 1);
       const nb = $('#fNext', main); nb.textContent = t('flow.sending'); nb.disabled = true;
-      setTimeout(() => { panel.classList.add('sent'); $('#doneMs', main).textContent = '⟶ ' + (7.6 + Math.random() * 1.6).toFixed(1) + ' ms'; stepsEl.forEach(x => { x.classList.remove('on'); x.classList.add('done'); }); bar.style.width = '100%'; if (G && !RM) G.from($('.doneview', panel).children, { opacity: 0, y: 30, stagger: .08, duration: .9, ease: 'expo.out' }); }, 650);
+      const sumTxt = $$('#sum > div', panel).map(r => r.querySelector('dt').textContent + ': ' + r.querySelector('dd').innerText.replace(/\n/g, ' — ')).join('\n') + (st.phone ? '\n' + t('flow.phone') + ': ' + st.phone : '');
+      $('#fMail', main).href = 'mailto:contact@kyber.tech?subject=' + encodeURIComponent('Kyber — ' + (st.company || st.name)) + '&body=' + encodeURIComponent(sumTxt);
+      const tSend = performance.now();
+      setTimeout(() => { panel.classList.add('sent'); $('#doneMs', main).textContent = 'prototype · 0 bytes sent · ' + (performance.now() - tSend).toFixed(0) + ' ms UI'; stepsEl.forEach(x => { x.classList.remove('on'); x.classList.add('done'); }); bar.style.width = '100%'; if (G && !RM) G.from($('.doneview', panel).children, { opacity: 0, y: 30, stagger: .08, duration: .9, ease: 'expo.out' }); }, 650);
     });
     $('#fRestart', main).addEventListener('click', () => { FS = freshFS(); route(true); });
     const pn = $('#parisNow', main); const tick = () => { try { pn.textContent = new Intl.DateTimeFormat('en-GB', { hour: '2-digit', minute: '2-digit', timeZone: 'Europe/Paris' }).format(new Date()); } catch (e) { } }; tick(); const id = setInterval(tick, 15000); on(() => clearInterval(id));
@@ -701,9 +791,11 @@
         <div><h4>${T('footer.product')}</h4><ul><li><a href="#/technology">${T('nav.technology')}</a></li><li><a href="#/sdk">${T('common.getSdk')}</a></li><li><a href="${K}/get-the-sdk/" target="_blank" rel="noopener">${T('footer.getApp')}</a></li><li><a href="${DOCS}" target="_blank" rel="noopener">${T('footer.docs')}</a></li></ul></div>
         <div><h4>${T('nav.solutions')}</h4><ul>${SOL.map(s => `<li><a href="#/solutions/${s}">${T(`solutions.${s}.name`)}</a></li>`).join('')}</ul></div>
         <div><h4>${T('footer.company')}</h4><ul><li><a href="#/about">${T('nav.about')}</a></li><li><a href="#/about" data-anchor="careers">${T('footer.careers')}</a></li><li><a href="#/blog">${T('nav.blog')}</a></li><li><a href="#/connect">${T('nav.connect')}</a></li><li><a href="${GL}" target="_blank" rel="noopener">GitLab ↗</a></li><li><a href="https://www.linkedin.com/company/kyber-tech/" target="_blank" rel="noopener">LinkedIn ↗</a></li></ul></div>
+        <div><h4>${T('footer.community')}</h4><ul><li><a href="${GL}" target="_blank" rel="noopener">GitLab ↗</a></li><li><a href="https://discord.gg/ztJ76bkYNm" target="_blank" rel="noopener">Discord ↗</a></li><li><a href="${REL.url}" target="_blank" rel="noopener">${T('footer.installer')} ↗</a></li><li><a href="mailto:contact@kyber.tech">contact@kyber.tech</a></li></ul>
+          <h4 style="margin-top:1.6rem">${T('footer.legal')}</h4><ul><li><a href="${K}/legal/privacy-policy/" target="_blank" rel="noopener">${T('footer.privacy')}</a></li><li><a href="${K}/legal/cookies-policy/" target="_blank" rel="noopener">${T('footer.cookies')}</a></li><li><a href="${K}/legal/terms-of-service/" target="_blank" rel="noopener">${T('footer.terms')}</a></li></ul></div>
       </div>
       <div class="ftr__mark" aria-hidden="true"><svg viewBox="0 0 93 24" fill="currentColor">${$('.hdr__logo svg').innerHTML}</svg></div>
-      <div class="ftr__bot"><span>Kyber ©2026 · ${T('footer.rights')} · ${T('footer.cities')}</span><span>${T('footer.proposal')}</span></div>`;
+      <div class="ftr__bot"><span>Kyber ©2026 · ${T('footer.rights')} · ${T('footer.cities')}</span><button class="conhint mono" type="button" onclick="document.getElementById('conBtn').click()">›_ ${T('con.hint')}</button><span>${T('footer.proposal')}</span></div>`;
   }
 
   /* ---------------- motion per page ---------------- */
@@ -807,18 +899,24 @@
 
     // hero
     const gl = $('#heroGl', main); if (gl) on(FX.hero(gl));
-    const hudMs = $('#hudMs', main);
-    if (hudMs) {
-      let cur = 8.2;
-      const id = setInterval(() => {
-        cur = 7.6 + Math.random() * 1.9; hudMs.textContent = num(cur, { minimumFractionDigits: 1, maximumFractionDigits: 1 });
-        const s = $('#stageMs', main); if (s) s.textContent = cur.toFixed(1);
-      }, 420); on(() => clearInterval(id));
-      on(FX.spark($('#spark', main), () => cur));
-      const clk = $('#hudClock', main);
-      const t0 = performance.now();
-      let raf; const tick = () => { const ms = performance.now() - t0; const d = new Date(ms); clk.textContent = `${String(d.getUTCHours()).padStart(2, '0')}:${String(d.getUTCMinutes()).padStart(2, '0')}:${String(d.getUTCSeconds()).padStart(2, '0')}.${String(d.getUTCMilliseconds()).padStart(3, '0')}`; raf = requestAnimationFrame(tick); }; tick(); on(() => cancelAnimationFrame(raf));
-    }
+    // real metrics bindings (frame interval, jitter, input delay)
+    const fmt1 = (v) => (v == null ? '—' : num(v, { minimumFractionDigits: 1, maximumFractionDigits: 1 }));
+    const bindM = () => {
+      const m = FX.metrics;
+      $$('.js-p50', main).forEach(e => e.textContent = fmt1(m.p50));
+      $$('.js-p95', main).forEach(e => e.textContent = fmt1(m.p95));
+      $$('.js-jit', main).forEach(e => e.textContent = fmt1(m.p95 - m.p50));
+      $$('.js-hz', main).forEach(e => e.textContent = m.hz);
+      $$('.js-long', main).forEach(e => e.textContent = m.longF);
+      $$('.js-frame', main).forEach(e => e.textContent = m.frames);
+      if (m.inputNext != null) { $$('.js-input', main).forEach(e => e.textContent = fmt1(m.inputNext) + ' ms'); $$('.js-inputhint', main).forEach(e => e.style.visibility = 'hidden'); }
+      $$('.js-rframe', main).forEach(e => e.style.setProperty('--w', Math.min(100, m.p50 / 200 * 100) + '%'));
+    };
+    bindM(); on(FX.onMetrics(bindM));
+    if ($('#spark', main)) on(FX.realSpark($('#spark', main)));
+    if ($('#scopeCv', main)) on(FX.scope($('#scopeCv', main)));
+    if ($('#inspBody', main)) on(FX.inspector($('#inspBody', main), { delivered: t('tech.stDelivered'), skipped: t('tech.stSkipped'), retx: t('tech.stRetx'), acked: t('tech.stAcked') }, $('#inspLoss', main)));
+    if ($('#fec', main)) FX.fec($('#fec', main), { ok: t('tech.fecOk'), fail: t('tech.fecFail'), intact: t('tech.fecIntact') });
     // mini fields in CTA cards
     $$('[data-fx="mini-field"]', main).forEach(cv => on(FX.hero(cv)));
 
@@ -870,8 +968,7 @@
       const upd = (p) => {
         prog = p; line.style.strokeDashoffset = L * (1 - p);
         nodes.forEach((n, i) => n.classList.toggle('is-on', p >= i / 5 + .05));
-        const v = Math.min(1, p * 1.08) * 8.2;
-        total.textContent = num(v, { minimumFractionDigits: 1, maximumFractionDigits: 1 });
+        total.textContent = Math.round(Math.min(1, p * 1.1) * 8);
       };
       if (ST && G && !RM) {
         const pin = innerWidth > 760;
@@ -894,7 +991,6 @@
       const nq = $('#nQ', main), nl = $('#nL', main), nc = $('#nC', main);
       const upd = () => { const v = q(); const res = [144, 240, 360, 480, 720, 1080][Math.min(5, Math.floor(v * 5.99))]; nq.textContent = res + 'p'; nl.textContent = Math.round((1 - v) * 30) + '%'; };
       r.addEventListener('input', upd); upd();
-      const id = setInterval(() => nc.textContent = (8 + Math.random() * 1.2).toFixed(1) + ' ms', 500); on(() => clearInterval(id));
       buildClock($('#clockSvg', main));
     }
 
@@ -977,11 +1073,21 @@
     $$('.js-stars').forEach(e => e.textContent = num(REPO.stars));
     $$('.js-forks').forEach(e => e.textContent = num(REPO.forks));
     $$('.js-last').forEach(e => e.textContent = relTime(REPO.last));
+    $$('.js-livestate').forEach(e => e.textContent = REPO.live ? t('home.ossLiveOk') + ' · ' + REPO.at.toLocaleTimeString('en-GB') : t('home.ossSnapshot') + ' · 2026-10-02');
+    $$('[data-repo]').forEach(a => { const v = REPOSNAP[a.dataset.repo]; if (v) { a.querySelector('.js-rs').textContent = v[0]; a.querySelector('.js-rl').textContent = v[1]; } });
+    $$('.js-reltag').forEach(e => e.textContent = REL.tag); $$('.js-reldate').forEach(e => e.textContent = REL.date);
+    $$('.js-reldl').forEach(e => e.href = REL.dl); $$('.js-relurl').forEach(e => e.href = REL.url);
   }
   async function fetchRepo() {
     try {
       const r = await fetch('https://gitlab.com/api/v4/projects/kyber%2Fkyber'); if (!r.ok) return;
-      const d = await r.json(); REPO.stars = d.star_count ?? REPO.stars; REPO.forks = d.forks_count ?? REPO.forks; REPO.last = d.last_activity_at || REPO.last; REPO.live = true; applyRepo();
+      const d = await r.json(); REPO.stars = d.star_count ?? REPO.stars; REPO.forks = d.forks_count ?? REPO.forks; REPO.last = d.last_activity_at || REPO.last; REPO.live = true; REPO.at = new Date(); applyRepo();
+    } catch (e) { }
+    try {
+      const r = await fetch('https://gitlab.com/api/v4/groups/kyber/projects?include_subgroups=true&per_page=50'); if (r.ok) { (await r.json()).forEach(p => { if (REPOSNAP[p.path_with_namespace]) REPOSNAP[p.path_with_namespace] = [p.star_count, (p.last_activity_at || '').slice(0, 10)]; }); applyRepo(); }
+    } catch (e) { }
+    try {
+      const r = await fetch('https://gitlab.com/api/v4/projects/78083474/releases?per_page=1'); if (r.ok) { const [x] = await r.json(); if (x) { REL.tag = x.tag_name; REL.date = (x.released_at || '').slice(0, 10); REL.url = x._links?.self || REL.url; const a = (x.assets?.links || []).find(l => /\.exe$/.test(l.name)); if (a) { REL.dl = a.url; REL.file = a.name; } applyRepo(); } }
     } catch (e) { }
   }
 
@@ -994,7 +1100,7 @@
     if (!force && path === lastPath) return;
     const doWipe = !first && !RM && window.gsap;
     const wipe = $('#wipe');
-    if (doWipe) await gsap.fromTo(wipe, { clipPath: 'inset(100% 0 0 0)' }, { clipPath: 'inset(0% 0 0 0)', duration: .45, ease: 'expo.in' });
+    if (doWipe) await gsap.fromTo(wipe, { clipPath: 'inset(100% 0 0 0)' }, { clipPath: 'inset(0% 0 0 0)', duration: .16, ease: 'power2.in' });
     cleanups.forEach(f => { try { f && f(); } catch (e) { } }); cleanups = [];
     window.ScrollTrigger && ScrollTrigger.getAll().forEach(s => s.kill());
     const main = $('#main');
@@ -1020,7 +1126,7 @@
     $$('img', main).forEach(im => !im.complete && im.addEventListener('load', rf, { once: true }));
     setTimeout(rf, 1200);
     if (anchor) setTimeout(() => { const el = document.getElementById(anchor); el && (lenis ? lenis.scrollTo(el, { offset: -80 }) : el.scrollIntoView()); }, 300);
-    if (doWipe) gsap.fromTo(wipe, { clipPath: 'inset(0 0 0% 0)' }, { clipPath: 'inset(0 0 100% 0)', duration: .6, ease: 'expo.out', delay: .05 });
+    if (doWipe) gsap.fromTo(wipe, { clipPath: 'inset(0 0 0% 0)' }, { clipPath: 'inset(0 0 100% 0)', duration: .22, ease: 'power2.out' });
     first = false;
   }
 
@@ -1084,7 +1190,7 @@
       $('#dock').classList.toggle('on', y > innerHeight * .8 && !hideDock && h - y > 300);
     };
     // smooth scroll
-    if (window.Lenis && !RM) {
+    if (false && window.Lenis) {
       lenis = new Lenis({ lerp: .11, smoothWheel: true });
       lenis.on('scroll', (e) => {
         window.ScrollTrigger && ScrollTrigger.update(); onScroll(e.scroll);
@@ -1094,10 +1200,49 @@
       else { const r = (t) => { lenis.raf(t); requestAnimationFrame(r); }; requestAnimationFrame(r); }
     } else addEventListener('scroll', () => onScroll(scrollY), { passive: true });
     // header ping
-    const ping = $('#ping'); setInterval(() => ping.textContent = (7.6 + Math.random() * 1.8).toFixed(1), 700);
+    const ping = $('#ping'); FX.onMetrics((m) => { ping.textContent = m.p50.toFixed(1); });
     FX.cursor();
     FX.magnetic(document.querySelector('.hdr'));
     addEventListener('hashchange', () => route());
+  }
+
+
+  /* ---------------- developer console ---------------- */
+  function initConsole() {
+    const el = document.createElement('div'); el.className = 'con'; el.id = 'con'; el.setAttribute('role', 'dialog'); el.setAttribute('aria-label', 'Console'); el.hidden = true;
+    el.innerHTML = `<div class="con__bar"><i></i><i></i><i></i><span class="mono">kyber@browser: ~</span><button class="mono" data-x>esc</button></div><div class="con__out mono" role="log" aria-live="polite"></div><label class="con__in mono"><span>❯</span><input spellcheck="false" autocomplete="off" aria-label="command"></label>`;
+    document.body.appendChild(el);
+    const out = $('.con__out', el), inp = $('input', el); const hist = []; let hi = 0;
+    const print = (txt, cls = '') => { const d = document.createElement('div'); if (cls) d.className = cls; d.textContent = txt; out.appendChild(d); out.scrollTop = out.scrollHeight; };
+    const f1 = (v) => v == null ? '—' : v.toFixed(2);
+    const CMD = {
+      help: () => ['help            this list', 'metrics         live frame timing + input delay (this tab)', 'perf            resources this page loaded, with real timings', 'lag <ms|off>    ghost cursor trailing you by <ms> — feel 200 ms', 'repos           Kyber repositories (GitLab)', 'release         latest Windows installer', 'sdk             how to start', 'jobs            open positions', 'theme [dark|light]   switch theme', 'lang <code>     en fr de es pt zh ja hi ar he', 'goto <page>     technology sdk about blog connect', 'whoami          what your browser tells us (stays local)', 'clear · exit'].forEach(l => print(l)),
+      metrics: () => { const m = FX.metrics; print(`frame p50 ${f1(m.p50)} ms · p95 ${f1(m.p95)} ms · jitter ${f1(m.p95 - m.p50)} ms`); print(`refresh ≈ ${m.hz} Hz · frames ${m.frames} · long frames (>50 ms) ${m.longF}`); print(`last input → next frame ${m.inputNext == null ? '— (press a key)' : f1(m.inputNext) + ' ms'} · handler delay ${f1(m.input)} ms`); print('kyber end-to-end target: 8–10 ms (optimal conditions)', 'dim'); },
+      perf: () => { const nav = performance.getEntriesByType('navigation')[0]; if (nav) print(`navigation  ttfb ${f1(nav.responseStart)} ms · dom ${f1(nav.domContentLoadedEventEnd)} ms · boot ${f1(window.__boot || 0)} ms`); performance.getEntriesByType('resource').slice(-14).forEach(r => print(`${(r.duration).toFixed(1).padStart(7)} ms  ${r.transferSize === 0 ? 'cache' : (r.transferSize / 1024).toFixed(1) + ' kB'}  ${r.name.replace(location.origin, '').split('?')[0].slice(-58)}`)); },
+      lag: (a) => { const v = a === 'off' ? 0 : Math.max(0, Math.min(2000, +a || 200)); FX.lag = v; print(v ? `ghost cursor now trails you by ${v} ms. move around. 'lag off' to stop.` : 'ghost cursor off.'); },
+      repos: () => REPOS.forEach(([pth]) => { const v = REPOSNAP[pth]; print(`★${String(v[0]).padStart(3)}  ${v[1]}  gitlab.com/${pth}`); }),
+      release: () => { print(`${REL.tag}  ${REL.date}  ${REL.file}`); print(REL.url, 'dim'); },
+      sdk: () => { print('$ ' + CLONE); print('docs   ' + DOCS); print('build  gitlab.com/kyber/apps/kyber-desktop'); print('embed  gitlab.com/kyber/core/kysdk  (Rust · C via cbindgen · JS via wasm-bindgen)'); },
+      jobs: () => ['j1', 'j2', 'j3', 'j4', 'j5'].forEach(j => print('· ' + t('about.' + j))),
+      theme: (a) => { const n = a || (document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark'); document.documentElement.dataset.theme = n; print('theme → ' + n); },
+      lang: (a) => { if (!a) return print('lang <code>'); setLang(a); print('lang → ' + a); },
+      goto: (a) => { location.hash = '#/' + (a || ''); print('route → /' + (a || '')); },
+      whoami: () => { print(`lang ${navigator.language} · tz ${Intl.DateTimeFormat().resolvedOptions().timeZone}`); print(`viewport ${innerWidth}×${innerHeight} @${devicePixelRatio}x · ${FX.metrics.hz} Hz · cores ${navigator.hardwareConcurrency || '?'}`); print(`webtransport ${'WebTransport' in window ? 'yes' : 'no'} · webcodecs ${'VideoEncoder' in window ? 'yes' : 'no'} · webgpu ${'gpu' in navigator ? 'yes' : 'no'}`); print('nothing leaves this tab.', 'dim'); },
+      clear: () => { out.innerHTML = ''; }, exit: () => close(), sudo: () => print('nice try. latency is not negotiable.', 'dim'), vlc: () => print('▲ 7B+ downloads. the cone approves.', 'dim'), ping: () => { const t0 = performance.now(); fetch('i18n/en.json', { cache: 'no-store' }).then(() => print(`HTTP round trip to this site: ${(performance.now() - t0).toFixed(1)} ms (not Kyber — your network + CDN)`)); }
+    };
+    const run = (line) => { print('❯ ' + line, 'cmd'); const [c, ...a] = line.trim().split(/\s+/); if (!c) return; (CMD[c] || (() => print(`${c}: command not found — try help`, 'err')))(a.join(' ')); };
+    const open = () => { el.hidden = false; if (!out.childElementCount) { print('kyber console · ' + t('con.welcome'), 'dim'); print(`boot ${Math.round(window.__boot || 0)} ms · frame p50 ${FX.metrics.p50.toFixed(1)} ms · ${FX.metrics.hz} Hz`, 'dim'); } requestAnimationFrame(() => inp.focus()); };
+    const close = () => { el.hidden = true; $('#conBtn')?.focus(); };
+    inp.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') { const v = inp.value; inp.value = ''; if (v.trim()) { hist.push(v); hi = hist.length; } run(v); }
+      else if (e.key === 'ArrowUp') { hi = Math.max(0, hi - 1); inp.value = hist[hi] || ''; e.preventDefault(); }
+      else if (e.key === 'ArrowDown') { hi = Math.min(hist.length, hi + 1); inp.value = hist[hi] || ''; e.preventDefault(); }
+      else if (e.key === 'Escape') close();
+      else if (e.key === 'Tab') { e.preventDefault(); const m = Object.keys(CMD).find(k => k.startsWith(inp.value)); if (m) inp.value = m + ' '; }
+    });
+    $('[data-x]', el).addEventListener('click', close);
+    $('#conBtn').addEventListener('click', () => el.hidden ? open() : close());
+    addEventListener('keydown', (e) => { if ((e.key === '`' || (e.key === 'k' && (e.metaKey || e.ctrlKey))) && !e.target.closest('input,textarea,select')) { e.preventDefault(); el.hidden ? open() : close(); } });
   }
 
   /* ---------------- boot ---------------- */
@@ -1107,15 +1252,12 @@
     const q = new URLSearchParams(location.search).get('lang');
     const want = q || 'en';
     const loadP = (async () => { EN = await load('en'); await setLang(want, false); })();
-    ui();
-    // loader: count latency down 200 → 8
-    await new Promise(res => {
-      if (RM || !window.gsap) return res();
-      const o = { v: 200 }; gsap.to(o, { v: 8, duration: 1.3, ease: 'expo.inOut', onUpdate: () => { loaderNum.textContent = Math.round(o.v); bar.style.width = (100 - (o.v - 8) / 192 * 100) + '%'; }, onComplete: res });
-    });
+    ui(); initConsole();
     await loadP;
     route(true);
-    $('#loader').classList.add('done');
+    window.__boot = performance.now();
+    loaderNum.textContent = Math.round(window.__boot); bar.style.width = '100%';
+    setTimeout(() => $('#loader').classList.add('done'), 120);
     fetchRepo();
   }
   boot();
