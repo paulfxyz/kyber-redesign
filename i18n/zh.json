@@ -789,7 +789,7 @@
   "sendEmail": "发送邮件至 contact@kyber.tech"
  },
  "con": {
-  "hint": "按 ` 打开控制台",
+  "hint": "按 K 打开控制台",
   "welcome": "输入 help。此处所有内容均在您的浏览器本地运行。"
  },
  "a11y": {

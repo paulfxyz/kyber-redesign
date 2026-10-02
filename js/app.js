@@ -28,7 +28,7 @@
   const T = (k) => esc(t(k));
   async function load(l) {
     if (cache[l]) return cache[l];
-    const r = await fetch(`i18n/${l}.json?v=1790901499`); if (!r.ok) throw new Error('lang'); return (cache[l] = await r.json());
+    const r = await fetch(`i18n/${l}.json?v=1790902097`); if (!r.ok) throw new Error('lang'); return (cache[l] = await r.json());
   }
   function loadFont(l) {
     if (!FONTS[l] || document.getElementById('font-' + l)) return;
@@ -859,7 +859,7 @@
           <h4 style="margin-top:1.6rem">${T('footer.legal')}</h4><ul><li><a href="${K}/legal/privacy-policy/" target="_blank" rel="noopener">${T('footer.privacy')}</a></li><li><a href="${K}/legal/cookies-policy/" target="_blank" rel="noopener">${T('footer.cookies')}</a></li><li><a href="${K}/legal/terms-of-service/" target="_blank" rel="noopener">${T('footer.terms')}</a></li></ul></div>
       </div>
       <div class="ftr__mark" aria-hidden="true"><svg viewBox="0 0 93 24" fill="currentColor">${$('.hdr__logo svg').innerHTML}</svg></div>
-      <div class="ftr__bot"><span>Kyber ©2026 · ${T('footer.rights')} · ${T('footer.cities')}</span><button class="conhint mono" type="button" onclick="document.getElementById('conBtn').click()">›_ ${T('con.hint')}</button><span>${T('footer.proposal')}</span></div>`;
+      <div class="ftr__bot"><span>Kyber ©2026 · ${T('footer.rights')} · ${T('footer.cities')}</span><button class="conhint mono" type="button" data-open-console>›_ ${T('con.hint')}</button><span>${T('footer.proposal')}</span></div>`;
   }
 
   /* ---------------- motion per page ---------------- */
@@ -1309,7 +1309,15 @@
     });
     $('[data-x]', el).addEventListener('click', close);
     $('#conBtn').addEventListener('click', () => el.hidden ? open() : close());
-    addEventListener('keydown', (e) => { if ((e.key === '`' || (e.key === 'k' && (e.metaKey || e.ctrlKey))) && !e.target.closest('input,textarea,select')) { e.preventDefault(); el.hidden ? open() : close(); } });
+    document.addEventListener('click', (e) => { if (e.target.closest('[data-open-console]')) { e.preventDefault(); e.stopPropagation(); el.hidden ? open() : close(); } }, true);
+    addEventListener('keydown', (e) => {
+      if (e.target.closest && e.target.closest('input,textarea,select,[contenteditable]')) return;
+      const k = (e.key || '').toLowerCase();
+      const plainK = k === 'k' && !e.altKey && !e.shiftKey && !e.metaKey && !e.ctrlKey;
+      const cmdK = k === 'k' && (e.metaKey || e.ctrlKey);
+      if (e.key === 'Escape' && !el.hidden) { close(); return; }
+      if (plainK || cmdK || e.key === '`') { e.preventDefault(); el.hidden ? open() : close(); }
+    });
   }
 
   /* ---------------- boot ---------------- */

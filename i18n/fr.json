@@ -789,7 +789,7 @@
   "sendEmail": "Envoyer un e-mail à contact@kyber.tech"
  },
  "con": {
-  "hint": "Appuyez sur ` pour ouvrir la console",
+  "hint": "Appuyez sur K pour ouvrir la console",
   "welcome": "Tapez help. Tout ici s'exécute localement dans votre navigateur."
  },
  "a11y": {
