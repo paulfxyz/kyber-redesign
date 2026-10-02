@@ -28,7 +28,7 @@
   const T = (k) => esc(t(k));
   async function load(l) {
     if (cache[l]) return cache[l];
-    const r = await fetch(`i18n/${l}.json?v=1790914942`); if (!r.ok) throw new Error('lang'); return (cache[l] = await r.json());
+    const r = await fetch(`i18n/${l}.json?v=1790917086`); if (!r.ok) throw new Error('lang'); return (cache[l] = await r.json());
   }
   function loadFont(l) {
     if (!FONTS[l] || document.getElementById('font-' + l)) return;
@@ -848,7 +848,9 @@
     $('#mnav').innerHTML = `
       <div><a class="big" href="#/">Kyber</a><a class="big" href="#/technology">${T('nav.technology')}</a><a class="big" href="#/sdk">${T('nav.sdk')}</a><a class="big" href="#/about">${T('nav.about')}</a><a class="big" href="#/blog">${T('nav.blog')}</a><a class="big" href="#/connect">${T('nav.connect')}</a></div>
       <div><div class="kicker">${T('nav.solutions')}</div><div class="sub">${SOL.map(s => `<a href="#/solutions/${s}">${T(`solutions.${s}.name`)}</a>`).join('')}</div></div>
-      <div class="btns">${btnSdk('btn--accent')} ${btnStar()}</div>`;
+      <div class="btns">${btnSdk('btn--accent')}</div>
+      <div class="mtools"><label class="mtools__lang"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.7 3.8 5.7 3.8 9s-1.3 6.3-3.8 9c-2.5-2.7-3.8-5.7-3.8-9S9.5 5.7 12 3z"/></svg><span class="sr-only">${T('nav.language')}</span><select data-mlang aria-label="${T('nav.language')}">${LANGS.map(([c, n]) => `<option value="${c}" ${c === LANG ? 'selected' : ''}>${n}</option>`).join('')}</select></label>
+        <button type="button" class="iconbtn" data-mtheme aria-label="${T('nav.theme')}"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg></button><button type="button" class="iconbtn mono" data-open-console aria-label="${T('common.console')}">›_</button></div>`;
     $('#ftr').innerHTML = `
       <div class="ftr__top">
         <div class="ftr__brand"><svg viewBox="0 0 18.1 18.7" width="34" fill="currentColor" aria-hidden="true"><path d="M12.79 18.605h5.233v-4.652l-5.232-4.65-5.233 4.65zM2.326 9.302l5.232-4.65V0H0v18.605h7.558V9.302zM18.023.0h-5.232L7.558 4.651v4.651h5.233l5.232-4.65z"/></svg><p>${T('footer.tagline')}</p></div>
@@ -858,7 +860,7 @@
         <div><h4>${T('footer.community')}</h4><ul><li><a href="${GL}" target="_blank" rel="noopener">GitLab ↗</a></li><li><a href="https://discord.gg/ztJ76bkYNm" target="_blank" rel="noopener">Discord ↗</a></li><li><a href="${REL.url}" target="_blank" rel="noopener">${T('footer.installer')} ↗</a></li><li><a href="mailto:contact@kyber.tech">contact@kyber.tech</a></li></ul>
           <h4 style="margin-top:1.6rem">${T('footer.legal')}</h4><ul><li><a href="${K}/legal/privacy-policy/" target="_blank" rel="noopener">${T('footer.privacy')}</a></li><li><a href="${K}/legal/cookies-policy/" target="_blank" rel="noopener">${T('footer.cookies')}</a></li><li><a href="${K}/legal/terms-of-service/" target="_blank" rel="noopener">${T('footer.terms')}</a></li></ul></div>
       </div>
-      <div class="ftr__mark" aria-hidden="true"><svg viewBox="0 0 93 24" fill="currentColor">${$('.hdr__logo svg').innerHTML}</svg></div>
+      <div class="ftr__mark" aria-hidden="true"><svg viewBox="0 0 93 24" fill="currentColor">${$('.hdr__logo svg').innerHTML.replace(/<defs>.*?<\/defs>/s,'').replace('url(#kshine)','currentColor')}</svg></div>
       <div class="ftr__bot"><span>Kyber ©2026 · ${T('footer.rights')} · ${T('footer.cities')}</span><button class="conhint mono" type="button" data-open-console>›_ <span class="kb-only">${T('con.hint')}</span><span class="touch-only">${T('common.console')}</span></button><span>${T('footer.proposal')}</span></div>`;
   }
 
@@ -1213,6 +1215,8 @@
     ddb.addEventListener('click', () => { const o = !dd.classList.contains('open'); dd.classList.toggle('open', o); ddb.setAttribute('aria-expanded', o); });
     const lg = $('.lang'), lgb = $('.lang__btn');
     lgb.addEventListener('click', (e) => { e.stopPropagation(); const o = !lg.classList.contains('open'); lg.classList.toggle('open', o); lgb.setAttribute('aria-expanded', o); });
+    $('#mnav').addEventListener('change', (e) => { if (e.target.matches('[data-mlang]')) { closeMenus(); setLang(e.target.value); } });
+    $('#mnav').addEventListener('click', (e) => { if (e.target.closest('[data-mtheme]')) $('#themeBtn').click(); if (e.target.closest('[data-open-console]')) closeMenus(); });
     $('#langList').addEventListener('click', (e) => { const b = e.target.closest('button[data-l]'); if (!b) return; closeMenus(); setLang(b.dataset.l); });
     document.addEventListener('click', (e) => { if (!e.target.closest('.lang')) { lg.classList.remove('open'); lgb.setAttribute('aria-expanded', false); } if (!e.target.closest('.dd')) dd.classList.remove('open'); });
     document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeMenus(); });
