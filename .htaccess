@@ -1,0 +1,7 @@
+# Always revalidate the app shell and translations so new releases show immediately
+<IfModule mod_headers.c>
+  <FilesMatch "\.(html|json)$">
+    Header set Cache-Control "no-cache, must-revalidate"
+    Header set X-Cache-Enabled "False"
+  </FilesMatch>
+</IfModule>
