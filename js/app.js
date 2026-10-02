@@ -28,7 +28,7 @@
   const T = (k) => esc(t(k));
   async function load(l) {
     if (cache[l]) return cache[l];
-    const r = await fetch(`i18n/${l}.json?v=1790902097`); if (!r.ok) throw new Error('lang'); return (cache[l] = await r.json());
+    const r = await fetch(`i18n/${l}.json?v=1790914942`); if (!r.ok) throw new Error('lang'); return (cache[l] = await r.json());
   }
   function loadFont(l) {
     if (!FONTS[l] || document.getElementById('font-' + l)) return;
@@ -115,7 +115,7 @@
       <p class="lead rv" style="margin-top:1.4rem">${T('home.ossLead')}</p>
       <ol class="oss__steps rv">
         <li><span class="n">01</span><b>${T('home.ossStep1')}</b><a href="${GL}" target="_blank" rel="noopener">GitLab ${ARRUR}</a></li>
-        <li><span class="n">02</span><b>${T('home.ossStep2')}</b><a href="${DOCS}" target="_blank" rel="noopener">Docs ${ARRUR}</a></li>
+        <li><span class="n">02</span><b>${T('home.ossStep2')}</b><a href="${DOCS}" target="_blank" rel="noopener">${T('ui.docs')} ${ARRUR}</a></li>
         <li><span class="n">03</span><b>${T('home.ossStep3')}</b><a href="#/sdk">SDK ${ARR}</a></li>
       </ol>
       <div class="btns">${btnSdk('btn--accent')} ${btnStar()}</div>
@@ -268,7 +268,7 @@
       </div>
       <div class="play__field rv" id="field">
         <canvas></canvas>
-        <div class="play__read"><b class="mono" id="playErr">0</b><small class="mono">px drift</small></div>
+        <div class="play__read"><b class="mono" id="playErr">0</b><small class="mono">${T('ui.pxDrift')}</small></div>
         <span class="play__hint mono">${T('home.playHint')}</span>
       </div>
       <p class="mono note-s" style="grid-column:1/-1">${T('home.playNote')}</p>
@@ -299,7 +299,7 @@
         <div class="show__stage" aria-hidden="true">
           ${SOL.map((s, i) => `<figure class="${i === 0 ? 'is-on' : ''}"><img src="${img(s)}" alt="" loading="lazy"><figcaption><span>${T(`solutions.${s}.name`)}</span><span>0${i + 1} / 06</span></figcaption></figure>`).join('')}
           <div class="scan"></div><div class="reticle"><i></i><i></i><i></i><i></i></div>
-          <div class="tag mono"><i></i>REC · frame <span class="js-frame">0</span></div>
+          <div class="tag mono"><i></i>REC · ${T('ui.frame')} <span class="js-frame">0</span></div>
         </div>
       </div>
     </div></section>
@@ -594,7 +594,7 @@
 
   function matrix() {
     const ok = `<span class="m ok">${T('sdk.ok')}</span>`, al = `<span class="m al">${T('sdk.alpha')}</span>`, so = `<span class="m so">${T('sdk.soon')}</span>`, na = '<span class="m na">—</span>';
-    const rows = [['Windows', ok, ok], ['macOS', ok, al], ['Linux (X11)', ok, ok], ['Linux (Wayland)', so, so], ['Web browser', ok, na], ['Android', so, na], ['iOS', so, na]];
+    const rows = [['Windows', ok, ok], ['macOS', ok, al], ['Linux (X11)', ok, ok], ['Linux (Wayland)', so, so], [t('ui.webBrowser'), ok, na], ['Android', so, na], ['iOS', so, na]];
     return `<div class="tablewrap rv"><table class="cmp mat"><thead><tr><th></th><th>${T('sdk.client')}</th><th>${T('sdk.server')}</th></tr></thead><tbody>${rows.map(r => `<tr><td class="mono">${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td></tr>`).join('')}</tbody></table><p class="note-s" style="margin-top:1rem">${T('sdk.matNotes')}</p></div>`;
   }
   function microscope() {
@@ -604,7 +604,7 @@
       ['0.26', '2026-05-13', '/article/v-026/', [['r26a', 'FFmpeg 8.1 · AMF · VAAPI']]],
       ['0.25', '2026-03-31', '/article/v-025/', [['r25a', 'IPv6 · DRM/KMS · kyctl jwt']]]
     ];
-    return `<div class="micro">${R.map(([v, d, u, items], n) => `<details class="micro__r rv"${n === 0 ? ' open' : ''}><summary><b class="mono">v${v}</b><span class="mono faint">${d}</span><span class="micro__c mono">${items.length} changes</span><i></i></summary>
+    return `<div class="micro">${R.map(([v, d, u, items], n) => `<details class="micro__r rv"${n === 0 ? ' open' : ''}><summary><b class="mono">v${v}</b><span class="mono faint">${d}</span><span class="micro__c mono">${items.length} ${T('ui.changes')}</span><i></i></summary>
       <ul>${items.map(([k, code]) => `<li><span>${T('sdk.' + k)}</span><code class="mono" dir="ltr">${esc(code)}</code></li>`).join('')}</ul>
       <a class="accent mono" href="${K}${u}" target="_blank" rel="noopener">${T('sdk.readNotes')} ↗</a></details>`).join('')}</div>`;
   }
@@ -790,7 +790,7 @@
       const sumTxt = $$('#sum > div', panel).map(r => r.querySelector('dt').textContent + ': ' + r.querySelector('dd').innerText.replace(/\n/g, ' — ')).join('\n') + (st.phone ? '\n' + t('flow.phone') + ': ' + st.phone : '');
       $('#fMail', main).href = 'mailto:contact@kyber.tech?subject=' + encodeURIComponent('Kyber — ' + (st.company || st.name)) + '&body=' + encodeURIComponent(sumTxt);
       const tSend = performance.now();
-      setTimeout(() => { panel.classList.add('sent'); $('#doneMs', main).textContent = 'prototype · 0 bytes sent · ' + (performance.now() - tSend).toFixed(0) + ' ms UI'; stepsEl.forEach(x => { x.classList.remove('on'); x.classList.add('done'); }); bar.style.width = '100%'; if (G && !RM) G.from($('.doneview', panel).children, { opacity: 0, y: 30, stagger: .08, duration: .9, ease: 'expo.out' }); }, 650);
+      setTimeout(() => { panel.classList.add('sent'); $('#doneMs', main).textContent = t('ui.proto') + ' · 0 B · ' + (performance.now() - tSend).toFixed(0) + ' ms'; stepsEl.forEach(x => { x.classList.remove('on'); x.classList.add('done'); }); bar.style.width = '100%'; if (G && !RM) G.from($('.doneview', panel).children, { opacity: 0, y: 30, stagger: .08, duration: .9, ease: 'expo.out' }); }, 650);
     });
     $('#fRestart', main).addEventListener('click', () => { FS = freshFS(); route(true); });
     const pn = $('#parisNow', main); const tick = () => { try { pn.textContent = new Intl.DateTimeFormat('en-GB', { hour: '2-digit', minute: '2-digit', timeZone: 'Europe/Paris' }).format(new Date()); } catch (e) { } }; tick(); const id = setInterval(tick, 15000); on(() => clearInterval(id));
@@ -859,7 +859,7 @@
           <h4 style="margin-top:1.6rem">${T('footer.legal')}</h4><ul><li><a href="${K}/legal/privacy-policy/" target="_blank" rel="noopener">${T('footer.privacy')}</a></li><li><a href="${K}/legal/cookies-policy/" target="_blank" rel="noopener">${T('footer.cookies')}</a></li><li><a href="${K}/legal/terms-of-service/" target="_blank" rel="noopener">${T('footer.terms')}</a></li></ul></div>
       </div>
       <div class="ftr__mark" aria-hidden="true"><svg viewBox="0 0 93 24" fill="currentColor">${$('.hdr__logo svg').innerHTML}</svg></div>
-      <div class="ftr__bot"><span>Kyber ©2026 · ${T('footer.rights')} · ${T('footer.cities')}</span><button class="conhint mono" type="button" data-open-console>›_ ${T('con.hint')}</button><span>${T('footer.proposal')}</span></div>`;
+      <div class="ftr__bot"><span>Kyber ©2026 · ${T('footer.rights')} · ${T('footer.cities')}</span><button class="conhint mono" type="button" data-open-console>›_ <span class="kb-only">${T('con.hint')}</span><span class="touch-only">${T('common.console')}</span></button><span>${T('footer.proposal')}</span></div>`;
   }
 
   /* ---------------- motion per page ---------------- */
@@ -1274,6 +1274,41 @@
   }
 
 
+  /* ---------------- external link interstitial ---------------- */
+  function initExternal() {
+    const m = document.createElement('div'); m.className = 'xm'; m.id = 'xm'; m.hidden = true; m.setAttribute('role', 'dialog'); m.setAttribute('aria-modal', 'true'); m.setAttribute('aria-labelledby', 'xmT');
+    document.body.appendChild(m);
+    let target = null, last = null;
+    const kind = (u) => u.protocol === 'mailto:' ? 'mail' : /\.(exe|zip|dmg|pkg|msi)$/i.test(u.pathname) ? 'file' : /(^|\.)kyber\.tech$/.test(u.hostname) ? 'kyber' : /gitlab\.(com|io)$/.test(u.hostname) ? 'gitlab' : 'other';
+    const open = (a) => {
+      const u = new URL(a.href, location.href); target = a; last = document.activeElement;
+      const k = kind(u); const dest = u.protocol === 'mailto:' ? u.pathname : u.hostname + (u.pathname.length > 1 ? u.pathname.replace(/\/$/, '') : '');
+      m.innerHTML = `<div class="xm__card" role="document">
+        <div class="xm__sig" aria-hidden="true"><i></i><i></i><i></i></div>
+        <span class="kicker">${T('ext.kicker')}</span>
+        <h2 id="xmT">${T('ext.title')}</h2>
+        <p class="xm__kind">${T('ext.k_' + k)}</p>
+        <code class="xm__dest mono" dir="ltr">${esc(dest.length > 70 ? dest.slice(0, 67) + '…' : dest)}</code>
+        <p class="xm__note">${T('ext.note')}</p>
+        <div class="xm__btns"><button type="button" class="btn btn--ghost" data-stay>${T('ext.stay')}</button><button type="button" class="btn btn--accent" data-go>${T('ext.go')} ${ARRUR}</button></div>
+      </div>`;
+      m.hidden = false; document.documentElement.classList.add('xm-open'); requestAnimationFrame(() => $('[data-go]', m).focus());
+    };
+    const close = () => { m.hidden = true; document.documentElement.classList.remove('xm-open'); last && last.focus && last.focus(); };
+    document.addEventListener('click', (e) => {
+      const a = e.target.closest('a[href]'); if (!a || m.contains(a)) return;
+      const href = a.getAttribute('href'); if (!href || href.startsWith('#')) return;
+      let u; try { u = new URL(href, location.href); } catch (x) { return; }
+      if (u.origin === location.origin && u.protocol !== 'mailto:') return;
+      e.preventDefault(); e.stopPropagation(); open(a);
+    }, true);
+    m.addEventListener('click', (e) => {
+      if (e.target === m || e.target.closest('[data-stay]')) return close();
+      if (e.target.closest('[data-go]')) { const a = target; close(); if (!a) return; const u = new URL(a.href, location.href); if (u.protocol === 'mailto:' || a.hasAttribute('download') || !a.target) location.href = a.href; else window.open(a.href, '_blank', 'noopener'); }
+    });
+    document.addEventListener('keydown', (e) => { if (!m.hidden && e.key === 'Escape') { e.preventDefault(); e.stopPropagation(); close(); } if (!m.hidden && e.key === 'Tab') { const f = $$('button', m); const i = f.indexOf(document.activeElement); e.preventDefault(); f[(i + (e.shiftKey ? -1 + f.length : 1)) % f.length].focus(); } }, true);
+  }
+
   /* ---------------- developer console ---------------- */
   function initConsole() {
     const el = document.createElement('div'); el.className = 'con'; el.id = 'con'; el.setAttribute('role', 'dialog'); el.setAttribute('aria-label', 'Console'); el.hidden = true;
@@ -1308,14 +1343,16 @@
       else if (e.key === 'Tab') { e.preventDefault(); const m = Object.keys(CMD).find(k => k.startsWith(inp.value)); if (m) inp.value = m + ' '; }
     });
     $('[data-x]', el).addEventListener('click', close);
+    document.addEventListener('pointerdown', (e) => { if (!el.hidden && !e.target.closest('#con,#conBtn,[data-open-console]')) close(); }, true);
     $('#conBtn').addEventListener('click', () => el.hidden ? open() : close());
     document.addEventListener('click', (e) => { if (e.target.closest('[data-open-console]')) { e.preventDefault(); e.stopPropagation(); el.hidden ? open() : close(); } }, true);
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !el.hidden) { e.preventDefault(); close(); } }, true);
     addEventListener('keydown', (e) => {
       if (e.target.closest && e.target.closest('input,textarea,select,[contenteditable]')) return;
       const k = (e.key || '').toLowerCase();
       const plainK = k === 'k' && !e.altKey && !e.shiftKey && !e.metaKey && !e.ctrlKey;
       const cmdK = k === 'k' && (e.metaKey || e.ctrlKey);
-      if (e.key === 'Escape' && !el.hidden) { close(); return; }
+      if (e.key === 'Escape' && !el.hidden) { e.preventDefault(); close(); return; }
       if (plainK || cmdK || e.key === '`') { e.preventDefault(); el.hidden ? open() : close(); }
     });
   }
@@ -1327,7 +1364,7 @@
     const q = new URLSearchParams(location.search).get('lang');
     const want = q || 'en';
     const loadP = (async () => { EN = await load('en'); await setLang(want, false); })();
-    ui(); initConsole(); initA11y();
+    ui(); initConsole(); initA11y(); initExternal();
     await loadP;
     route(true);
     window.__boot = performance.now();

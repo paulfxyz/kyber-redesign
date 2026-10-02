@@ -829,5 +829,26 @@
   "b4d": "Send an email",
   "back": "Back to the full website",
   "langLabel": "Choose your language"
+ },
+ "ui": {
+  "pxDrift": "px drift",
+  "frame": "frame",
+  "webBrowser": "Web browser",
+  "changes": "changes",
+  "yrs": "yrs",
+  "proto": "prototype · nothing sent",
+  "docs": "Docs"
+ },
+ "ext": {
+  "kicker": "Leaving the proposal",
+  "title": "This link leaves the redesign.",
+  "k_kyber": "Next stop: Kyber's current website.",
+  "k_gitlab": "Next stop: Kyber's code and docs on GitLab.",
+  "k_file": "Next stop: a direct file download.",
+  "k_mail": "Next stop: your email app.",
+  "k_other": "Next stop: an external website.",
+  "note": "In the finished redesign, this destination would be rebranded or replaced by a purpose-built landing page — so visitors never land on raw pages, repositories or files.",
+  "go": "Continue",
+  "stay": "Stay here"
  }
 }

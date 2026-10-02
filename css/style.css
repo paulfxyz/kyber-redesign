@@ -1051,3 +1051,25 @@ h1,h2,h3,h4,p{margin:0}
 .sback:hover{border-color:var(--ink)}
 @media (max-width:640px){.sbtns{grid-template-columns:1fr}}
 .sbtn__i{white-space:nowrap;font-size:1.45rem;letter-spacing:-.05em}
+
+/* external-link interstitial */
+.xm{position:fixed;inset:0;z-index:500;display:grid;place-items:center;padding:1rem;background:color-mix(in oklab,var(--bg) 70%,transparent);backdrop-filter:blur(10px) saturate(1.2);-webkit-backdrop-filter:blur(10px) saturate(1.2);animation:xmfade .18s var(--ease)}
+.xm[hidden]{display:none!important}
+@keyframes xmfade{from{opacity:0}}
+.xm__card{position:relative;width:min(520px,100%);border-radius:22px;padding:clamp(1.4rem,4vw,2.2rem);background:var(--surface);border:1px solid var(--line2);box-shadow:0 40px 120px -30px rgba(0,0,0,.6);animation:xmin .28s var(--ease);overflow:hidden}
+@keyframes xmin{from{transform:translateY(14px) scale(.98);opacity:0}}
+.xm__sig{position:absolute;top:1.4rem;inset-inline-end:1.4rem;width:44px;height:44px}
+.xm__sig i{position:absolute;inset:0;border-radius:50%;border:1.5px solid var(--accent);animation:ring 2s var(--ease) infinite}
+.xm__sig i:nth-child(2){animation-delay:.5s}.xm__sig i:nth-child(3){animation-delay:1s}
+.xm__card h2{font-size:clamp(1.5rem,1.2rem + 1.2vw,2rem);font-weight:500;letter-spacing:-.025em;line-height:1.15;margin:1rem 0 .6rem;padding-inline-end:3rem}
+:lang(ar) .xm__card h2,:lang(he) .xm__card h2,:lang(hi) .xm__card h2{letter-spacing:0}
+.xm__kind{font-weight:500}
+.xm__dest{display:block;margin-top:.6rem;padding:.7rem .9rem;border-radius:10px;background:var(--bg2);border:1px solid var(--line);font-size:var(--t-xs);color:var(--accent);word-break:break-all;text-align:left}
+.xm__note{color:var(--muted);font-size:var(--t-sm);margin-top:1rem;line-height:1.55}
+.xm__btns{display:flex;gap:.6rem;justify-content:flex-end;margin-top:1.6rem;flex-wrap:wrap}
+@media (max-width:480px){.xm__btns{flex-direction:column-reverse}.xm__btns .btn{justify-content:center;width:100%}}
+.xm-open body{overflow:hidden}
+.touch-only{display:none}
+@media (hover:none),(pointer:coarse){.kb-only{display:none}.touch-only{display:inline}}
+@media (max-width:640px){.ftr{padding-bottom:6rem}}
+:lang(ja) :is(h1,h2,h3,.lead,p,.btn,b),:lang(zh) :is(h1,h2,h3){word-break:auto-phrase;line-break:strict}
