@@ -2,7 +2,7 @@
 (function () {
   const $ = (s, r = document) => r.querySelector(s);
   const $$ = (s, r = document) => [...r.querySelectorAll(s)];
-  const RM = FX.RM;
+  let RM = FX.RM;
   const K = 'https://kyber.tech';
   const DOCS = 'https://kyber-27201e.gitlab.io/';
   const GL = 'https://gitlab.com/kyber/kyber';
@@ -28,7 +28,7 @@
   const T = (k) => esc(t(k));
   async function load(l) {
     if (cache[l]) return cache[l];
-    const r = await fetch(`i18n/${l}.json?v=1790900815`); if (!r.ok) throw new Error('lang'); return (cache[l] = await r.json());
+    const r = await fetch(`i18n/${l}.json?v=1790901499`); if (!r.ok) throw new Error('lang'); return (cache[l] = await r.json());
   }
   function loadFont(l) {
     if (!FONTS[l] || document.getElementById('font-' + l)) return;
@@ -609,6 +609,27 @@
       <a class="accent mono" href="${K}${u}" target="_blank" rel="noopener">${T('sdk.readNotes')} ↗</a></details>`).join('')}</div>`;
   }
 
+  function pageSimple() {
+    const big = (href, ico, k, ext) => `<a class="sbtn" href="${href}"${ext ? ' target="_blank" rel="noopener"' : ''}><span class="sbtn__i" aria-hidden="true">${ico}</span><span><b>${T('simple.' + k)}</b><small>${T('simple.' + k + 'd')}</small></span></a>`;
+    return `
+    <section class="simple"><div class="simple__in">
+      <h1>${T('simple.title')}</h1>
+      <div class="simple__lang"><label for="sLang">${T('simple.langLabel')}</label><select id="sLang">${LANGS.map(([c, n]) => `<option value="${c}"${c === LANG ? ' selected' : ''}>${n}</option>`).join('')}</select></div>
+      <h2>${T('simple.what')}</h2><p>${T('simple.whatD')}</p>
+      <h2>${T('simple.do')}</h2>
+      <div class="sbtns">
+        ${big(REL.dl, '⬇', 'b1', false)}
+        ${big(GL, '</>', 'b2', true)}
+        ${big(DOCS, '?', 'b3', true)}
+        ${big('mailto:contact@kyber.tech', '✉', 'b4', false)}
+      </div>
+      <h2>${T('simple.uses')}</h2>
+      <ul class="simple__uses">${[1, 2, 3, 4].map(i => `<li>${T('simple.u' + i)}</li>`).join('')}</ul>
+      <h2>${T('simple.who')}</h2><p>${T('simple.whoD')}</p>
+      <a class="sback" href="#/">← ${T('simple.back')}</a>
+    </div></section>`;
+  }
+
   function pageBlog() {
     const cover = (p) => p.i ? `<img src="${img(p.i)}" alt="" loading="lazy">` : `<div style="position:absolute;inset:0;display:grid;place-items:center;background:radial-gradient(circle at 30% 20%,color-mix(in oklab,var(--accent) 22%,transparent),transparent 60%),repeating-linear-gradient(90deg,var(--line) 0 1px,transparent 1px 28px),var(--bg2)"><span class="mono" style="font-size:clamp(2.6rem,6vw,4.6rem);letter-spacing:-.04em;color:var(--ink)">v${p.v}</span></div>`;
     return `
@@ -777,7 +798,50 @@
   }
 
   /* ---------------- chrome (nav panels, footer) ---------------- */
+  const A = { size: 0, contrast: false, motion: false, font: false, links: false, big: false };
+  const SIZES = [100, 115, 130, 150];
+  function applyA11y(rerender) {
+    const h = document.documentElement;
+    h.style.fontSize = A.size ? SIZES[A.size] + '%' : '';
+    ['contrast', 'motion', 'font', 'links', 'big'].forEach(k => h.classList.toggle('a11y-' + k, A[k]));
+    if (A.font && !document.getElementById('font-atk')) { const l = document.createElement('link'); l.id = 'font-atk'; l.rel = 'stylesheet'; l.href = 'https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&display=swap'; document.head.appendChild(l); }
+    const was = RM; FX.setRM(A.motion); RM = FX.RM;
+    $$('#a11yPanel [data-a]').forEach(b => b.setAttribute('aria-checked', A[b.dataset.a]));
+    $$('#a11yPanel [data-size]').forEach(b => b.setAttribute('aria-pressed', +b.dataset.size === A.size));
+    if (rerender && was !== RM) route(true);
+    else window.ScrollTrigger && ScrollTrigger.refresh();
+  }
+  function renderA11y() {
+    const sw = (k) => `<button type="button" class="a11y__sw" role="switch" data-a="${k}" aria-checked="${A[k]}"><span>${T('a11y.' + k)}</span><i aria-hidden="true"></i></button>`;
+    $('#a11yPanel').innerHTML = `
+      <div class="a11y__h"><b>${T('a11y.title')}</b><button type="button" class="a11y__x" data-close aria-label="${T('a11y.close')}">✕</button></div>
+      <div class="a11y__grp"><span>${T('a11y.text')}</span><div class="a11y__sizes">${SIZES.map((v, i) => `<button type="button" data-size="${i}" aria-pressed="${A.size === i}" style="font-size:${.8 + i * .14}rem">A</button>`).join('')}</div></div>
+      ${sw('contrast')}${sw('motion')}${sw('font')}${sw('links')}${sw('big')}
+      <a class="a11y__simple" href="#/simple"><b>${T('a11y.simple')}</b><small>${T('a11y.simpleD')}</small></a>
+      <button type="button" class="a11y__reset" data-reset>${T('a11y.reset')}</button>`;
+    $('#a11yBtn').setAttribute('aria-label', t('a11y.open'));
+    $('#topBtn').setAttribute('aria-label', t('a11y.top'));
+  }
+  function initA11y() {
+    const btn = $('#a11yBtn'), panel = $('#a11yPanel');
+    const open = (o) => { panel.hidden = !o; btn.setAttribute('aria-expanded', o); if (o) $('button,a', panel)?.focus(); };
+    btn.addEventListener('click', () => open(panel.hidden));
+    panel.addEventListener('click', (e) => {
+      const s = e.target.closest('[data-a]'); if (s) { A[s.dataset.a] = !A[s.dataset.a]; applyA11y(true); return; }
+      const z = e.target.closest('[data-size]'); if (z) { A.size = +z.dataset.size; applyA11y(); return; }
+      if (e.target.closest('[data-reset]')) { Object.assign(A, { size: 0, contrast: false, motion: false, font: false, links: false, big: false }); applyA11y(true); return; }
+      if (e.target.closest('[data-close]')) { open(false); btn.focus(); return; }
+      if (e.target.closest('.a11y__simple')) open(false);
+    });
+    panel.addEventListener('keydown', (e) => { if (e.key === 'Escape') { open(false); btn.focus(); } });
+    document.addEventListener('click', (e) => { if (!panel.hidden && !e.target.closest('#a11yPanel,#a11yBtn')) open(false); });
+    const top = $('#topBtn');
+    top.addEventListener('click', () => { scrollTo({ top: 0, behavior: RM ? 'auto' : 'smooth' }); $('#main').focus({ preventScroll: true }); });
+    addEventListener('scroll', () => top.classList.toggle('on', scrollY > innerHeight * .8), { passive: true });
+  }
+
   function renderChrome() {
+    renderA11y();
     $('#ddPanel').innerHTML = `<div class="dd__intro"><span class="kicker">${T('nav.solutions')}</span><p>${T('nav.solutionsLead')}</p><a class="btn btn--solid btn--sm" href="#/technology">${T('nav.technology')} ${ARR}</a></div>
       <div class="dd__grid">${SOL.map(s => `<a class="dd__item" href="#/solutions/${s}"><img src="${img(s)}" alt=""><span><b>${T(`solutions.${s}.name`)}</b><small>${T(`solutions.${s}.short`)}</small></span></a>`).join('')}</div>`;
     $('#langList').innerHTML = LANGS.map(([c, n]) => `<li><button role="option" data-l="${c}" aria-selected="${c === LANG}" lang="${c}"><span>${n}</span><span class="mono">${c.toUpperCase()}</span></button></li>`).join('');
@@ -1110,9 +1174,12 @@
     else if (path === 'about') html = pageAbout();
     else if (path === 'sdk') html = pageSdk();
     else if (path === 'blog') html = pageBlog();
+    else if (path === 'simple') { html = pageSimple(); active = 'simple'; }
     else if (path === 'contact' || path === 'connect') { html = pageConnect(); active = 'connect'; }
     else { html = pageHome(); active = ''; }
     main.innerHTML = html;
+    document.documentElement.classList.toggle('is-simple', path === 'simple');
+    const sl = $('#sLang', main); if (sl) sl.addEventListener('change', () => setLang(sl.value));
     $$('.hdr__nav>a').forEach(a => a.classList.toggle('is-active', a.getAttribute('href') === '#/' + active && active));
     $('.dd').classList.toggle('is-active', active === 'solutions');
     closeMenus();
@@ -1252,7 +1319,7 @@
     const q = new URLSearchParams(location.search).get('lang');
     const want = q || 'en';
     const loadP = (async () => { EN = await load('en'); await setLang(want, false); })();
-    ui(); initConsole();
+    ui(); initConsole(); initA11y();
     await loadP;
     route(true);
     window.__boot = performance.now();

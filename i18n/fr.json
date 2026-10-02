@@ -791,5 +791,43 @@
  "con": {
   "hint": "Appuyez sur ` pour ouvrir la console",
   "welcome": "Tapez help. Tout ici s'exécute localement dans votre navigateur."
+ },
+ "a11y": {
+  "open": "Options d'accessibilité",
+  "title": "Accessibilité",
+  "text": "Taille du texte",
+  "contrast": "Contraste élevé",
+  "motion": "Réduire les animations",
+  "font": "Police facile à lire",
+  "links": "Souligner les liens",
+  "big": "Boutons plus grands",
+  "simple": "Vue simplifiée",
+  "simpleD": "Un résumé calme, sur une seule page, avec de grands boutons.",
+  "reset": "Réinitialiser",
+  "close": "Fermer",
+  "top": "Haut de page"
+ },
+ "simple": {
+  "title": "Kyber, en mots simples",
+  "what": "C'est quoi, Kyber ?",
+  "whatD": "Kyber permet de piloter des machines à distance — des robots, des drones, des voitures ou des ordinateurs — presque sans délai. Ce que vous faites arrive en environ 8 millièmes de seconde.",
+  "who": "Qui le fabrique ?",
+  "whoD": "L'équipe qui a créé VLC, le lecteur vidéo gratuit utilisé par des centaines de millions de personnes. La société est basée à Paris.",
+  "uses": "À quoi ça sert ?",
+  "u1": "Travailler sur un ordinateur distant comme s'il était devant vous",
+  "u2": "Guider des robots et des drones en toute sécurité",
+  "u3": "Aider les véhicules autonomes quand ils ont besoin d'un humain",
+  "u4": "Afficher des images en 3D pour les médecins et les ingénieurs",
+  "do": "Que souhaitez-vous faire ?",
+  "b1": "Télécharger pour Windows",
+  "b1d": "Installateur gratuit",
+  "b2": "Obtenir le code source",
+  "b2d": "Pour les développeurs, sur GitLab",
+  "b3": "Lire les guides",
+  "b3d": "Documentation pas à pas",
+  "b4": "Contacter l'équipe",
+  "b4d": "Envoyer un e-mail",
+  "back": "Retour au site complet",
+  "langLabel": "Choisissez votre langue"
  }
 }

@@ -1,8 +1,9 @@
 /* Kyber redesign — visual effects library */
 (function () {
   const FX = {};
-  const RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
   FX.RM = RM;
+  FX.setRM = (v) => { RM = !!v || matchMedia('(prefers-reduced-motion: reduce)').matches; FX.RM = RM; };
   const css = (n) => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
   const hex2rgb = (h) => {
     h = h.replace('#', ''); if (h.length === 3) h = h.split('').map(c => c + c).join('');
