@@ -1295,3 +1295,4 @@ h1,h2,h3,h4,p{margin:0}
 .donefiles a{color:var(--accent)}
 @media (max-width:640px){.flow__nav{flex-wrap:wrap}.flow__err{order:-1;width:100%;text-align:start}.voice__wave{width:110px}}
 .fld:has(.fhint__fix) .fld__ok{opacity:0}
+.installcta__go svg{width:16px;height:16px;flex:none}
