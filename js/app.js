@@ -28,7 +28,7 @@
   const T = (k) => esc(t(k));
   async function load(l) {
     if (cache[l]) return cache[l];
-    const r = await fetch(`i18n/${l}.json?v=1791062071`); if (!r.ok) throw new Error('lang'); return (cache[l] = await r.json());
+    const r = await fetch(`i18n/${l}.json?v=1791062228`); if (!r.ok) throw new Error('lang'); return (cache[l] = await r.json());
   }
   function loadFont(l) {
     if (!FONTS[l] || document.getElementById('font-' + l)) return;
@@ -1430,7 +1430,7 @@
       </div></section>
       <section class="sec doc__wrap" style="padding-top:0"><div class="wrap doc__grid">
         <aside class="doc__side">${tocH}<div class="doc__help"><span class="kicker">${T('legal.questions')}</span><a href="mailto:contact@kyber.tech" class="mono">contact@kyber.tech</a></div></aside>
-        <article class="doc__body prose" id="docBody" data-en="${esc(JSON.stringify(prepBody(en.html, links).html))}">${html}</article>
+        <article class="doc__body prose prose--legal" id="docBody" data-en="${esc(JSON.stringify(prepBody(en.html, links).html))}">${html}</article>
       </div></section>${ctaBlock()}`;
     }
     const i = POSTS.findIndex(p => p.s === slug); const prev = POSTS[i + 1], next = POSTS[i - 1]; const post = POSTS[i];
