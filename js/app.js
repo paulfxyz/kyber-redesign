@@ -28,7 +28,7 @@
   const T = (k) => esc(t(k));
   async function load(l) {
     if (cache[l]) return cache[l];
-    const r = await fetch(`i18n/${l}.json?v=1791056444`); if (!r.ok) throw new Error('lang'); return (cache[l] = await r.json());
+    const r = await fetch(`i18n/${l}.json?v=1791057128`); if (!r.ok) throw new Error('lang'); return (cache[l] = await r.json());
   }
   function loadFont(l) {
     if (!FONTS[l] || document.getElementById('font-' + l)) return;
@@ -1282,49 +1282,55 @@
   /* ---------------- external link interstitial ---------------- */
 
 
-  /* ---------------- logo motion (header + footer) ---------------- */
+  /* ---------------- logo motion (header + footer) ----------------
+     hover = short playful hop, click/tap = bigger burst. Leaving does nothing: animations always run to completion. */
   function initLogo() {
-    const hl = $('.hdr__logo'); const g = $('#kshine');
-    if (!hl || !g) return;
-    $$('animate', g).forEach(a => a.remove());
-    let live = false, liveUntil = 0, t0 = performance.now(), nextIdle = t0 + 1100;
-    const sweep = (grad, p) => { const x = -60 + p * 170; grad.setAttribute('x1', x); grad.setAttribute('x2', x + 40); };
-    const setLive = (v) => { live = v; hl.classList.toggle('is-live', v); if (v) t0 = performance.now(); };
-    hl.addEventListener('pointerenter', (e) => { if (e.pointerType === 'mouse') setLive(true); });
-    hl.addEventListener('pointerleave', (e) => { if (e.pointerType === 'mouse') setLive(false); });
-    hl.addEventListener('pointerdown', (e) => { if (e.pointerType !== 'mouse') { liveUntil = performance.now() + 2600; setLive(true); } else { hl.classList.remove('is-tap'); void hl.offsetWidth; hl.classList.add('is-tap'); } });
-    hl.addEventListener('focus', () => setLive(true)); hl.addEventListener('blur', () => setLive(false));
-    let idleStart = -1;
-    const loop = (now) => {
-      if (liveUntil && now > liveUntil) { liveUntil = 0; setLive(false); }
-      if (RM) { sweep(g, -1); }
-      else if (live) { sweep(g, ((now - t0) % 1100) / 1100); }
-      else if (now >= nextIdle) { if (idleStart < 0) idleStart = now; const p = (now - idleStart) / 1300; if (p >= 1) { idleStart = -1; nextIdle = now + 7000; sweep(g, 1.2); } else sweep(g, p); }
-      requestAnimationFrame(loop);
+    const E = 'cubic-bezier(.3,1.6,.5,1)';
+    const sweep = (grad, dur, times = 1) => { if (!grad || RM) return; const t0 = performance.now(); const f = (now) => { const p = Math.min(1, (now - t0) / dur); const q = (p * times) % 1 || (p === 1 ? 1 : 0); const x = -60 + q * 170; grad.setAttribute('x1', x); grad.setAttribute('x2', x + 40); if (p < 1) requestAnimationFrame(f); else { grad.setAttribute('x1', -80); grad.setAttribute('x2', -40); } }; requestAnimationFrame(f); };
+    const make = (root, svg, grad, k) => {
+      let busy = null; // 'hover' | 'click'
+      const parts = () => $$('.klogo__mark path', svg); const word = () => $('.klogo__word', svg);
+      const hover = () => {
+        if (RM || busy) return; busy = 'hover'; const [a, b, c] = parts(); const A = getComputedStyle(document.documentElement).getPropertyValue('--accent').trim() || '#2c56f5';
+        const o = { duration: 760, easing: 'ease-out' };
+        a.animate([{ transform: 'none' }, { transform: `translate(${-2.4 * k}px,0)`, fill: A, offset: .25 }, { transform: 'none' }], { ...o, easing: E });
+        b.animate([{ transform: 'none' }, { transform: `translate(${2 * k}px,${-2.4 * k}px) rotate(10deg)`, fill: A, offset: .3 }, { transform: 'none' }], { ...o, delay: 90, easing: E });
+        c.animate([{ transform: 'none' }, { transform: `translate(${2 * k}px,${2.4 * k}px) rotate(-10deg)`, fill: A, offset: .3 }, { transform: 'none' }], { ...o, delay: 180, easing: E });
+        const w = word().animate([{ transform: 'none' }, { transform: 'scale(1.04,.88)', offset: .25 }, { transform: 'translateY(-6%) scale(.97,1.06)', offset: .5 }, { transform: 'none' }], { duration: 700, delay: 120, easing: 'ease-in-out' });
+        sweep(grad, 800);
+        w.finished.then(() => { if (busy === 'hover') busy = null; }).catch(() => { });
+      };
+      const burst = () => {
+        if (RM) return; svg.getAnimations({ subtree: true }).forEach(x => { if (!(x instanceof CSSAnimation)) x.cancel(); }); busy = 'click'; const [a, b, c] = parts(); const A = getComputedStyle(document.documentElement).getPropertyValue('--accent').trim() || '#2c56f5';
+        const o = { duration: 1500, easing: 'cubic-bezier(.2,1.25,.35,1)' };
+        a.animate([{ transform: 'none' }, { transform: `translate(${-7 * k}px,${-2 * k}px) rotate(-28deg)`, fill: A, offset: .22 }, { transform: `translate(${-7 * k}px,${-2 * k}px) rotate(-28deg)`, fill: A, offset: .38 }, { transform: 'none' }], o);
+        b.animate([{ transform: 'none' }, { transform: `translate(${6 * k}px,${-7 * k}px) rotate(200deg)`, fill: A, offset: .22 }, { transform: `translate(${6 * k}px,${-7 * k}px) rotate(250deg)`, fill: A, offset: .38 }, { transform: 'rotate(360deg)' }], o);
+        c.animate([{ transform: 'none' }, { transform: `translate(${6 * k}px,${7 * k}px) rotate(-200deg)`, fill: A, offset: .22 }, { transform: `translate(${6 * k}px,${7 * k}px) rotate(-250deg)`, fill: A, offset: .38 }, { transform: 'rotate(-360deg)' }], o);
+        word().animate([{ transform: 'none' }, { transform: 'scale(1.08,.8)', offset: .12 }, { transform: 'translateY(-22%) scale(.94,1.1)', offset: .3 }, { transform: 'translateY(0) scale(1.06,.9)', offset: .48 }, { transform: 'translateY(-7%)', offset: .62 }, { transform: 'none' }], { duration: 1400, delay: 60, easing: 'ease-in-out' });
+        const s = svg.animate([{ transform: 'none' }, { transform: 'scale(.94)', offset: .1 }, { transform: 'scale(1.03)', offset: .45 }, { transform: 'none' }], { duration: 1500, easing: 'ease-out' });
+        sweep(grad, 1500, 2);
+        s.finished.then(() => { busy = null; }).catch(() => { });
+      };
+      root.addEventListener('pointerenter', (e) => { if (e.pointerType === 'mouse') hover(); });
+      root.addEventListener('pointerdown', burst);
+      root.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') burst(); });
     };
-    requestAnimationFrame(loop);
-    // footer: pointer-follow sheen + parallax pieces + click burst, assemble when scrolled into view
-    const ftr = $('#ftr');
-    let io = null;
+    // header
+    const hl = $('.hdr__logo'); const g = $('#kshine');
+    if (hl && g) {
+      $$('animate', g).forEach(a => a.remove());
+      make(hl, $('svg', hl), g, 1);
+      // occasional idle sheen (independent of the pointer)
+      setTimeout(function idle() { if (!document.hidden && !hl.matches(':hover')) sweep(g, 1300); setTimeout(idle, 8000); }, 1200);
+    }
+    // footer (re-rendered on language change)
+    const ftr = $('#ftr'); let io = null;
     const bindFooter = () => {
       const mk = $('.ftr__mark', ftr); if (!mk || mk.dataset.bound) return; mk.dataset.bound = 1;
-      const svg = $('svg', mk); const fg = $('#kfoot', mk); const parts = $$('.klogo__mark path', svg);
-      const depth = [[-1.2, -.6], [1.1, -1], [1.2, 1.1]];
       io?.disconnect(); io = new IntersectionObserver(([en]) => { if (en.isIntersecting) { mk.classList.add('is-in'); io.disconnect(); } }, { threshold: .35 }); io.observe(mk);
-      const move = (e) => {
-        if (RM) return; const r = svg.getBoundingClientRect(); const px = (e.clientX - r.left) / r.width, py = (e.clientY - r.top) / r.height;
-        const ux = -2 + px * 97; fg.setAttribute('x1', ux - 22); fg.setAttribute('x2', ux + 22);
-        const dx = (px - .5) * 2, dy = (py - .5) * 2;
-        parts.forEach((p, i) => { p.style.translate = `${(dx * depth[i][0]).toFixed(2)}px ${(dy * depth[i][1]).toFixed(2)}px`; });
-        mk.style.setProperty('--mx', (px * 100).toFixed(1) + '%');
-      };
-      mk.addEventListener('pointermove', move);
-      mk.addEventListener('pointerenter', () => mk.classList.add('is-hot'));
-      mk.addEventListener('pointerleave', () => { mk.classList.remove('is-hot'); fg.setAttribute('x1', -80); fg.setAttribute('x2', -40); parts.forEach(p => p.style.translate = ''); });
-      mk.addEventListener('pointerdown', (e) => { move(e); mk.classList.remove('is-burst'); void mk.offsetWidth; mk.classList.add('is-burst'); setTimeout(() => mk.classList.remove('is-burst'), 1100); if (e.pointerType !== 'mouse') setTimeout(() => mk.dispatchEvent(new PointerEvent('pointerleave')), 1400); });
+      make(mk, $('svg', mk), $('#kfoot', mk), .55);
     };
-    bindFooter();
-    new MutationObserver(bindFooter).observe(ftr, { childList: true });
+    bindFooter(); new MutationObserver(bindFooter).observe(ftr, { childList: true });
   }
 
   /* ---------------- SDK install modal ---------------- */
