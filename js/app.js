@@ -28,7 +28,7 @@
   const T = (k) => esc(t(k));
   async function load(l) {
     if (cache[l]) return cache[l];
-    const r = await fetch(`i18n/${l}.json?v=1791063418`); if (!r.ok) throw new Error('lang'); return (cache[l] = await r.json());
+    const r = await fetch(`i18n/${l}.json?v=1791064854`); if (!r.ok) throw new Error('lang'); return (cache[l] = await r.json());
   }
   function loadFont(l) {
     if (!FONTS[l] || document.getElementById('font-' + l)) return;
@@ -528,6 +528,7 @@
       <div class="sechead"><div>${kicker('footer.careers')}<h2 class="h1 split">${T('about.careersTitle')}</h2></div><p class="lead rv">${T('about.careersLead')}</p></div>
       <div class="jobs">${jobs.map(([k, u]) => `<a class="job rv" href="#/careers/${u.split('/').pop()}"><h3>${T('about.' + k)}</h3><span class="chip">${T('about.contract')}</span><span class="chip">${T(k === 'j5' ? 'about.jobLocFde' : 'about.jobLoc')}</span><span class="go">${ARRUR}</span></a>`).join('')}</div>
       <p class="mono stackline rv"><span class="accent">$</span> cat stack.txt → ${T('about.stackLine')}</p>
+      <div class="btns rv" style="margin-top:1.4rem"><a class="btn btn--accent magnetic" href="#/careers">${T('car.kicker')} ${ARR}</a></div>
     </div></section>
     <section class="sec" style="padding-top:0"><div class="wrap">
       <div class="sechead"><div><span class="kicker">${T('about.hq')}</span><h2 class="h1 split">${T('about.officesTitle')}</h2></div><p class="lead rv">${T('about.officesLead')}</p></div>
@@ -645,7 +646,7 @@
       <ul class="simple__uses">${[1, 2, 3, 4].map(i => `<li>${T('simple.u' + i)}</li>`).join('')}</ul>
       <h2>${T('simple.who')}</h2><p>${T('simple.whoD')}</p>
       <h2>${T('simple.free')}</h2><p>${T('simple.freeD')}</p>
-      <a class="sback" href="#/">← ${T('simple.back')}</a>
+      <div class="sfoot"><a class="sback" href="#/">← ${T('simple.back')}</a><a class="sback" href="#/careers">${T('footer.careers')} →</a></div>
     </div></section>`;
   }
   function initSimple(main) {
@@ -1079,16 +1080,16 @@
       <div class="dd__grid">${SOL.map((s, i) => `<a class="dd__item" href="#/solutions/${s}" style="--i:${i}"><img src="${img(s)}" alt="" loading="lazy"><span class="dd__n">0${i + 1}</span><span><b>${T(`solutions.${s}.name`)}</b><small>${T(`solutions.${s}.short`)}</small></span></a>`).join('')}</div>`;
     $('#langList').innerHTML = LANGS.map(([c, n]) => `<li><button role="option" data-l="${c}" aria-selected="${c === LANG}" lang="${c}"><span>${n}</span><span class="mono">${c.toUpperCase()}</span></button></li>`).join('');
     $('#mnav').innerHTML = `
-      <div><a class="big" href="#/">Kyber</a><a class="big" href="#/technology">${T('nav.technology')}</a><a class="big" href="#/sdk">${T('nav.sdk')}</a><a class="big" href="#/about">${T('nav.about')}</a><a class="big" href="#/blog">${T('nav.blog')}</a><a class="big" href="#/connect">${T('nav.connect')}</a></div>
+      <div><a class="big" href="#/">Kyber</a><a class="big" href="#/technology">${T('nav.technology')}</a><a class="big" href="#/sdk">${T('nav.sdk')}</a><a class="big" href="#/about">${T('nav.about')}</a><a class="big" href="#/careers">${T('footer.careers')}</a><a class="big" href="#/blog">${T('nav.blog')}</a><a class="big" href="#/connect">${T('nav.connect')}</a></div>
       <div><div class="kicker">${T('nav.solutions')}</div><div class="sub">${SOL.map(s => `<a href="#/solutions/${s}">${T(`solutions.${s}.name`)}</a>`).join('')}</div></div>
       <div class="btns">${btnSdk('btn--accent')}</div>
-      <div class="mnav__legal"><a href="#/careers">${T('footer.careers')}</a>${Object.keys(LEGAL).map(k => `<a href="#/legal/${k}">${T('footer.' + k)}</a>`).join('')}</div>
+      <div class="mnav__legal"><a href="#/simple">${T('a11y.simple')}</a>${Object.keys(LEGAL).map(k => `<a href="#/legal/${k}">${T('footer.' + k)}</a>`).join('')}</div>
       <div class="mtools"><label class="mtools__lang"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.7 3.8 5.7 3.8 9s-1.3 6.3-3.8 9c-2.5-2.7-3.8-5.7-3.8-9S9.5 5.7 12 3z"/></svg><span class="sr-only">${T('nav.language')}</span><select data-mlang aria-label="${T('nav.language')}">${LANGS.map(([c, n]) => `<option value="${c}" ${c === LANG ? 'selected' : ''}>${n}</option>`).join('')}</select></label>
         <button type="button" class="iconbtn" data-mtheme aria-label="${T('nav.theme')}"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg></button><button type="button" class="iconbtn mono" data-open-console aria-label="${T('common.console')}">›_</button></div>`;
     $('#ftr').innerHTML = `
       <div class="ftr__top">
         <div class="ftr__brand"><svg viewBox="0 0 18.1 18.7" width="34" fill="currentColor" aria-hidden="true"><path d="M12.79 18.605h5.233v-4.652l-5.232-4.65-5.233 4.65zM2.326 9.302l5.232-4.65V0H0v18.605h7.558V9.302zM18.023.0h-5.232L7.558 4.651v4.651h5.233l5.232-4.65z"/></svg><p>${T('footer.tagline')}</p></div>
-        <div><h4>${T('footer.product')}</h4><ul><li><a href="#/technology">${T('nav.technology')}</a></li><li><a href="#/sdk">${T('common.getSdk')}</a></li><li><a href="${K}/get-the-sdk/" target="_blank" rel="noopener">${T('footer.getApp')}</a></li><li><a href="${DOCS}" target="_blank" rel="noopener">${T('footer.docs')}</a></li></ul></div>
+        <div><h4>${T('footer.product')}</h4><ul><li><a href="#/technology">${T('nav.technology')}</a></li><li><a href="#/sdk">${T('common.getSdk')}</a></li><li><a href="${K}/get-the-sdk/" target="_blank" rel="noopener">${T('footer.getApp')}</a></li><li><a href="${DOCS}" target="_blank" rel="noopener">${T('footer.docs')}</a></li><li><a href="#/simple">${T('a11y.simple')}</a></li></ul></div>
         <div><h4>${T('nav.solutions')}</h4><ul>${SOL.map(s => `<li><a href="#/solutions/${s}">${T(`solutions.${s}.name`)}</a></li>`).join('')}</ul></div>
         <div><h4>${T('footer.company')}</h4><ul><li><a href="#/about">${T('nav.about')}</a></li><li><a href="#/careers">${T('footer.careers')}</a></li><li><a href="#/blog">${T('nav.blog')}</a></li><li><a href="#/connect">${T('nav.connect')}</a></li><li><a href="${GL}" target="_blank" rel="noopener">GitLab ↗</a></li><li><a href="https://www.linkedin.com/company/kyber-tech/" target="_blank" rel="noopener">LinkedIn ↗</a></li></ul></div>
         <div><h4>${T('footer.community')}</h4><ul><li><a href="${GL}" target="_blank" rel="noopener">GitLab ↗</a></li><li><a href="https://discord.gg/ztJ76bkYNm" target="_blank" rel="noopener">Discord ↗</a></li><li><a href="${REL.url}" target="_blank" rel="noopener">${T('footer.installer')} ↗</a></li><li><a href="mailto:contact@kyber.tech">contact@kyber.tech</a></li></ul>

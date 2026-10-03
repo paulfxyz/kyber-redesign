@@ -1543,3 +1543,6 @@ a.role:hover .role__go{background:var(--accent);color:var(--accent-ink);border-c
 .car__applycard .apply .grid2{grid-template-columns:1fr}
 .car__job .doc__title{max-width:18ch}
 .car__jobgrid .prose{font-size:var(--t-base)}.car__jobgrid .prose>p:first-of-type{font-size:1.08em}
+.sfoot{display:flex;flex-wrap:wrap;justify-content:space-between;gap:1rem;margin-top:3rem}.sfoot .sback{margin-top:0}
+@media (max-width:1280px){.hdr__nav{display:none}.burger{display:inline-flex}}@media (max-width:1440px){.hdr__star{display:none}}
+@media (max-width:1440px){.hdr__ping{display:none}.hdr__nav>a,.dd__btn{padding:.45rem .72rem}.hdr{gap:.6rem}}
