@@ -950,5 +950,21 @@
   "doneFiles": "No se ha subido nada — esto es un prototipo. Si envías el resumen por correo, adjunta estos archivos tú mismo:",
   "downloadVoice": "Descargar nota de voz",
   "cvHint": "¿Quieres enviar tu candidatura? Puedes adjuntar tu CV en el siguiente paso."
+ },
+ "art": {
+  "back": "Todos los artículos",
+  "toc": "En este artículo",
+  "share": "Compartir",
+  "copy": "Copiar enlace",
+  "copied": "Enlace copiado",
+  "prev": "Artículo anterior",
+  "next": "Artículo siguiente"
+ },
+ "legal": {
+  "kicker": "Legal",
+  "updated": "Última actualización",
+  "notice": "Esta traducción se ofrece únicamente como referencia. La versión en inglés es la legalmente vinculante.",
+  "original": "Leer el original en inglés",
+  "translated": "Ver la traducción"
  }
 }

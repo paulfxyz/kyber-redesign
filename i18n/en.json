@@ -950,5 +950,21 @@
   "doneFiles": "Nothing was uploaded — this is a prototype. If you email the summary, attach these yourself:",
   "downloadVoice": "Download voice note",
   "cvHint": "Applying? You can attach your CV in the next step."
+ },
+ "art": {
+  "back": "All articles",
+  "toc": "In this article",
+  "share": "Share",
+  "copy": "Copy link",
+  "copied": "Link copied",
+  "prev": "Previous article",
+  "next": "Next article"
+ },
+ "legal": {
+  "kicker": "Legal",
+  "updated": "Last updated",
+  "notice": "This translation is provided for convenience. The English version is the legally binding one.",
+  "original": "Read the English original",
+  "translated": "Show the translation"
  }
 }

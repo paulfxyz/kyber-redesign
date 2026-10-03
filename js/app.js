@@ -28,7 +28,7 @@
   const T = (k) => esc(t(k));
   async function load(l) {
     if (cache[l]) return cache[l];
-    const r = await fetch(`i18n/${l}.json?v=1791060074`); if (!r.ok) throw new Error('lang'); return (cache[l] = await r.json());
+    const r = await fetch(`i18n/${l}.json?v=1791060922`); if (!r.ok) throw new Error('lang'); return (cache[l] = await r.json());
   }
   function loadFont(l) {
     if (!FONTS[l] || document.getElementById('font-' + l)) return;
@@ -51,6 +51,7 @@
   }
 
   /* ---------------- icons ---------------- */
+  const ARRL = '<svg class="arr arr--l" viewBox="0 0 14 14" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M13 7H1M6 2L1 7l5 5"/></svg>';
   const ARR = '<svg class="arr" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M1 7h12M8 2l5 5-5 5"/></svg>';
   const ARRUR = '<svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 11L11 3M4.5 3H11v6.5"/></svg>';
   const ICO = [
@@ -73,6 +74,9 @@
     { k: 'p6', d: '2026-05-13', m: 3, c: 'r', u: '/article/v-026/', v: '0.26' },
     { k: 'p7', d: '2026-03-31', m: 2, c: 'r', u: '/article/v-025/', v: '0.25' }
   ];
+  POSTS.forEach(p => { p.s = p.u.split('/')[2]; });
+  const HERO = {"first-fundraising-announcement": "img/blog/i_s_KC_Kk_Sk_4_K_e513736b94.webp", "v-027": "img/blog/Kyber_release_0_27_1_ed7beaae7e.webp", "v-026": "img/blog/Creative_Workstations_3_D_Video_CAD_21580c1546.webp", "v-025": "img/blog/364c68af5adda22e370fa317d1b86c73c6c627e0_0d0c48bdd8.webp", "avatar-medical-and-kyber-awarded": "img/blog/Kyber_and_Avatar_Medical_d0de18bd2e.webp", "kyberatvivatech": "img/blog/Design_sans_titre_1_cefe71b05b.webp", "v-028": "img/blog/Kyber_release_0_28_278d96fecc.webp"};
+  const LEGAL = { privacy: 'privacy-policy', cookies: 'cookies-policy', terms: 'terms-of-service' };
   const fmtDate = (d) => { try { return new Intl.DateTimeFormat(LANG, { day: '2-digit', month: 'short', year: 'numeric' }).format(new Date(d + 'T12:00:00')); } catch (e) { return d; } };
   const num = (n, o) => { try { return new Intl.NumberFormat(LANG === 'ar' ? 'ar-u-nu-latn' : LANG, o).format(n); } catch (e) { return n; } };
 
@@ -168,10 +172,10 @@
   <section class="sec" style="padding-top:0"><div class="wrap">
     <div class="sechead"><div>${kicker('home.proofKicker')}<h2 class="h1 split">${T('home.proofTitle')}</h2></div></div>
     <div class="proof">
-      <a class="rv" data-tilt href="${K}/article/first-fundraising-announcement/" target="_blank" rel="noopener"><span class="mono">01</span><b>${T('home.proof1t')}</b><p>${T('home.proof1d')}</p></a>
-      <a class="rv" data-tilt href="${K}/article/avatar-medical-and-kyber-awarded/" target="_blank" rel="noopener"><span class="mono">02</span><b>${T('home.proof2t')}</b><p>${T('home.proof2d')}</p></a>
-      <a class="rv" data-tilt href="${K}/article/kyberatvivatech/" target="_blank" rel="noopener"><span class="mono">03</span><b>${T('home.proof3t')}</b><p>${T('home.proof3d')}</p></a>
-      <a class="rv" data-tilt href="${K}/article/first-fundraising-announcement/" target="_blank" rel="noopener"><span class="mono">04</span><b>${T('home.proof4t')}</b><p>${T('home.proof4d')}</p></a>
+      <a class="rv" data-tilt href="#/blog/first-fundraising-announcement"><span class="mono">01</span><b>${T('home.proof1t')}</b><p>${T('home.proof1d')}</p></a>
+      <a class="rv" data-tilt href="#/blog/avatar-medical-and-kyber-awarded"><span class="mono">02</span><b>${T('home.proof2t')}</b><p>${T('home.proof2d')}</p></a>
+      <a class="rv" data-tilt href="#/blog/kyberatvivatech"><span class="mono">03</span><b>${T('home.proof3t')}</b><p>${T('home.proof3d')}</p></a>
+      <a class="rv" data-tilt href="#/blog/first-fundraising-announcement"><span class="mono">04</span><b>${T('home.proof4t')}</b><p>${T('home.proof4d')}</p></a>
     </div>
   </div></section>`;
 
@@ -332,7 +336,7 @@
     <section class="sec" style="padding-top:0"><div class="wrap">
       <div class="sechead"><div>${kicker('home.newsKicker')}<h2 class="h1 split">${T('home.newsTitle')}</h2></div>
         <div style="justify-self:end"><a class="btn btn--ghost" href="#/blog">${T('nav.blog')} ${ARR}</a></div></div>
-      <div class="news">${POSTS.slice(0, 4).map(p => `<a class="rv" href="${K}${p.u}" target="_blank" rel="noopener"><span class="d">${fmtDate(p.d)}</span><h3>${T('blog.' + p.k)}</h3><span class="meta"><span class="chip">${T(p.c === 'r' ? 'blog.releases' : 'blog.announcements')}</span>${ARRUR}</span></a>`).join('')}</div>
+      <div class="news">${POSTS.slice(0, 4).map(p => `<a class="rv" href="#/blog/${p.s}"><span class="d">${fmtDate(p.d)}</span><h3>${T('blog.' + p.k)}</h3><span class="meta"><span class="chip">${T(p.c === 'r' ? 'blog.releases' : 'blog.announcements')}</span>${ARRUR}</span></a>`).join('')}</div>
     </div></section>
     ${ctaBlock()}`;
   }
@@ -607,7 +611,7 @@
     ];
     return `<div class="micro">${R.map(([v, d, u, items], n) => `<details class="micro__r rv"${n === 0 ? ' open' : ''}><summary><b class="mono">v${v}</b><span class="mono faint">${d}</span><span class="micro__c mono">${items.length} ${T('ui.changes')}</span><i></i></summary>
       <ul>${items.map(([k, code]) => `<li><span>${T('sdk.' + k)}</span><code class="mono" dir="ltr">${esc(code)}</code></li>`).join('')}</ul>
-      <a class="accent mono" href="${K}${u}" target="_blank" rel="noopener">${T('sdk.readNotes')} ↗</a></details>`).join('')}</div>`;
+      <a class="accent mono" href="#/blog/${u.split('/')[2]}">${T('sdk.readNotes')} →</a></details>`).join('')}</div>`;
   }
 
   function pageSimple() {
@@ -632,14 +636,14 @@
   }
 
   function pageBlog() {
-    const cover = (p) => p.i ? `<img src="${img(p.i)}" alt="" loading="lazy">` : `<div style="position:absolute;inset:0;display:grid;place-items:center;background:radial-gradient(circle at 30% 20%,color-mix(in oklab,var(--accent) 22%,transparent),transparent 60%),repeating-linear-gradient(90deg,var(--line) 0 1px,transparent 1px 28px),var(--bg2)"><span class="mono" style="font-size:clamp(2.6rem,6vw,4.6rem);letter-spacing:-.04em;color:var(--ink)">v${p.v}</span></div>`;
+    const cover = (p) => HERO[p.s] ? `<img src="${HERO[p.s]}" alt="" loading="lazy">` : p.i ? `<img src="${img(p.i)}" alt="" loading="lazy">` : `<div style="position:absolute;inset:0;display:grid;place-items:center;background:radial-gradient(circle at 30% 20%,color-mix(in oklab,var(--accent) 22%,transparent),transparent 60%),repeating-linear-gradient(90deg,var(--line) 0 1px,transparent 1px 28px),var(--bg2)"><span class="mono" style="font-size:clamp(2.6rem,6vw,4.6rem);letter-spacing:-.04em;color:var(--ink)">v${p.v}</span></div>`;
     return `
     <section class="phero"><div class="wrap">
       ${kicker('blog.kicker')}<h1 class="phero__title split">${T('blog.title')}</h1>
       <div class="filters" role="group">
         <button aria-pressed="true" data-f="*">${T('blog.all')}</button><button aria-pressed="false" data-f="r">${T('blog.releases')}</button><button aria-pressed="false" data-f="a">${T('blog.announcements')}</button>
       </div>
-      <div class="posts" id="posts">${POSTS.map((p, i) => `<a data-tilt class="post rv${i === 0 ? ' post--feat' : ''}" data-c="${p.c}" href="${K}${p.u}" target="_blank" rel="noopener"><div class="post__img">${cover(p)}</div><div class="post__b"><div class="post__m"><span>${T(p.c === 'r' ? 'blog.releases' : 'blog.announcements')}</span><span>${fmtDate(p.d)}</span></div><h3>${T('blog.' + p.k)}</h3><div class="post__m"><span>${p.m} ${T('common.minRead')}</span><span>${T('common.readArticle')} ${ARRUR}</span></div></div></a>`).join('')}</div>
+      <div class="posts" id="posts">${POSTS.map((p, i) => `<a data-tilt class="post rv${i === 0 ? ' post--feat' : ''}" data-c="${p.c}" href="#/blog/${p.s}"><div class="post__img">${cover(p)}</div><div class="post__b"><div class="post__m"><span>${T(p.c === 'r' ? 'blog.releases' : 'blog.announcements')}</span><span>${fmtDate(p.d)}</span></div><h3>${T('blog.' + p.k)}</h3><div class="post__m"><span>${p.m} ${T('common.minRead')}</span><span>${T('common.readArticle')} ${ARR}</span></div></div></a>`).join('')}</div>
     </div></section>
     ${ctaBlock()}`;
   }
@@ -753,7 +757,7 @@
         <div class="stage" data-s="3">
           <h2 class="q">${T('flow.review')}</h2>
           <dl class="sum" id="sum"></dl>
-          <div class="consent" data-f="consent"><label class="check"><input type="checkbox" id="f_consent" aria-describedby="e_consent"><span class="check__box" aria-hidden="true"></span><span>${fill(T('flow.consent'), { link: `<a href="${K}/legal/privacy-policy/" target="_blank" rel="noopener">${T('flow.privacy')}</a>` })}</span></label>${ferr('consent')}</div>
+          <div class="consent" data-f="consent"><label class="check"><input type="checkbox" id="f_consent" aria-describedby="e_consent"><span class="check__box" aria-hidden="true"></span><span>${fill(T('flow.consent'), { link: `<a href="#/legal/privacy">${T('flow.privacy')}</a>` })}</span></label>${ferr('consent')}</div>
           <p class="mono" style="font-size:var(--t-xs);color:var(--faint);margin-top:1rem">${T('contact.demoNote')}</p>
         </div>
         <div class="flow__nav">
@@ -1061,7 +1065,7 @@
         <div><h4>${T('nav.solutions')}</h4><ul>${SOL.map(s => `<li><a href="#/solutions/${s}">${T(`solutions.${s}.name`)}</a></li>`).join('')}</ul></div>
         <div><h4>${T('footer.company')}</h4><ul><li><a href="#/about">${T('nav.about')}</a></li><li><a href="#/about" data-anchor="careers">${T('footer.careers')}</a></li><li><a href="#/blog">${T('nav.blog')}</a></li><li><a href="#/connect">${T('nav.connect')}</a></li><li><a href="${GL}" target="_blank" rel="noopener">GitLab ↗</a></li><li><a href="https://www.linkedin.com/company/kyber-tech/" target="_blank" rel="noopener">LinkedIn ↗</a></li></ul></div>
         <div><h4>${T('footer.community')}</h4><ul><li><a href="${GL}" target="_blank" rel="noopener">GitLab ↗</a></li><li><a href="https://discord.gg/ztJ76bkYNm" target="_blank" rel="noopener">Discord ↗</a></li><li><a href="${REL.url}" target="_blank" rel="noopener">${T('footer.installer')} ↗</a></li><li><a href="mailto:contact@kyber.tech">contact@kyber.tech</a></li></ul>
-          <h4 style="margin-top:1.6rem">${T('footer.legal')}</h4><ul><li><a href="${K}/legal/privacy-policy/" target="_blank" rel="noopener">${T('footer.privacy')}</a></li><li><a href="${K}/legal/cookies-policy/" target="_blank" rel="noopener">${T('footer.cookies')}</a></li><li><a href="${K}/legal/terms-of-service/" target="_blank" rel="noopener">${T('footer.terms')}</a></li></ul></div>
+          <h4 style="margin-top:1.6rem">${T('footer.legal')}</h4><ul><li><a href="#/legal/privacy">${T('footer.privacy')}</a></li><li><a href="#/legal/cookies">${T('footer.cookies')}</a></li><li><a href="#/legal/terms">${T('footer.terms')}</a></li></ul></div>
       </div>
       <div class="ftr__mark" aria-hidden="true"><svg class="klogo klogo--ftr" viewBox="-2 -2 97 28" fill="currentColor"><defs><linearGradient id="kfoot" gradientUnits="userSpaceOnUse" x1="-80" y1="0" x2="-40" y2="0"><stop offset="0" stop-color="currentColor"/><stop offset=".5" style="stop-color:var(--accent)"/><stop offset="1" stop-color="currentColor"/></linearGradient></defs>${$('.hdr__logo svg').innerHTML.replace(/<defs>.*?<\/defs>/s,'').replace('url(#kshine)','url(#kfoot)')}</svg></div>
       <div class="ftr__bot"><span>Kyber ©2026 · ${T('footer.rights')} · ${T('footer.cities')}</span><button class="conhint mono" type="button" data-open-console>›_ <span class="kb-only">${T('con.hint')}</span><span class="touch-only">${T('common.console')}</span></button><span>${T('footer.proposal')}</span></div>`;
@@ -1080,7 +1084,8 @@
       [...node.childNodes].forEach(n => {
         if (n.nodeType === 3) {
           const frag = document.createDocumentFragment();
-          segments(n.textContent).forEach(w => {
+          const segs = []; segments(n.textContent).forEach(w => { if (segs.length && /^[\p{P}]+$/u.test(w) && !/^\s+$/.test(segs[segs.length - 1]) && /^[、。，．！？：；」』）\)\]！？,.!?:;…]+$/u.test(w)) segs[segs.length - 1] += w; else segs.push(w); });
+          segs.forEach(w => {
             if (/^\s+$/.test(w)) { frag.appendChild(document.createTextNode(w)); return; }
             const o = document.createElement('span'); o.className = 'w'; const i = document.createElement('span'); i.textContent = w; o.appendChild(i); frag.appendChild(o);
           });
@@ -1126,7 +1131,7 @@
       if (ST && !RM) ST.create({ trigger: el, start: 'top 90%', once: true, onEnter: go }); else go();
     });
     FX.magnetic(main); FX.spotlight(main); FX.tilt(main);
-    initFlow(main); applyRepo();
+    initFlow(main); initDoc(main); applyRepo();
     // kicker scramble
     if (ST && !RM) $$('.kicker', main).forEach(k => ST.create({ trigger: k, start: 'top 92%', once: true, onEnter: () => FX.scramble(k) }));
     // terminal tabs
@@ -1363,6 +1368,82 @@
   /* ---------------- router ---------------- */
   let first = true, lastPath = null, pendingAnchor = null;
   function parse() { const h = location.hash.replace(/^#\/?/, ''); return h.split('?')[0]; }
+
+  /* ---------------- hosted articles + legal pages ---------------- */
+  const DOCC = {};
+  async function loadDoc(slug, lang) {
+    const key = lang + '/' + slug; if (DOCC[key]) return DOCC[key];
+    try { const r = await fetch(`content/${lang}/${slug}.json?v=${window.__v || ''}`); if (!r.ok) throw 0; return (DOCC[key] = await r.json()); } catch (e) { return lang === 'en' ? null : loadDoc(slug, 'en'); }
+  }
+  const fmtLong = (d) => { try { return new Intl.DateTimeFormat(LANG, { day: 'numeric', month: 'long', year: 'numeric' }).format(new Date(d)); } catch (e) { return d; } };
+  const readMin = (html) => { const tx = html.replace(/<[^>]+>/g, ' '); const cjk = (tx.match(/[\u3040-\u30ff\u4e00-\u9fff]/g) || []).length; const w = tx.split(/\s+/).filter(Boolean).length; return Math.max(1, Math.round(cjk ? cjk / 450 + w / 230 : w / 230)); };
+  const prepBody = (html) => {
+    const box = document.createElement('div'); box.innerHTML = html; const toc = []; let i = 0;
+    box.querySelectorAll('h2,h3').forEach(h => { if (h.tagName === 'H2' && !i && /^kyber [\d.]+!?$/i.test(h.textContent.trim())) { h.classList.add('doc__kick'); return; } h.id = 'sec-' + (++i); if (h.tagName === 'H2' || !box.querySelector('h2:not(.doc__kick)')) toc.push([h.id, h.textContent.trim()]); });
+    box.querySelectorAll('a[href]').forEach(a => { const h = a.getAttribute('href'); const m = /^https?:\/\/(www\.)?kyber\.tech\/article\/([^/?#]+)/.exec(h) || /^\/article\/([^/?#]+)/.exec(h); if (m) { a.setAttribute('href', '#/blog/' + (m[2] || m[1])); return; } const l = /kyber\.tech\/legal\/(privacy|cookies|terms)/.exec(h); if (l) { a.setAttribute('href', '#/legal/' + l[1]); return; } if (h.startsWith('/')) a.setAttribute('href', K + h); if (/^https?:/.test(a.getAttribute('href'))) { a.target = '_blank'; a.rel = 'noopener'; } });
+    box.querySelectorAll('img').forEach(im => { im.loading = 'lazy'; im.decoding = 'async'; const f = document.createElement('figure'); im.replaceWith(f); f.appendChild(im); });
+    box.querySelectorAll('table').forEach(tb => { const w = document.createElement('div'); w.className = 'tablewrap'; tb.replaceWith(w); w.appendChild(tb); });
+    box.querySelectorAll('pre,code').forEach(c => c.setAttribute('dir', 'ltr'));
+    return { html: box.innerHTML, toc };
+  };
+  async function pageDoc(kind, slug) {
+    const src = kind === 'legal' ? LEGAL[slug] : slug;
+    if (!src) return null;
+    const [d, en] = await Promise.all([loadDoc(src, LANG), loadDoc(src, 'en')]);
+    if (!d) return null;
+    const { html, toc } = prepBody(d.html); d.title = d.title.charAt(0).toLocaleUpperCase(LANG) + d.title.slice(1); window.__docTitle = d.title;
+    const shareU = location.origin + location.pathname + '#/' + kind + '/' + slug;
+    const tocH = toc.length > 1 ? `<nav class="doc__toc" aria-label="${T('art.toc')}"><span class="kicker">${T('art.toc')}</span><ol>${toc.map(([id, tx], i) => `<li><a href="#${id}" data-toc="${id}"><span class="mono">${String(i + 1).padStart(2, '0')}</span>${esc(tx)}</a></li>`).join('')}</ol></nav>` : '';
+    if (kind === 'legal') {
+      const others = Object.keys(LEGAL).filter(k => k !== slug);
+      return `<div class="readbar" aria-hidden="true"><i id="readBar"></i></div>
+      <section class="phero doc doc--legal"><div class="wrap">
+        <a class="doc__back mono" href="#/">${ARRL} Kyber</a>
+        ${kicker('legal.kicker')}<h1 class="phero__title split doc__title">${esc(d.title)}</h1>
+        <div class="doc__meta mono"><span>${T('legal.updated')} · ${esc(fmtLong(d.updated || en.updated))}</span><span>${readMin(d.html)} ${T('common.minRead')}</span></div>
+        ${LANG !== 'en' ? `<div class="doc__note"><span>${T('legal.notice')}</span><button type="button" class="pill" data-orig aria-pressed="false">${T('legal.original')}</button></div>` : ''}
+      </div></section>
+      <section class="sec doc__wrap" style="padding-top:0"><div class="wrap doc__grid">
+        <aside class="doc__side">${tocH}<div class="doc__other"><span class="kicker">${T('legal.kicker')}</span>${others.map(k => `<a href="#/legal/${k}">${T('footer.' + ({ privacy: 'privacy', cookies: 'cookies', terms: 'terms' })[k])} ${ARR}</a>`).join('')}</div></aside>
+        <article class="doc__body prose" id="docBody" data-en="${esc(JSON.stringify(prepBody(en.html).html))}">${html}</article>
+      </div></section>${ctaBlock()}`;
+    }
+    const i = POSTS.findIndex(p => p.s === slug); const prev = POSTS[i + 1], next = POSTS[i - 1]; const post = POSTS[i];
+    const card = (p, lbl) => p ? `<a class="doc__nx" href="#/blog/${p.s}"><small class="mono">${T(lbl)}</small><b>${T('blog.' + p.k)}</b><span class="mono">${fmtDate(p.d)}</span>${HERO[p.s] ? `<img src="${HERO[p.s]}" alt="" loading="lazy">` : ''}</a>` : '<span></span>';
+    const tag = post ? T(post.c === 'r' ? 'blog.releases' : 'blog.announcements') : esc(d.tag || '');
+    return `<div class="readbar" aria-hidden="true"><i id="readBar"></i></div>
+    <section class="phero doc"><div class="wrap">
+      <a class="doc__back mono" href="#/blog">${ARRL} ${T('art.back')}</a>
+      <div class="doc__meta mono"><span class="tag">${tag}</span><span>${esc(fmtLong(post ? post.d + 'T12:00' : d.date))}</span><span>${esc(d.author || '')}</span><span>${readMin(d.html)} ${T('common.minRead')}</span></div>
+      <h1 class="phero__title split doc__title">${esc(d.title)}</h1>
+      ${d.hero ? `<div class="doc__hero"><img src="${d.hero}" alt="" fetchpriority="high"></div>` : ''}
+    </div></section>
+    <section class="sec doc__wrap" style="padding-top:0"><div class="wrap doc__grid">
+      <aside class="doc__side">${tocH}
+        <div class="doc__share"><span class="kicker">${T('art.share')}</span><div><button type="button" class="pill" data-copylink="${esc(shareU)}">${T('art.copy')}</button><a class="pill" href="https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(shareU)}" target="_blank" rel="noopener">LinkedIn</a><a class="pill" href="https://x.com/intent/post?url=${encodeURIComponent(shareU)}&text=${encodeURIComponent(d.title)}" target="_blank" rel="noopener">X</a></div></div>
+      </aside>
+      <article class="doc__body prose" id="docBody">
+        ${d.quote ? `<blockquote class="doc__quote"><p>${esc(d.quote.trim().replace(/^[“”"«»„「『\s]+|[“”"«»„」』\s]+$/g, ''))}</p><footer class="mono">${esc(d.quoteBy || 'JBK')}</footer></blockquote>` : ''}
+        ${html}
+        <div class="doc__nav">${card(prev, 'art.prev')}${card(next, 'art.next')}</div>
+      </article>
+    </div></section>${ctaBlock()}`;
+  }
+  function initDoc(main) {
+    const body = $('#docBody', main); if (!body) return;
+    const bar = $('#readBar', main);
+    const onS = () => { const r = body.getBoundingClientRect(); const p = Math.min(1, Math.max(0, (innerHeight * .3 - r.top) / Math.max(1, r.height - innerHeight * .5))); bar.style.transform = `scaleX(${p})`; };
+    addEventListener('scroll', onS, { passive: true }); on(() => removeEventListener('scroll', onS)); onS();
+    const links = $$('[data-toc]', main);
+    if (links.length) {
+      const io = new IntersectionObserver((es) => es.forEach(en => { if (en.isIntersecting) links.forEach(a => a.classList.toggle('on', a.dataset.toc === en.target.id)); }), { rootMargin: '-20% 0px -70% 0px' });
+      links.forEach(a => { const h = document.getElementById(a.dataset.toc); h && io.observe(h); a.addEventListener('click', (e) => { e.preventDefault(); const t2 = document.getElementById(a.dataset.toc); t2 && scrollTo({ top: t2.getBoundingClientRect().top + scrollY - 96, behavior: RM ? 'auto' : 'smooth' }); }); });
+      on(() => io.disconnect());
+    }
+    const cp = $('[data-copylink]', main); if (cp) cp.addEventListener('click', () => { navigator.clipboard?.writeText(cp.dataset.copylink); const o = cp.textContent; cp.textContent = t('art.copied'); setTimeout(() => cp.textContent = o, 1500); });
+    const og = $('[data-orig]', main); if (og) { const tr = body.innerHTML; og.addEventListener('click', () => { const on2 = og.getAttribute('aria-pressed') !== 'true'; og.setAttribute('aria-pressed', on2); body.innerHTML = on2 ? JSON.parse(body.dataset.en) : tr; body.lang = on2 ? 'en' : LANG; body.dir = on2 ? 'ltr' : ''; og.textContent = t(on2 ? 'legal.translated' : 'legal.original'); }); }
+  }
+
   async function route(force) {
     const path = parse();
     if (path === 'play' || path === 'main' || path === 'careers') return; // in-page anchors
@@ -1372,17 +1453,19 @@
     if (doWipe) await gsap.fromTo(wipe, { clipPath: 'inset(100% 0 0 0)' }, { clipPath: 'inset(0% 0 0 0)', duration: .16, ease: 'power2.in' });
     cleanups.forEach(f => { try { f && f(); } catch (e) { } }); cleanups = [];
     window.ScrollTrigger && ScrollTrigger.getAll().forEach(s => s.kill());
-    const main = $('#main');
+    const main = $('#main'); window.__docTitle = null;
     let html, active = path.split('/')[0];
     if (path.startsWith('solutions/') && SOL.includes(path.split('/')[1])) html = pageSolution(path.split('/')[1]);
     else if (path === 'technology') html = pageTech();
     else if (path === 'about') html = pageAbout();
     else if (path === 'sdk') html = pageSdk();
     else if (path === 'blog') html = pageBlog();
+    else if (/^(blog|legal)\/[\w-]+$/.test(path)) { const [k, sl] = path.split('/'); html = await pageDoc(k, sl); active = k === 'blog' ? 'blog' : ''; if (!html) { html = k === 'blog' ? pageBlog() : pageHome(); } }
     else if (path === 'simple') { html = pageSimple(); active = 'simple'; }
     else if (path === 'contact' || path === 'connect') { html = pageConnect(); active = 'connect'; }
     else { html = pageHome(); active = ''; }
     main.innerHTML = html;
+    document.title = window.__docTitle ? window.__docTitle + ' — Kyber' : t('meta.title');
     document.documentElement.classList.toggle('is-simple', path === 'simple');
     const sl = $('#sLang', main); if (sl) sl.addEventListener('change', () => setLang(sl.value));
     $$('.hdr__nav>a').forEach(a => a.classList.toggle('is-active', a.getAttribute('href') === '#/' + active && active));

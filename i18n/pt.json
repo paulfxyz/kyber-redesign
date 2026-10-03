@@ -950,5 +950,21 @@
   "doneFiles": "Nenhum ficheiro foi carregado — isto é um protótipo. Se enviar o resumo por e-mail, anexe-os você mesmo:",
   "downloadVoice": "Transferir nota de voz",
   "cvHint": "A candidatar-se? Pode anexar o seu CV no passo seguinte."
+ },
+ "art": {
+  "back": "Todos os artigos",
+  "toc": "Neste artigo",
+  "share": "Partilhar",
+  "copy": "Copiar ligação",
+  "copied": "Ligação copiada",
+  "prev": "Artigo anterior",
+  "next": "Artigo seguinte"
+ },
+ "legal": {
+  "kicker": "Legal",
+  "updated": "Última atualização",
+  "notice": "Esta tradução é disponibilizada apenas para conveniência. A versão em inglês é a juridicamente vinculativa.",
+  "original": "Ler o original em inglês",
+  "translated": "Mostrar a tradução"
  }
 }

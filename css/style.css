@@ -1296,3 +1296,89 @@ h1,h2,h3,h4,p{margin:0}
 @media (max-width:640px){.flow__nav{flex-wrap:wrap}.flow__err{order:-1;width:100%;text-align:start}.voice__wave{width:110px}}
 .fld:has(.fhint__fix) .fld__ok{opacity:0}
 .installcta__go svg{width:16px;height:16px;flex:none}
+/* ---- hosted articles & legal ---- */
+.readbar{position:fixed;top:0;inset-inline:0;height:2px;z-index:160;pointer-events:none}
+.readbar i{display:block;height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2,var(--accent)));transform:scaleX(0);transform-origin:0 50%;box-shadow:0 0 12px var(--accent)}
+[dir="rtl"] .readbar i{transform-origin:100% 50%}
+.doc.phero{padding-bottom:clamp(2rem,4vw,3rem)}
+.doc__back{display:inline-flex;align-items:center;gap:.5rem;font-size:var(--t-xs);color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:1.6rem;transition:color .2s,gap .3s var(--ease)}
+.doc__back:hover{color:var(--accent);gap:.8rem}
+[dir="rtl"] .arr--l{transform:scaleX(-1)}
+.doc__meta{display:flex;flex-wrap:wrap;gap:.4rem 1.2rem;font-size:var(--t-xs);color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+.doc__meta .tag{color:var(--accent)}
+:lang(ar) .doc__meta,:lang(he) .doc__meta,:lang(hi) .doc__meta,:lang(ja) .doc__meta,:lang(zh) .doc__meta{text-transform:none;letter-spacing:0}
+.doc__title{font-size:clamp(2.2rem,1rem + 3.6vw,4.8rem);max-width:22ch;margin-block:1.2rem 2rem;text-wrap:balance}
+.doc--legal .doc__title{text-transform:none}
+.doc--legal .doc__title::first-letter{text-transform:uppercase}
+.doc__hero{border-radius:var(--r);overflow:hidden;aspect-ratio:16/8;background:var(--surface);border:1px solid var(--line)}
+.doc__hero img{width:100%;height:100%;object-fit:cover;animation:heroIn 1.4s var(--ease) both}
+@keyframes heroIn{from{transform:scale(1.06);filter:blur(8px);opacity:.4}}
+.doc__note{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:.8rem 1.4rem;margin-top:1.6rem;padding:1rem 1.2rem;border:1px dashed var(--line2);border-radius:14px;font-size:var(--t-sm);color:var(--muted);max-width:820px}
+.doc__note .pill[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.doc__grid{display:grid;grid-template-columns:minmax(0,260px) minmax(0,1fr);gap:clamp(2rem,5vw,5rem);align-items:start}
+@media (max-width:960px){.doc__grid{grid-template-columns:1fr}.doc__side{position:static!important;order:2}}
+.doc__side{position:sticky;top:96px;display:flex;flex-direction:column;gap:1.6rem}
+.doc__toc ol{list-style:none;margin:.8rem 0 0;padding:0;display:flex;flex-direction:column;gap:.15rem;border-inline-start:1px solid var(--line)}
+.doc__toc a{display:flex;gap:.7rem;padding:.42rem .9rem;font-size:var(--t-sm);color:var(--muted);line-height:1.35;margin-inline-start:-1px;border-inline-start:2px solid transparent;transition:color .25s,border-color .25s}
+.doc__toc a .mono{font-size:.68rem;color:var(--faint);padding-top:.15rem}
+.doc__toc a:hover{color:var(--ink)}
+.doc__toc a.on{color:var(--ink);border-color:var(--accent)}
+.doc__toc a.on .mono{color:var(--accent)}
+@media (max-width:960px){.doc__toc{display:none}}
+.doc__share div,.doc__other{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.7rem}
+.doc__other{flex-direction:column;gap:.6rem}
+.doc__other a{display:flex;align-items:center;justify-content:space-between;gap:.6rem;padding:.8rem 1rem;border:1px solid var(--line);border-radius:12px;font-size:var(--t-sm);transition:border-color .25s,transform .25s var(--ease)}
+.doc__other a:hover{border-color:var(--accent);transform:translateX(3px)}
+.prose{max-width:72ch;font-size:var(--t-lg);line-height:1.7;color:var(--ink)}
+.prose>*+*{margin-top:1.1em}
+.prose p,.prose li{color:color-mix(in oklab,var(--ink) 82%,var(--muted))}
+.prose .lede,.prose>p:first-child{font-size:1.15em;color:var(--ink);line-height:1.55}
+.prose h2{font-size:clamp(1.5rem,1rem + 1.2vw,2.1rem);font-weight:500;letter-spacing:-.025em;line-height:1.15;margin-top:2.4em;scroll-margin-top:96px}
+.prose h2.doc__kick{margin-top:0;font-size:var(--t-sm);font-family:var(--f-mono);color:var(--accent);letter-spacing:.08em;text-transform:uppercase}
+.prose h3{font-size:clamp(1.15rem,1rem + .5vw,1.4rem);font-weight:500;letter-spacing:-.015em;margin-top:2em;scroll-margin-top:96px}
+.prose h2+*,.prose h3+*{margin-top:.6em}
+.prose a{color:var(--accent);text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px;transition:text-decoration-thickness .2s}
+.prose a:hover{text-decoration-thickness:2px}
+.prose ul,.prose ol{padding-inline-start:1.3em}
+.prose li+li{margin-top:.45em}
+.prose li::marker{color:var(--accent)}
+.prose strong{color:var(--ink);font-weight:600}
+.prose code{font-family:var(--f-mono);font-size:.82em;padding:.12em .4em;border-radius:6px;background:color-mix(in oklab,var(--accent) 10%,var(--surface));border:1px solid var(--line);unicode-bidi:isolate}
+.prose pre{background:#06090c;color:#d4ebeb;border-radius:14px;padding:1.1rem 1.2rem;overflow-x:auto;font-size:.8rem;line-height:1.6;border:1px solid rgba(255,255,255,.08)}
+.prose pre code{background:none;border:0;padding:0;color:inherit;font-size:inherit}
+.prose blockquote{margin-inline:0;padding:1.2rem 1.4rem;border-inline-start:3px solid var(--accent);background:color-mix(in oklab,var(--accent) 6%,transparent);border-radius:0 14px 14px 0;font-size:1.05em}
+[dir="rtl"] .prose blockquote{border-radius:14px 0 0 14px}
+.prose blockquote,.prose blockquote *{color:var(--ink)}
+.prose blockquote em,.prose blockquote strong{font-style:normal;font-weight:500}
+.doc__quote{position:relative;padding:1.6rem 1.8rem!important;border:1px solid var(--line)!important;border-radius:var(--r)!important;background:var(--surface)!important;margin-bottom:2rem}
+.doc__quote p{font-size:clamp(1.2rem,1rem + .8vw,1.6rem);line-height:1.35;letter-spacing:-.01em;color:var(--ink)!important}
+.doc__quote footer{margin-top:1rem;font-size:var(--t-xs);color:var(--accent);letter-spacing:.1em;text-transform:uppercase}
+.prose figure{margin:2em 0;border-radius:var(--r);overflow:hidden;border:1px solid var(--line)}
+.prose figure img{width:100%;height:auto;display:block}
+.prose .tablewrap{overflow-x:auto}
+.prose table{border-collapse:collapse;width:100%;font-size:.85em}
+.prose th,.prose td{border-bottom:1px solid var(--line);padding:.6rem .7rem;text-align:start}
+.doc__nav{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:4rem!important;padding-top:2rem;border-top:1px solid var(--line)}
+@media (max-width:640px){.doc__nav{grid-template-columns:1fr}}
+.doc__nx{position:relative;display:flex;flex-direction:column;gap:.5rem;padding:1.2rem 1.3rem;border:1px solid var(--line);border-radius:var(--r);overflow:hidden;isolation:isolate;min-height:150px;justify-content:flex-end;text-decoration:none!important;transition:border-color .3s,transform .35s var(--ease)}
+.doc__nx img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2;opacity:.22;transition:opacity .4s,transform .8s var(--ease)}
+.doc__nx::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(to top,var(--surface) 25%,color-mix(in oklab,var(--surface) 40%,transparent))}
+.doc__nx small{color:var(--accent);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase}
+.doc__nx b{font-weight:500;font-size:var(--t-base);line-height:1.3;color:var(--ink)}
+.doc__nx span{font-size:var(--t-xs);color:var(--faint)}
+.doc__nx:hover{border-color:var(--accent);transform:translateY(-3px)}
+.doc__nx:hover img{opacity:.4;transform:scale(1.05)}
+.doc__nx:last-child{text-align:end}
+svg.arr{width:14px;height:14px;flex:none;vertical-align:-2px}
+.doc__back{display:flex;width:fit-content}
+.doc__other a .arr,.post .arr{transition:transform .3s var(--ease)}
+.doc__other a:hover .arr,.post:hover .arr{transform:translateX(3px)}
+[dir="rtl"] .doc__other a:hover .arr,[dir="rtl"] .post:hover .arr{transform:scaleX(-1) translateX(3px)}
+@media (max-width:960px){.doc__grid{grid-template-columns:minmax(0,1fr)}}
+.prose{overflow-wrap:break-word;min-width:0}
+.prose a,.prose code{overflow-wrap:anywhere}
+.doc__quote p::before{content:open-quote}.doc__quote p::after{content:close-quote}
+:lang(ja) .doc__quote p,:lang(zh) .doc__quote p{quotes:"「" "」"}
+:lang(fr) .doc__quote p{quotes:"« " " »"}
+:lang(de) .doc__quote p{quotes:"„" "“"}
+:lang(ja) .prose :is(p,li,blockquote),:lang(zh) .prose :is(p,li,blockquote){word-break:normal;line-break:strict}

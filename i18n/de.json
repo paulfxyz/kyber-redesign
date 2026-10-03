@@ -950,5 +950,21 @@
   "doneFiles": "Es wurde nichts hochgeladen – dies ist ein Prototyp. Wenn Sie die Zusammenfassung per E-Mail senden, fügen Sie diese Dateien bitte selbst bei:",
   "downloadVoice": "Sprachnotiz herunterladen",
   "cvHint": "Bewerben Sie sich? Im nächsten Schritt können Sie Ihren Lebenslauf anhängen."
+ },
+ "art": {
+  "back": "Alle Artikel",
+  "toc": "In diesem Artikel",
+  "share": "Teilen",
+  "copy": "Link kopieren",
+  "copied": "Link kopiert",
+  "prev": "Vorheriger Artikel",
+  "next": "Nächster Artikel"
+ },
+ "legal": {
+  "kicker": "Rechtliches",
+  "updated": "Zuletzt aktualisiert",
+  "notice": "Diese Übersetzung dient nur zur Information. Die englische Fassung ist rechtsverbindlich.",
+  "original": "Englisches Original lesen",
+  "translated": "Übersetzung anzeigen"
  }
 }

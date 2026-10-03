@@ -950,5 +950,21 @@
   "doneFiles": "Aucun fichier n'a été envoyé — ceci est un prototype. Si vous transmettez le récapitulatif par e-mail, joignez-les vous-même :",
   "downloadVoice": "Télécharger le message vocal",
   "cvHint": "Vous postulez ? Vous pourrez joindre votre CV à l'étape suivante."
+ },
+ "art": {
+  "back": "Tous les articles",
+  "toc": "Dans cet article",
+  "share": "Partager",
+  "copy": "Copier le lien",
+  "copied": "Lien copié",
+  "prev": "Article précédent",
+  "next": "Article suivant"
+ },
+ "legal": {
+  "kicker": "Mentions légales",
+  "updated": "Dernière mise à jour",
+  "notice": "Cette traduction est fournie à titre indicatif. La version en anglais fait seule foi.",
+  "original": "Lire la version originale en anglais",
+  "translated": "Afficher la traduction"
  }
 }
