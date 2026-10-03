@@ -850,5 +850,27 @@
   "note": "No redesign final, este destino seria reformulado ou substituído por uma página de destino dedicada — para que os visitantes nunca aterrem em páginas em bruto, repositórios ou ficheiros.",
   "go": "Continuar",
   "stay": "Ficar aqui"
+ },
+ "sdkm": {
+  "cta": "Instalar o Kyber",
+  "ctaSub": "Comandos prontos a copiar para todas as plataformas",
+  "title": "Instalar, compilar e executar o Kyber",
+  "lead": "Escolha a sua plataforma. Cada linha tem o seu próprio botão de cópia — ou copie o bloco completo.",
+  "tStart": "Início rápido",
+  "tLinux": "Linux",
+  "tMac": "macOS",
+  "tWin": "Windows",
+  "tRun": "Executar",
+  "dStart": "Clone o repositório principal: introdução, documentação e o mapa de todos os componentes do Kyber.",
+  "dLinux": "Compile o cliente e o servidor desktop a partir do código-fonte. Testado em Debian Bookworm e Ubuntu 24.04.",
+  "dMac": "Compile o cliente macOS e o servidor em fase alfa. Requer Rust e as ferramentas de linha de comandos do Xcode.",
+  "dWin": "A forma mais rápida é o instalador Windows assinado: cliente, servidor e cliente web num único pacote. A compilação a partir do código-fonte é feita por compilação cruzada a partir de Linux.",
+  "dRun": "Inicie o servidor na máquina que pretende controlar e ligue-se a partir do cliente.",
+  "copy": "Copiar",
+  "copied": "Copiado",
+  "copyAll": "Copiar tudo",
+  "readme": "Guia completo de compilação no GitLab",
+  "installer": "Transferir o instalador Windows",
+  "note": "Comandos retirados do README oficial do kyber-desktop. Consulte o guia para as dependências mais recentes."
  }
 }

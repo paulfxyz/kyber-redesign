@@ -850,5 +850,27 @@
   "note": "In the finished redesign, this destination would be rebranded or replaced by a purpose-built landing page — so visitors never land on raw pages, repositories or files.",
   "go": "Continue",
   "stay": "Stay here"
+ },
+ "sdkm": {
+  "cta": "Install Kyber",
+  "ctaSub": "Copy-paste commands for every platform",
+  "title": "Install, build and run Kyber",
+  "lead": "Pick your platform. Every line has its own copy button — or copy the whole block.",
+  "tStart": "Quick start",
+  "tLinux": "Linux",
+  "tMac": "macOS",
+  "tWin": "Windows",
+  "tRun": "Run",
+  "dStart": "Clone the main repository: introduction, documentation and the map of every Kyber component.",
+  "dLinux": "Build the desktop client and host from source. Tested on Debian Bookworm and Ubuntu 24.04.",
+  "dMac": "Build the macOS client and the alpha host. Requires Rust and the Xcode command-line tools.",
+  "dWin": "The quickest route is the signed Windows installer: client, host and web client in one package. Building from source cross-compiles from Linux.",
+  "dRun": "Start the host on the machine you want to control, then connect from the client.",
+  "copy": "Copy",
+  "copied": "Copied",
+  "copyAll": "Copy all",
+  "readme": "Full build guide on GitLab",
+  "installer": "Download the Windows installer",
+  "note": "Commands taken from the official kyber-desktop README. Check the guide for the latest dependencies."
  }
 }

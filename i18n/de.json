@@ -850,5 +850,27 @@
   "note": "Im fertigen Redesign würde dieses Ziel neu gestaltet oder durch eine eigens entwickelte Landing Page ersetzt – sodass Besucher nie auf rohen Seiten, Repositories oder Dateien landen.",
   "go": "Weiter",
   "stay": "Hier bleiben"
+ },
+ "sdkm": {
+  "cta": "Kyber installieren",
+  "ctaSub": "Befehle für jede Plattform – einfach kopieren",
+  "title": "Kyber installieren, bauen und starten",
+  "lead": "Plattform wählen. Jede Zeile hat eine eigene Kopierschaltfläche – oder den ganzen Block auf einmal kopieren.",
+  "tStart": "Schnellstart",
+  "tLinux": "Linux",
+  "tMac": "macOS",
+  "tWin": "Windows",
+  "tRun": "Ausführen",
+  "dStart": "Das Haupt-Repository klonen: Einführung, Dokumentation und eine Übersicht aller Kyber-Komponenten.",
+  "dLinux": "Den Desktop-Client und Host aus dem Quellcode bauen. Getestet auf Debian Bookworm und Ubuntu 24.04.",
+  "dMac": "Den macOS-Client und den Alpha-Host bauen. Erfordert Rust und die Xcode-Befehlszeilenwerkzeuge.",
+  "dWin": "Der schnellste Weg ist der signierte Windows-Installer: Client, Host und Web-Client in einem Paket. Der Build aus dem Quellcode erfolgt per Cross-Compilation unter Linux.",
+  "dRun": "Den Host auf dem zu steuernden Gerät starten, dann vom Client aus verbinden.",
+  "copy": "Kopieren",
+  "copied": "Kopiert",
+  "copyAll": "Alles kopieren",
+  "readme": "Vollständige Build-Anleitung auf GitLab",
+  "installer": "Windows-Installer herunterladen",
+  "note": "Befehle aus dem offiziellen kyber-desktop README. Die Anleitung für aktuelle Abhängigkeiten prüfen."
  }
 }

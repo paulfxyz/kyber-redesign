@@ -173,10 +173,10 @@ void main(){
     scope.querySelectorAll('[data-tilt]').forEach(el => {
       el.addEventListener('pointermove', (e) => {
         const r = el.getBoundingClientRect(); const px = (e.clientX - r.left) / r.width - .5, py = (e.clientY - r.top) / r.height - .5;
-        el.style.transform = `perspective(900px) rotateX(${(-py * 6).toFixed(2)}deg) rotateY(${(px * 8).toFixed(2)}deg) translateZ(0)`;
+        el.classList.add('is-lift');
         el.style.setProperty('--gx', (px + .5) * 100 + '%'); el.style.setProperty('--gy', (py + .5) * 100 + '%');
       });
-      el.addEventListener('pointerleave', () => { el.style.transform = ''; });
+      el.addEventListener('pointerleave', () => { el.classList.remove('is-lift'); });
     });
   };
   FX.magnetic = function (scope) {

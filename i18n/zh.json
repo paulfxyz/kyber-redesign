@@ -850,5 +850,27 @@
   "note": "在正式版设计中，该目标地址将经过品牌重塑或替换为专属落地页——确保访客始终获得完整的品牌体验，而非直接进入原始页面、代码仓库或文件。",
   "go": "继续",
   "stay": "留在此处"
+ },
+ "sdkm": {
+  "cta": "安装 Kyber",
+  "ctaSub": "一键复制，适配所有平台",
+  "title": "安装、构建并运行 Kyber",
+  "lead": "选择你的平台。每行均可单独复制，也可一键复制完整代码块。",
+  "tStart": "快速开始",
+  "tLinux": "Linux",
+  "tMac": "macOS",
+  "tWin": "Windows",
+  "tRun": "运行",
+  "dStart": "克隆主仓库：包含介绍、文档及 Kyber 各组件的完整导览。",
+  "dLinux": "从源码构建桌面客户端与主机端，已在 Debian Bookworm 与 Ubuntu 24.04 上完成测试。",
+  "dMac": "构建 macOS 客户端及 Alpha 版主机端，需提前安装 Rust 和 Xcode 命令行工具。",
+  "dWin": "最便捷的方式是使用已签名的 Windows 安装包，客户端、主机端与 Web 客户端一步到位。如需从源码构建，可在 Linux 下交叉编译。",
+  "dRun": "在被控机器上启动主机端，随后从客户端发起连接。",
+  "copy": "复制",
+  "copied": "已复制",
+  "copyAll": "全部复制",
+  "readme": "在 GitLab 上查看完整构建指南",
+  "installer": "下载 Windows 安装包",
+  "note": "命令来源于官方 kyber-desktop README，请参阅指南以获取最新依赖说明。"
  }
 }

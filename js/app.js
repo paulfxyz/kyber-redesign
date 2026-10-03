@@ -28,7 +28,7 @@
   const T = (k) => esc(t(k));
   async function load(l) {
     if (cache[l]) return cache[l];
-    const r = await fetch(`i18n/${l}.json?v=1790917086`); if (!r.ok) throw new Error('lang'); return (cache[l] = await r.json());
+    const r = await fetch(`i18n/${l}.json?v=1791054949`); if (!r.ok) throw new Error('lang'); return (cache[l] = await r.json());
   }
   function loadFont(l) {
     if (!FONTS[l] || document.getElementById('font-' + l)) return;
@@ -198,7 +198,7 @@
         </div>
       </article>
       <div class="leads">
-        ${LEADS.map(([ini, k, n, u], i) => `<a class="lead-card rv" data-tilt href="${u}" target="_blank" rel="noopener"><div class="avatar" style="--a:${i * 90}deg">${ini}</div><div><h4>${n}</h4><span class="role">${T('team.' + k + 'Role')}</span><p>${T('team.' + k + 'Bio')}</p></div><span class="li">${LI} LinkedIn ↗</span></a>`).join('')}
+        ${LEADS.map(([ini, k, n, u], i) => `<a class="lead-card rv" data-tilt href="${u}" target="_blank" rel="noopener"><div class="avatar" style="--a:${i * 90}deg"><img src="img/${k}.webp" alt="${n}" loading="lazy" width="160" height="160"><span aria-hidden="true">${ini}</span></div><div><h4>${n}</h4><span class="role">${T('team.' + k + 'Role')}</span><p>${T('team.' + k + 'Bio')}</p></div><span class="li">${LI} LinkedIn ↗</span></a>`).join('')}
         <div class="team__count rv"><b>25+</b><p>${T('team.lead')}</p><a class="btn btn--ghost btn--sm" href="#/about" data-anchor="careers">${T('team.join')} ${ARR}</a></div>
       </div>
     </div>
@@ -559,9 +559,10 @@
     const plats = ['Windows', 'Linux', 'macOS', 'Android', 'iOS', 'Meta Quest', 'Apple Vision Pro', 'Web', 'ROS'];
     return `
     <section class="phero"><div class="wrap">
-      <div class="phero__grid" style="align-items:center">
-        <div>${kicker('sdk.kicker')}${headline('sdk.titleA', 'sdk.titleB')}<p class="lead rv">${T('sdk.lead')}</p>
-          <div class="btns rv" style="margin-top:2rem"><a class="btn btn--accent magnetic" href="${K}/get-the-sdk/" target="_blank" rel="noopener">${T('sdk.download')} ${ARRUR}</a> ${btnStar()} ${btnDocs()}</div></div>
+      <div class="phero__grid phero__grid--sdk" style="align-items:center">
+        <div>${kicker('sdk.kicker')}${headline('sdk.titleA', 'sdk.titleB', 'phero__title phero__title--sdk')}<p class="lead rv">${T('sdk.lead')}</p>
+          <button type="button" class="installcta rv" data-sdkm><span class="installcta__ico mono" aria-hidden="true">$_</span><span class="installcta__txt"><b>${T('sdkm.cta')}</b><small>${T('sdkm.ctaSub')}</small></span><span class="installcta__go" aria-hidden="true">${ARR}</span></button>
+          <div class="btns rv" style="margin-top:1rem"><a class="btn btn--ghost magnetic" href="${GL}" target="_blank" rel="noopener">${T('sdk.download')} ${ARRUR}</a> ${btnStar()} ${btnDocs()}</div></div>
         <div class="term rv"><div class="term__bar"><i></i><i></i><i></i><span>~/kyber — zsh</span><button id="copyBtn">${T('sdk.copy')}</button></div><pre id="termPre"></pre></div>
       </div>
     </div></section>
@@ -843,7 +844,7 @@
   function renderChrome() {
     renderA11y();
     $('#ddPanel').innerHTML = `<div class="dd__intro"><span class="kicker">${T('nav.solutions')}</span><p>${T('nav.solutionsLead')}</p><a class="btn btn--solid btn--sm" href="#/technology">${T('nav.technology')} ${ARR}</a></div>
-      <div class="dd__grid">${SOL.map(s => `<a class="dd__item" href="#/solutions/${s}"><img src="${img(s)}" alt=""><span><b>${T(`solutions.${s}.name`)}</b><small>${T(`solutions.${s}.short`)}</small></span></a>`).join('')}</div>`;
+      <div class="dd__grid">${SOL.map((s, i) => `<a class="dd__item" href="#/solutions/${s}" style="--i:${i}"><img src="${img(s)}" alt="" loading="lazy"><span class="dd__n">0${i + 1}</span><span><b>${T(`solutions.${s}.name`)}</b><small>${T(`solutions.${s}.short`)}</small></span></a>`).join('')}</div>`;
     $('#langList').innerHTML = LANGS.map(([c, n]) => `<li><button role="option" data-l="${c}" aria-selected="${c === LANG}" lang="${c}"><span>${n}</span><span class="mono">${c.toUpperCase()}</span></button></li>`).join('');
     $('#mnav').innerHTML = `
       <div><a class="big" href="#/">Kyber</a><a class="big" href="#/technology">${T('nav.technology')}</a><a class="big" href="#/sdk">${T('nav.sdk')}</a><a class="big" href="#/about">${T('nav.about')}</a><a class="big" href="#/blog">${T('nav.blog')}</a><a class="big" href="#/connect">${T('nav.connect')}</a></div>
@@ -860,7 +861,7 @@
         <div><h4>${T('footer.community')}</h4><ul><li><a href="${GL}" target="_blank" rel="noopener">GitLab ↗</a></li><li><a href="https://discord.gg/ztJ76bkYNm" target="_blank" rel="noopener">Discord ↗</a></li><li><a href="${REL.url}" target="_blank" rel="noopener">${T('footer.installer')} ↗</a></li><li><a href="mailto:contact@kyber.tech">contact@kyber.tech</a></li></ul>
           <h4 style="margin-top:1.6rem">${T('footer.legal')}</h4><ul><li><a href="${K}/legal/privacy-policy/" target="_blank" rel="noopener">${T('footer.privacy')}</a></li><li><a href="${K}/legal/cookies-policy/" target="_blank" rel="noopener">${T('footer.cookies')}</a></li><li><a href="${K}/legal/terms-of-service/" target="_blank" rel="noopener">${T('footer.terms')}</a></li></ul></div>
       </div>
-      <div class="ftr__mark" aria-hidden="true"><svg viewBox="0 0 93 24" fill="currentColor">${$('.hdr__logo svg').innerHTML.replace(/<defs>.*?<\/defs>/s,'').replace('url(#kshine)','currentColor')}</svg></div>
+      <div class="ftr__mark" aria-hidden="true"><svg class="klogo klogo--ftr" viewBox="-2 -2 97 28" fill="currentColor"><defs><linearGradient id="kfoot" gradientUnits="userSpaceOnUse" x1="-80" y1="0" x2="-40" y2="0"><stop offset="0" stop-color="currentColor"/><stop offset=".5" style="stop-color:var(--accent)"/><stop offset="1" stop-color="currentColor"/></linearGradient></defs>${$('.hdr__logo svg').innerHTML.replace(/<defs>.*?<\/defs>/s,'').replace('url(#kshine)','url(#kfoot)')}</svg></div>
       <div class="ftr__bot"><span>Kyber ©2026 · ${T('footer.rights')} · ${T('footer.cities')}</span><button class="conhint mono" type="button" data-open-console>›_ <span class="kb-only">${T('con.hint')}</span><span class="touch-only">${T('common.console')}</span></button><span>${T('footer.proposal')}</span></div>`;
   }
 
@@ -1279,6 +1280,99 @@
 
 
   /* ---------------- external link interstitial ---------------- */
+
+
+  /* ---------------- logo motion (header + footer) ---------------- */
+  function initLogo() {
+    const hl = $('.hdr__logo'); const g = $('#kshine');
+    if (!hl || !g) return;
+    $$('animate', g).forEach(a => a.remove());
+    let live = false, liveUntil = 0, t0 = performance.now(), nextIdle = t0 + 1100;
+    const sweep = (grad, p) => { const x = -60 + p * 170; grad.setAttribute('x1', x); grad.setAttribute('x2', x + 40); };
+    const setLive = (v) => { live = v; hl.classList.toggle('is-live', v); if (v) t0 = performance.now(); };
+    hl.addEventListener('pointerenter', (e) => { if (e.pointerType === 'mouse') setLive(true); });
+    hl.addEventListener('pointerleave', (e) => { if (e.pointerType === 'mouse') setLive(false); });
+    hl.addEventListener('pointerdown', (e) => { if (e.pointerType !== 'mouse') { liveUntil = performance.now() + 2600; setLive(true); } else { hl.classList.remove('is-tap'); void hl.offsetWidth; hl.classList.add('is-tap'); } });
+    hl.addEventListener('focus', () => setLive(true)); hl.addEventListener('blur', () => setLive(false));
+    let idleStart = -1;
+    const loop = (now) => {
+      if (liveUntil && now > liveUntil) { liveUntil = 0; setLive(false); }
+      if (RM) { sweep(g, -1); }
+      else if (live) { sweep(g, ((now - t0) % 1100) / 1100); }
+      else if (now >= nextIdle) { if (idleStart < 0) idleStart = now; const p = (now - idleStart) / 1300; if (p >= 1) { idleStart = -1; nextIdle = now + 7000; sweep(g, 1.2); } else sweep(g, p); }
+      requestAnimationFrame(loop);
+    };
+    requestAnimationFrame(loop);
+    // footer: pointer-follow sheen + parallax pieces + click burst, assemble when scrolled into view
+    const ftr = $('#ftr');
+    let io = null;
+    const bindFooter = () => {
+      const mk = $('.ftr__mark', ftr); if (!mk || mk.dataset.bound) return; mk.dataset.bound = 1;
+      const svg = $('svg', mk); const fg = $('#kfoot', mk); const parts = $$('.klogo__mark path', svg);
+      const depth = [[-1.2, -.6], [1.1, -1], [1.2, 1.1]];
+      io?.disconnect(); io = new IntersectionObserver(([en]) => { if (en.isIntersecting) { mk.classList.add('is-in'); io.disconnect(); } }, { threshold: .35 }); io.observe(mk);
+      const move = (e) => {
+        if (RM) return; const r = svg.getBoundingClientRect(); const px = (e.clientX - r.left) / r.width, py = (e.clientY - r.top) / r.height;
+        const ux = -2 + px * 97; fg.setAttribute('x1', ux - 22); fg.setAttribute('x2', ux + 22);
+        const dx = (px - .5) * 2, dy = (py - .5) * 2;
+        parts.forEach((p, i) => { p.style.translate = `${(dx * depth[i][0]).toFixed(2)}px ${(dy * depth[i][1]).toFixed(2)}px`; });
+        mk.style.setProperty('--mx', (px * 100).toFixed(1) + '%');
+      };
+      mk.addEventListener('pointermove', move);
+      mk.addEventListener('pointerenter', () => mk.classList.add('is-hot'));
+      mk.addEventListener('pointerleave', () => { mk.classList.remove('is-hot'); fg.setAttribute('x1', -80); fg.setAttribute('x2', -40); parts.forEach(p => p.style.translate = ''); });
+      mk.addEventListener('pointerdown', (e) => { move(e); mk.classList.remove('is-burst'); void mk.offsetWidth; mk.classList.add('is-burst'); setTimeout(() => mk.classList.remove('is-burst'), 1100); if (e.pointerType !== 'mouse') setTimeout(() => mk.dispatchEvent(new PointerEvent('pointerleave')), 1400); });
+    };
+    bindFooter();
+    new MutationObserver(bindFooter).observe(ftr, { childList: true });
+  }
+
+  /* ---------------- SDK install modal ---------------- */
+  const INSTALL = {
+    start: ['git clone https://gitlab.com/kyber/kyber.git', 'cd kyber', '# read “Where to start”, then pick a component', 'git clone https://gitlab.com/kyber/apps/kyber-desktop.git'],
+    linux: ['git clone https://gitlab.com/kyber/apps/kyber-desktop.git && cd kyber-desktop', 'git submodule update --init --recursive', 'sudo apt-get build-dep -y vlc   # plus the packages listed in the README', "curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh", 'rustup install 1.89.0 && rustup default 1.89.0', 'cargo install --locked cargo-c@0.10.15', './build-linux.sh'],
+    mac: ['git clone https://gitlab.com/kyber/apps/kyber-desktop.git && cd kyber-desktop', 'git submodule update --init --recursive', "curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh", 'cargo install --locked cargo-c@0.10.15', './build-macos.sh -a <arch>      # dev build', './build-macos.sh -p -a <arch>   # .app bundle'],
+    win: ['# from a Linux machine (mingw-w64 cross-build)', 'git clone https://gitlab.com/kyber/apps/kyber-desktop.git && cd kyber-desktop', 'git submodule update --init --recursive', './build-win32.sh'],
+    run: ['# on the machine you want to control (host)', './rootfs-x86_64-linux-gnu/run_kycontroller.sh', '', '# on your machine (client)', 'export WAYLAND_DISPLAY=""', './rootfs-x86_64-linux-gnu/run_kyclient.sh <host_ip>']
+  };
+  const INSTALL_TABS = [['start', 'tStart', 'dStart'], ['linux', 'tLinux', 'dLinux'], ['mac', 'tMac', 'dMac'], ['win', 'tWin', 'dWin'], ['run', 'tRun', 'dRun']];
+  function initSdkModal() {
+    const m = document.createElement('div'); m.className = 'xm sdkm'; m.id = 'sdkm'; m.hidden = true; m.setAttribute('role', 'dialog'); m.setAttribute('aria-modal', 'true'); m.setAttribute('aria-labelledby', 'sdkmT');
+    document.body.appendChild(m);
+    let tab = 'start', last = null;
+    const esc = (x) => x.replace(/&/g, '&amp;').replace(/</g, '&lt;');
+    const copy = (txt, b) => { (navigator.clipboard ? navigator.clipboard.writeText(txt) : Promise.reject()).catch(() => { const ta = document.createElement('textarea'); ta.value = txt; document.body.appendChild(ta); ta.select(); try { document.execCommand('copy'); } catch (e) { } ta.remove(); }); const o = b.innerHTML; b.classList.add('ok'); b.textContent = t('sdkm.copied'); setTimeout(() => { b.classList.remove('ok'); b.innerHTML = o; }, 1400); };
+    const body = () => {
+      const lines = INSTALL[tab]; const d = INSTALL_TABS.find(x => x[0] === tab)[2];
+      return `<p class="sdkm__d">${T('sdkm.' + d)}</p>
+        ${tab === 'win' ? `<a class="btn btn--accent btn--sm sdkm__inst" href="${REL.dl}" target="_blank" rel="noopener">${T('sdkm.installer')} ${ARRUR}</a>` : ''}
+        <div class="sdkm__term" dir="ltr"><div class="term__bar"><i></i><i></i><i></i><span>~/kyber — zsh</span><button type="button" class="sdkm__all" data-copyall>${T('sdkm.copyAll')}</button></div>
+        <ol class="sdkm__lines">${lines.map((l, i) => l === '' ? '<li class="gap"></li>' : l.startsWith('#') ? `<li class="cmt"><code>${esc(l)}</code></li>` : `<li style="--i:${i}"><span class="pr">$</span><code>${esc(l)}</code><button type="button" class="sdkm__cp" data-cp="${i}" aria-label="${T('sdkm.copy')}"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V5a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h3"/></svg></button></li>`).join('')}</ol></div>`;
+    };
+    const render = () => {
+      m.innerHTML = `<div class="xm__card sdkm__card" role="document">
+        <button type="button" class="sdkm__x iconbtn" data-close aria-label="Esc">✕</button>
+        <span class="kicker">${T('sdk.kicker')}</span>
+        <h2 id="sdkmT">${T('sdkm.title')}</h2>
+        <p class="sdkm__lead">${T('sdkm.lead')}</p>
+        <div class="sdkm__tabs" role="tablist">${INSTALL_TABS.map(([k, l]) => `<button type="button" role="tab" aria-selected="${k === tab}" data-tab="${k}">${T('sdkm.' + l)}</button>`).join('')}</div>
+        <div class="sdkm__body" role="tabpanel">${body()}</div>
+        <div class="sdkm__foot"><a href="https://gitlab.com/kyber/apps/kyber-desktop#build" target="_blank" rel="noopener">${T('sdkm.readme')} ${ARRUR}</a><small>${T('sdkm.note')}</small></div>
+      </div>`;
+    };
+    const open = () => { last = document.activeElement; render(); m.hidden = false; document.documentElement.classList.add('modal-open'); requestAnimationFrame(() => $('[aria-selected="true"]', m)?.focus()); };
+    const close = () => { if (m.hidden) return; m.hidden = true; document.documentElement.classList.remove('modal-open'); last?.focus?.(); };
+    document.addEventListener('click', (e) => { if (e.target.closest('[data-sdkm]')) { e.preventDefault(); open(); } }, true);
+    m.addEventListener('click', (e) => {
+      if (e.target === m || e.target.closest('[data-close]')) return close();
+      const tb = e.target.closest('[data-tab]'); if (tb) { tab = tb.dataset.tab; $$('[data-tab]', m).forEach(b => b.setAttribute('aria-selected', b === tb)); $('.sdkm__body', m).innerHTML = body(); return; }
+      const cp = e.target.closest('[data-cp]'); if (cp) return copy(INSTALL[tab][+cp.dataset.cp], cp);
+      const all = e.target.closest('[data-copyall]'); if (all) return copy(INSTALL[tab].filter(l => l && !l.startsWith('#')).map(l => l.replace(/\s+#.*$/, '')).join('\n'), all);
+    });
+    m.addEventListener('keydown', (e) => { const tb = e.target.closest('[data-tab]'); if (tb && (e.key === 'ArrowRight' || e.key === 'ArrowLeft')) { const b = $$('[data-tab]', m); const i = b.indexOf(tb); const n = b[(i + (e.key === 'ArrowRight' ? 1 : b.length - 1)) % b.length]; n.click(); n.focus(); } });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !m.hidden) { e.preventDefault(); e.stopPropagation(); close(); } }, true);
+  }
+
   function initExternal() {
     const m = document.createElement('div'); m.className = 'xm'; m.id = 'xm'; m.hidden = true; m.setAttribute('role', 'dialog'); m.setAttribute('aria-modal', 'true'); m.setAttribute('aria-labelledby', 'xmT');
     document.body.appendChild(m);
@@ -1310,7 +1404,7 @@
       if (e.target === m || e.target.closest('[data-stay]')) return close();
       if (e.target.closest('[data-go]')) { const a = target; close(); if (!a) return; const u = new URL(a.href, location.href); if (u.protocol === 'mailto:' || a.hasAttribute('download') || !a.target) location.href = a.href; else window.open(a.href, '_blank', 'noopener'); }
     });
-    document.addEventListener('keydown', (e) => { if (!m.hidden && e.key === 'Escape') { e.preventDefault(); e.stopPropagation(); close(); } if (!m.hidden && e.key === 'Tab') { const f = $$('button', m); const i = f.indexOf(document.activeElement); e.preventDefault(); f[(i + (e.shiftKey ? -1 + f.length : 1)) % f.length].focus(); } }, true);
+    document.addEventListener('keydown', (e) => { if (!m.hidden && e.key === 'Escape') { e.preventDefault(); e.stopImmediatePropagation(); close(); } if (!m.hidden && e.key === 'Tab') { const f = $$('button', m); const i = f.indexOf(document.activeElement); e.preventDefault(); f[(i + (e.shiftKey ? -1 + f.length : 1)) % f.length].focus(); } }, true);
   }
 
   /* ---------------- developer console ---------------- */
@@ -1368,7 +1462,7 @@
     const q = new URLSearchParams(location.search).get('lang');
     const want = q || 'en';
     const loadP = (async () => { EN = await load('en'); await setLang(want, false); })();
-    ui(); initConsole(); initA11y(); initExternal();
+    ui(); initConsole(); initA11y(); initExternal(); initSdkModal(); initLogo();
     await loadP;
     route(true);
     window.__boot = performance.now();
