@@ -1170,10 +1170,10 @@ h1,h2,h3,h4,p{margin:0}
 @keyframes kBurst3{25%{transform:translate(3px,3px) rotate(-8deg);fill:var(--accent)}}
 @keyframes kJolt{0%{transform:translateX(.8px)}40%{transform:translateX(-.6px)}100%{transform:none}}
 /* ---- SDK hero ---- */
-@media (min-width:901px){.phero__grid--sdk{grid-template-columns:minmax(0,1.15fr) minmax(0,1fr)}}
-.phero__title--sdk{font-size:clamp(2.6rem,1rem + 4.4vw,6rem);max-width:none;text-wrap:balance}
+@media (min-width:901px){.phero__grid--sdk{grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);column-gap:clamp(2rem,5vw,5rem)}}
+.phero__title--sdk{font-size:clamp(2.4rem,.6rem + 3.6vw,5.2rem);max-width:none;text-wrap:balance;overflow-wrap:normal}
 .phero__title--sdk .serif{display:block}
-@media (min-width:1100px){.phero__title--sdk{white-space:nowrap}.phero__title--sdk .w{white-space:nowrap}}
+
 .installcta{margin-top:2rem;display:flex;align-items:center;gap:1rem;width:min(100%,480px);padding:.9rem 1rem .9rem .9rem;border-radius:20px;background:var(--ink);color:var(--bg);text-align:start;position:relative;overflow:hidden;isolation:isolate;transition:transform .25s var(--ease),box-shadow .35s}
 .installcta::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(110deg,transparent 30%,color-mix(in oklab,var(--accent) 45%,transparent) 50%,transparent 70%);background-size:250% 100%;background-position:120% 0;transition:background-position 1s var(--ease)}
 .installcta:hover::before{background-position:-20% 0}
