@@ -1,0 +1,12 @@
+{
+ "slug": "sdr-developpper",
+ "key": "j4",
+ "title": "SDR DEVELOPPER",
+ "meta": [
+  "Full-time · CDI",
+  "Paris 13ème (on-site, hybrid or full remote)",
+  "Salary aligned with the market + typical French benefits (Health Insurance, 50% Transportation card)"
+ ],
+ "html": "<h2>Role</h2><p>The successful candidate will be responsible for: </p><ul><li>Design and develop Software-Defined Radios solutions,</li><li>Understanding the SDR strategy, and provide ideas,</li></ul><ul><li>Implement and maintain rendering pipelines with strict performance and latency constraints,</li><li>Collaborate with electronics designers,</li><li>Collaborate with designers, product teams, and systems engineers</li><li>Participate in architectural decisions and long-term modem technical strategy</li><li>Produce high-quality technical documentation and review code at a senior level</li></ul><h2>Required Technical Skills</h2><ul><li>Strong background in SDR mathematics (linear algebra, transforms, projections)</li><li>Solid experience developing Software-Defined Radio</li><li>Practical experience with SDR and PCB</li><li>Experience working under real-time constraints (frame budgets, latency, motion-to-photon)</li><li>Programming languages : C / Rust / ASM</li></ul><h2>You</h2><ul><li>3 to 10 years of professional experience in software development, with a significant focus on SDR</li><li>Proven track record working on technically complex and critical systems</li><li>Strong SDR reasoning and ability to understand large, existing codebases</li><li>High level of rigor, autonomy, and attention to detail, Strong interest in solving non-trivial technical problems</li><li>Nice-to-Have Skills : Electronics design</li><li>Nice-To-Have Skills : Contributions to open-source</li></ul><h2>Interview Process</h2><ol><li>15-Min Screening Call : Quick chat about motivation, fit and answer your non tech questions.</li><li>2x1-Hour Technical/Product Interview : Deeper dive into your problem-solving approach with our CTO and/or our lead solution architect</li><li>Team Meet &amp; Greet : Informal session to ensure good culture fit.</li></ol><h2>What We Offer</h2><ul><li>Work on cutting-edge XR and spatial computing technologies</li><li>Ownership over technically challenging, real-time systems</li><li>Highly technical and intellectually challenging projects</li><li>An environment that values genuine engineering expertise and that is tech focused (no nonsense meetings or reportings)</li><li>Strong autonomy in technical decision-making</li></ul>",
+ "legal": false
+}
