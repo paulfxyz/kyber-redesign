@@ -28,7 +28,7 @@
   const T = (k) => esc(t(k));
   async function load(l) {
     if (cache[l]) return cache[l];
-    const r = await fetch(`i18n/${l}.json?v=1791061899`); if (!r.ok) throw new Error('lang'); return (cache[l] = await r.json());
+    const r = await fetch(`i18n/${l}.json?v=1791062071`); if (!r.ok) throw new Error('lang'); return (cache[l] = await r.json());
   }
   function loadFont(l) {
     if (!FONTS[l] || document.getElementById('font-' + l)) return;
@@ -76,7 +76,7 @@
   ];
   POSTS.forEach(p => { p.s = p.u.split('/')[2]; });
   const HERO = {"first-fundraising-announcement": "img/blog/i_s_KC_Kk_Sk_4_K_e513736b94.webp", "v-027": "img/blog/Kyber_release_0_27_1_ed7beaae7e.webp", "v-026": "img/blog/Creative_Workstations_3_D_Video_CAD_21580c1546.webp", "v-025": "img/blog/364c68af5adda22e370fa317d1b86c73c6c627e0_0d0c48bdd8.webp", "avatar-medical-and-kyber-awarded": "img/blog/Kyber_and_Avatar_Medical_d0de18bd2e.webp", "kyberatvivatech": "img/blog/Design_sans_titre_1_cefe71b05b.webp", "v-028": "img/blog/Kyber_release_0_28_278d96fecc.webp"};
-  const LEGAL = { privacy: 'privacy-policy', cookies: 'cookies-policy', terms: 'terms-of-service' };
+  const LEGAL = { privacy: 'doc-p', cookies: 'doc-c', terms: 'doc-t' };
   const fmtDate = (d) => { try { return new Intl.DateTimeFormat(LANG, { day: '2-digit', month: 'short', year: 'numeric' }).format(new Date(d + 'T12:00:00')); } catch (e) { return d; } };
   const num = (n, o) => { try { return new Intl.NumberFormat(LANG === 'ar' ? 'ar-u-nu-latn' : LANG, o).format(n); } catch (e) { return n; } };
 
@@ -1414,7 +1414,7 @@
     if (kind === 'legal') {
       legalDocs = await Promise.all(Object.keys(LEGAL).map(async k => [k, await loadDoc(LEGAL[k], LANG), await loadDoc(LEGAL[k], 'en')]));
       const EXTRA = { privacy: ['Privacy Policy', 'Privacy Statement', 'privacy statement'], cookies: ['Cookie Policy', 'Cookies Policy'], terms: ['Terms of Service', 'Terms of Use'] };
-      links = legalDocs.filter(([k]) => k !== slug).map(([k, dl, de]) => [[...new Set([dl?.title, de?.title, ...EXTRA[k]].filter(Boolean))].sort((a, b) => b.length - a.length), '#/legal/' + k]);
+      links = legalDocs.filter(([k, dl, de]) => k !== slug && (dl || de)).map(([k, dl, de]) => [[...new Set([dl?.title, de?.title, ...EXTRA[k]].filter(Boolean))].sort((a, b) => b.length - a.length), '#/legal/' + k]);
     }
     const { html, toc } = prepBody(d.html, links); d.title = d.title.charAt(0).toLocaleUpperCase(LANG) + d.title.slice(1); window.__docTitle = d.title;
     const shareU = location.origin + location.pathname + '#/' + kind + '/' + slug;
@@ -1424,7 +1424,7 @@
       <section class="phero doc doc--legal"><div class="wrap">
         <a class="doc__back mono" href="#/">${ARRL} Kyber</a>
         ${kicker('legal.kicker')}<h1 class="phero__title split doc__title">${esc(d.title)}</h1>
-        <nav class="legaltabs" aria-label="${T('legal.kicker')}">${legalDocs.map(([k, dl, de], i) => { const ttl = (dl || de).title; return `<a href="#/legal/${k}"${k === slug ? ' aria-current="page"' : ''}><span class="mono">0${i + 1}</span>${esc(ttl.charAt(0).toLocaleUpperCase(LANG) + ttl.slice(1))}</a>`; }).join('')}</nav>
+        <nav class="legaltabs" aria-label="${T('legal.kicker')}">${legalDocs.map(([k, dl, de], i) => { const ttl = (dl || de)?.title || t('footer.' + k); return `<a href="#/legal/${k}"${k === slug ? ' aria-current="page"' : ''}><span class="mono">0${i + 1}</span>${esc(ttl.charAt(0).toLocaleUpperCase(LANG) + ttl.slice(1))}</a>`; }).join('')}</nav>
         <div class="doc__meta mono"><span>${T('legal.updated')} · ${esc(fmtLong(d.updated || en.updated))}</span><span>${readMin(d.html)} ${T('common.minRead')}</span></div>
         ${LANG !== 'en' ? `<div class="doc__note"><span>${T('legal.notice')}</span><button type="button" class="pill" data-orig aria-pressed="false">${T('legal.original')}</button></div>` : ''}
       </div></section>
