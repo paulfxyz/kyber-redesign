@@ -28,7 +28,7 @@
   const T = (k) => esc(t(k));
   async function load(l) {
     if (cache[l]) return cache[l];
-    const r = await fetch(`i18n/${l}.json?v=1791060922`); if (!r.ok) throw new Error('lang'); return (cache[l] = await r.json());
+    const r = await fetch(`i18n/${l}.json?v=1791061899`); if (!r.ok) throw new Error('lang'); return (cache[l] = await r.json());
   }
   function loadFont(l) {
     if (!FONTS[l] || document.getElementById('font-' + l)) return;
@@ -1056,6 +1056,7 @@
       <div><a class="big" href="#/">Kyber</a><a class="big" href="#/technology">${T('nav.technology')}</a><a class="big" href="#/sdk">${T('nav.sdk')}</a><a class="big" href="#/about">${T('nav.about')}</a><a class="big" href="#/blog">${T('nav.blog')}</a><a class="big" href="#/connect">${T('nav.connect')}</a></div>
       <div><div class="kicker">${T('nav.solutions')}</div><div class="sub">${SOL.map(s => `<a href="#/solutions/${s}">${T(`solutions.${s}.name`)}</a>`).join('')}</div></div>
       <div class="btns">${btnSdk('btn--accent')}</div>
+      <div class="mnav__legal">${Object.keys(LEGAL).map(k => `<a href="#/legal/${k}">${T('footer.' + k)}</a>`).join('')}</div>
       <div class="mtools"><label class="mtools__lang"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.7 3.8 5.7 3.8 9s-1.3 6.3-3.8 9c-2.5-2.7-3.8-5.7-3.8-9S9.5 5.7 12 3z"/></svg><span class="sr-only">${T('nav.language')}</span><select data-mlang aria-label="${T('nav.language')}">${LANGS.map(([c, n]) => `<option value="${c}" ${c === LANG ? 'selected' : ''}>${n}</option>`).join('')}</select></label>
         <button type="button" class="iconbtn" data-mtheme aria-label="${T('nav.theme')}"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg></button><button type="button" class="iconbtn mono" data-open-console aria-label="${T('common.console')}">›_</button></div>`;
     $('#ftr').innerHTML = `
@@ -1377,8 +1378,26 @@
   }
   const fmtLong = (d) => { try { return new Intl.DateTimeFormat(LANG, { day: 'numeric', month: 'long', year: 'numeric' }).format(new Date(d)); } catch (e) { return d; } };
   const readMin = (html) => { const tx = html.replace(/<[^>]+>/g, ' '); const cjk = (tx.match(/[\u3040-\u30ff\u4e00-\u9fff]/g) || []).length; const w = tx.split(/\s+/).filter(Boolean).length; return Math.max(1, Math.round(cjk ? cjk / 450 + w / 230 : w / 230)); };
-  const prepBody = (html) => {
-    const box = document.createElement('div'); box.innerHTML = html; const toc = []; let i = 0;
+  const autoLink = (box, links) => {
+    if (!links || !links.length) return;
+    const walker = document.createTreeWalker(box, NodeFilter.SHOW_TEXT, { acceptNode: (n) => n.parentElement.closest('a,h1,h2,h3,code,pre') ? NodeFilter.FILTER_REJECT : NodeFilter.FILTER_ACCEPT });
+    const nodes = []; while (walker.nextNode()) nodes.push(walker.currentNode);
+    const used = {};
+    nodes.forEach(n => {
+      let txt = n.nodeValue; const frag = document.createDocumentFragment(); let changed = false;
+      for (;;) {
+        let best = null;
+        links.forEach(([words, href]) => { if ((used[href] || 0) >= 2) return; words.forEach(w => { const i = txt.toLocaleLowerCase(LANG).indexOf(w.toLocaleLowerCase(LANG)); if (i >= 0 && (!best || i < best.i)) best = { i, w, href }; }); });
+        if (!best) break;
+        frag.appendChild(document.createTextNode(txt.slice(0, best.i)));
+        const a = document.createElement('a'); a.href = best.href; a.className = 'autolink'; a.textContent = txt.substr(best.i, best.w.length); frag.appendChild(a);
+        used[best.href] = (used[best.href] || 0) + 1; txt = txt.slice(best.i + best.w.length); changed = true;
+      }
+      if (changed) { frag.appendChild(document.createTextNode(txt)); n.replaceWith(frag); }
+    });
+  };
+  const prepBody = (html, links) => {
+    const box = document.createElement('div'); box.innerHTML = html; const toc = []; let i = 0; autoLink(box, links);
     box.querySelectorAll('h2,h3').forEach(h => { if (h.tagName === 'H2' && !i && /^kyber [\d.]+!?$/i.test(h.textContent.trim())) { h.classList.add('doc__kick'); return; } h.id = 'sec-' + (++i); if (h.tagName === 'H2' || !box.querySelector('h2:not(.doc__kick)')) toc.push([h.id, h.textContent.trim()]); });
     box.querySelectorAll('a[href]').forEach(a => { const h = a.getAttribute('href'); const m = /^https?:\/\/(www\.)?kyber\.tech\/article\/([^/?#]+)/.exec(h) || /^\/article\/([^/?#]+)/.exec(h); if (m) { a.setAttribute('href', '#/blog/' + (m[2] || m[1])); return; } const l = /kyber\.tech\/legal\/(privacy|cookies|terms)/.exec(h); if (l) { a.setAttribute('href', '#/legal/' + l[1]); return; } if (h.startsWith('/')) a.setAttribute('href', K + h); if (/^https?:/.test(a.getAttribute('href'))) { a.target = '_blank'; a.rel = 'noopener'; } });
     box.querySelectorAll('img').forEach(im => { im.loading = 'lazy'; im.decoding = 'async'; const f = document.createElement('figure'); im.replaceWith(f); f.appendChild(im); });
@@ -1391,21 +1410,27 @@
     if (!src) return null;
     const [d, en] = await Promise.all([loadDoc(src, LANG), loadDoc(src, 'en')]);
     if (!d) return null;
-    const { html, toc } = prepBody(d.html); d.title = d.title.charAt(0).toLocaleUpperCase(LANG) + d.title.slice(1); window.__docTitle = d.title;
+    let links = null, legalDocs = null;
+    if (kind === 'legal') {
+      legalDocs = await Promise.all(Object.keys(LEGAL).map(async k => [k, await loadDoc(LEGAL[k], LANG), await loadDoc(LEGAL[k], 'en')]));
+      const EXTRA = { privacy: ['Privacy Policy', 'Privacy Statement', 'privacy statement'], cookies: ['Cookie Policy', 'Cookies Policy'], terms: ['Terms of Service', 'Terms of Use'] };
+      links = legalDocs.filter(([k]) => k !== slug).map(([k, dl, de]) => [[...new Set([dl?.title, de?.title, ...EXTRA[k]].filter(Boolean))].sort((a, b) => b.length - a.length), '#/legal/' + k]);
+    }
+    const { html, toc } = prepBody(d.html, links); d.title = d.title.charAt(0).toLocaleUpperCase(LANG) + d.title.slice(1); window.__docTitle = d.title;
     const shareU = location.origin + location.pathname + '#/' + kind + '/' + slug;
     const tocH = toc.length > 1 ? `<nav class="doc__toc" aria-label="${T('art.toc')}"><span class="kicker">${T('art.toc')}</span><ol>${toc.map(([id, tx], i) => `<li><a href="#${id}" data-toc="${id}"><span class="mono">${String(i + 1).padStart(2, '0')}</span>${esc(tx)}</a></li>`).join('')}</ol></nav>` : '';
     if (kind === 'legal') {
-      const others = Object.keys(LEGAL).filter(k => k !== slug);
       return `<div class="readbar" aria-hidden="true"><i id="readBar"></i></div>
       <section class="phero doc doc--legal"><div class="wrap">
         <a class="doc__back mono" href="#/">${ARRL} Kyber</a>
         ${kicker('legal.kicker')}<h1 class="phero__title split doc__title">${esc(d.title)}</h1>
+        <nav class="legaltabs" aria-label="${T('legal.kicker')}">${legalDocs.map(([k, dl, de], i) => { const ttl = (dl || de).title; return `<a href="#/legal/${k}"${k === slug ? ' aria-current="page"' : ''}><span class="mono">0${i + 1}</span>${esc(ttl.charAt(0).toLocaleUpperCase(LANG) + ttl.slice(1))}</a>`; }).join('')}</nav>
         <div class="doc__meta mono"><span>${T('legal.updated')} · ${esc(fmtLong(d.updated || en.updated))}</span><span>${readMin(d.html)} ${T('common.minRead')}</span></div>
         ${LANG !== 'en' ? `<div class="doc__note"><span>${T('legal.notice')}</span><button type="button" class="pill" data-orig aria-pressed="false">${T('legal.original')}</button></div>` : ''}
       </div></section>
       <section class="sec doc__wrap" style="padding-top:0"><div class="wrap doc__grid">
-        <aside class="doc__side">${tocH}<div class="doc__other"><span class="kicker">${T('legal.kicker')}</span>${others.map(k => `<a href="#/legal/${k}">${T('footer.' + ({ privacy: 'privacy', cookies: 'cookies', terms: 'terms' })[k])} ${ARR}</a>`).join('')}</div></aside>
-        <article class="doc__body prose" id="docBody" data-en="${esc(JSON.stringify(prepBody(en.html).html))}">${html}</article>
+        <aside class="doc__side">${tocH}<div class="doc__help"><span class="kicker">${T('legal.questions')}</span><a href="mailto:contact@kyber.tech" class="mono">contact@kyber.tech</a></div></aside>
+        <article class="doc__body prose" id="docBody" data-en="${esc(JSON.stringify(prepBody(en.html, links).html))}">${html}</article>
       </div></section>${ctaBlock()}`;
     }
     const i = POSTS.findIndex(p => p.s === slug); const prev = POSTS[i + 1], next = POSTS[i - 1]; const post = POSTS[i];

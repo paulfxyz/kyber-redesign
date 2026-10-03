@@ -1382,3 +1382,25 @@ svg.arr{width:14px;height:14px;flex:none;vertical-align:-2px}
 :lang(fr) .doc__quote p{quotes:"« " " »"}
 :lang(de) .doc__quote p{quotes:"„" "“"}
 :lang(ja) .prose :is(p,li,blockquote),:lang(zh) .prose :is(p,li,blockquote){word-break:normal;line-break:strict}
+/* legal tabs + sidebar v2 */
+.legaltabs{display:inline-flex;gap:.25rem;padding:.3rem;margin:0 0 1.4rem;border:1px solid var(--line);border-radius:999px;background:color-mix(in oklab,var(--surface) 70%,transparent);backdrop-filter:blur(10px);max-width:100%;overflow-x:auto;scrollbar-width:none}
+.legaltabs::-webkit-scrollbar{display:none}
+.legaltabs a{flex:none;display:inline-flex;align-items:center;gap:.55rem;height:40px;padding:0 1.1rem;border-radius:999px;font-size:var(--t-sm);color:var(--muted);white-space:nowrap;transition:color .25s,background .25s}
+.legaltabs a .mono{font-size:.66rem;color:var(--faint);transition:color .25s}
+.legaltabs a:hover{color:var(--ink);background:var(--line)}
+.legaltabs a[aria-current="page"]{background:var(--ink);color:var(--bg)}
+.legaltabs a[aria-current="page"] .mono{color:var(--accent)}
+.doc--legal .doc__title{margin-top:.6rem}
+.doc__help{display:flex;flex-direction:column;gap:.5rem;padding-top:1.2rem;border-top:1px solid var(--line)}
+.doc__help a{font-size:var(--t-xs);color:var(--accent);text-decoration:underline;text-underline-offset:3px}
+.prose a.autolink{text-decoration-style:dotted}
+.doc__toc .kicker,.doc__share .kicker,.doc__help .kicker{font-size:.68rem}
+.doc__share div{gap:.35rem}
+.doc__share .pill{height:34px;padding:0 .85rem;font-size:var(--t-xs);display:inline-flex;align-items:center}
+.mnav__legal{display:flex;gap:1.2rem;flex-wrap:wrap;font-size:var(--t-sm);color:var(--muted)}
+.mnav__legal a:hover{color:var(--ink)}
+@media (min-width:641px){.mnav__legal{display:none}}
+@media (max-width:640px){
+ .legaltabs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-radius:18px;width:100%}
+ .legaltabs a{height:auto;min-height:52px;padding:.5rem .4rem;border-radius:14px;flex-direction:column;justify-content:center;gap:.15rem;white-space:normal;text-align:center;line-height:1.2;font-size:var(--t-xs)}
+}
