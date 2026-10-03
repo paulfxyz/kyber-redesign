@@ -28,7 +28,7 @@
   const T = (k) => esc(t(k));
   async function load(l) {
     if (cache[l]) return cache[l];
-    const r = await fetch(`i18n/${l}.json?v=1791057128`); if (!r.ok) throw new Error('lang'); return (cache[l] = await r.json());
+    const r = await fetch(`i18n/${l}.json?v=1791058949`); if (!r.ok) throw new Error('lang'); return (cache[l] = await r.json());
   }
   function loadFont(l) {
     if (!FONTS[l] || document.getElementById('font-' + l)) return;
@@ -644,16 +644,34 @@
     ${ctaBlock()}`;
   }
 
-  const RICO = [
-    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg>',
-    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/><path d="M7 10l3 2-3 2" /></svg>',
-    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 20h18M6 16V9M11 16V5M16 16v-4M21 16V8"/></svg>',
-    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3l9 5-9 5-9-5 9-5z"/><path d="M6 10v5c3 2 9 2 12 0v-5"/></svg>',
-    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 19V5h11l5 5v9z"/><path d="M8 13h8M8 16h5M15 5v5h5"/></svg>',
-    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5h6v2"/><path d="M3 13h18"/></svg>'
-  ];
+  const RICO = {
+    r1: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg>',
+    r2: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/><path d="M7 10l3 2-3 2" /></svg>',
+    r3: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 20h18M6 16V9M11 16V5M16 16v-4M21 16V8"/></svg>',
+    r7: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 12l2.5 2.5a2 2 0 0 0 2.8 0L18 9.8"/><path d="M3 10l4-4 3 1 2-1 3 1 4-1 2 4-3 5-3 3-3 1-4-3-5-6z"/></svg>',
+    r4: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3l9 5-9 5-9-5 9-5z"/><path d="M6 10v5c3 2 9 2 12 0v-5"/></svg>',
+    r5: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 19l5-6 4 3 7-9"/><path d="M15 7h5v5"/></svg>',
+    r8: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 19V5h11l5 5v9z"/><path d="M8 13h8M8 16h5M15 5v5h5"/></svg>',
+    r6: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5h6v2"/><path d="M3 13h18"/></svg>'
+  };
+  const ROLES = ['r1', 'r2', 'r3', 'r7', 'r4', 'r5', 'r8', 'r6'];
+  const BIZ = ['r1', 'r2', 'r3', 'r4', 'r7'], TALK = ['r5', 'r8'], NEEDS_CO = ['r2', 'r3', 'r7'];
   let FS = null;
-  const freshFS = () => ({ step: 0, role: null, name: '', email: '', company: '', need: [], stack: null, lat: 20, scale: null, timeline: null, job: null, link: '', phone: '', channel: null, day: null, time: null, note: '' });
+  const freshFS = () => ({ step: 0, role: null, name: '', email: '', company: '', need: [], other: '', stack: null, lat: 20, scale: null, timeline: null, job: null, link: '', topic: null, org: '', phone: '', channel: null, office: null, day: null, time: null, note: '', consent: false, files: [], voice: null, tried: {} });
+  const MAXF = 5, MAXB = 10 * 1024 * 1024, NOTE_MAX = 2000;
+  const OKEXT = /\.(pdf|png|jpe?g|webp|gif|svg|heic|txt|md|rtf|docx?|odt|pptx?|odp|key|xlsx?|ods|csv|json|zip|7z|tar|gz|mp3|m4a|wav|ogg|webm|mp4|mov)$/i;
+  const fmtB = (b) => b < 1024 ? b + ' B' : b < 1048576 ? (b / 1024).toFixed(0) + ' KB' : (b / 1048576).toFixed(1) + ' MB';
+  const fill = (s, o) => s.replace(/\{(\w+)\}/g, (m, k) => o[k] ?? m);
+  const EMAIL_DOMAINS = ['gmail.com', 'googlemail.com', 'outlook.com', 'hotmail.com', 'hotmail.fr', 'live.com', 'yahoo.com', 'yahoo.fr', 'icloud.com', 'me.com', 'proton.me', 'protonmail.com', 'orange.fr', 'free.fr', 'wanadoo.fr', 'laposte.net', 'sfr.fr', 'gmx.de', 'web.de', 'gmx.net', 'kyber.tech'];
+  const PERSONAL = /^(gmail|googlemail|outlook|hotmail|live|yahoo|icloud|me|proton|protonmail|orange|free|wanadoo|laposte|sfr|gmx|web|aol|mail|yandex|qq|163)\./i;
+  const lev = (a, b) => { const m = a.length, n = b.length; if (Math.abs(m - n) > 2) return 9; const d = Array.from({ length: m + 1 }, (_, i) => [i, ...Array(n).fill(0)]); for (let j = 1; j <= n; j++) d[0][j] = j; for (let i = 1; i <= m; i++) for (let j = 1; j <= n; j++) d[i][j] = Math.min(d[i - 1][j] + 1, d[i][j - 1] + 1, d[i - 1][j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1), i > 1 && j > 1 && a[i - 1] === b[j - 2] && a[i - 2] === b[j - 1] ? d[i - 2][j - 2] + 1 : 9); return d[m][n]; };
+  const emailSuggest = (v) => {
+    const m = /^([^@\s]+)@([^@\s]+)$/.exec(v.trim()); if (!m) return null; let dom = m[2].toLowerCase();
+    const tl = dom.replace(/\.(con|cmo|ocm|comm|cm|co\.?m|vom|xom)$/, '.com').replace(/\.(fe|ffr)$/, '.fr'); if (tl !== dom && EMAIL_DOMAINS.includes(tl)) return m[1] + '@' + tl;
+    if (EMAIL_DOMAINS.includes(dom)) return null;
+    let best = null, bd = 3; EMAIL_DOMAINS.forEach(x => { const s = lev(dom, x); if (s < bd) { bd = s; best = x; } });
+    return best && bd <= 2 ? m[1] + '@' + best : (tl !== dom ? m[1] + '@' + tl : null);
+  };
   function pageConnect() {
     if (!FS) FS = freshFS();
     const jobs = ['j1', 'j2', 'j3', 'j4', 'j5'];
@@ -662,7 +680,9 @@
     const fmtD = (x, o) => { try { return new Intl.DateTimeFormat(LANG, o).format(x); } catch (e) { return x.toDateString(); } };
     const tz = (() => { try { return Intl.DateTimeFormat().resolvedOptions().timeZone; } catch (e) { return 'UTC'; } })();
     const pill = (grp, val, label, multi) => `<button type="button" class="pill" data-g="${grp}" data-v="${esc(val)}"${multi ? ' data-multi="1"' : ''} aria-pressed="false">${label}</button>`;
-    const fld = (id, k, type = 'text', full) => `<div class="fld${full ? ' full' : ''}"><input id="f_${id}" data-k="${id}" type="${type}" placeholder=" " autocomplete="${{ name: 'name', email: 'email', company: 'organization', link: 'url' }[id] || 'off'}"><label for="f_${id}">${T(k)}</label></div>`;
+    const ferr = (f) => `<p class="ferr" id="e_${f}"><span><i aria-hidden="true">!</i><b></b></span></p>`;
+    const fld = (id, k, type = 'text', full, extra = '') => `<div class="fld${full ? ' full' : ''}" data-f="${id}"><input id="f_${id}" data-k="${id}" type="${type}" placeholder=" " autocomplete="${{ name: 'name', email: 'email', company: 'organization', link: 'url', phone: 'tel', org: 'organization' }[id] || 'off'}"${type === 'email' ? ' inputmode="email" autocapitalize="off" spellcheck="false"' : ''}${type === 'tel' ? ' inputmode="tel"' : ''}${type === 'url' ? ' inputmode="url" autocapitalize="off" spellcheck="false"' : ''} aria-describedby="e_${id}"${extra}><label for="f_${id}" id="l_${id}">${T(k)}</label><span class="fld__ok" aria-hidden="true"></span>${ferr(id)}</div>`;
+    const group = (f, qKey, inner, multi, tag = 'p', cls = 'qs') => `<${tag} class="${cls}" id="q_${f}">${T(qKey)}</${tag}><div class="vgroup" data-f="${f}" role="${multi ? 'group' : 'radiogroup'}" aria-labelledby="q_${f}" aria-describedby="e_${f}">${inner}</div>${ferr(f)}`;
     return `
     <section class="phero" style="padding-bottom:var(--sec)"><div class="wrap flow">
       <aside class="flow__aside">
@@ -673,54 +693,72 @@
         <div class="flow__bar"><i id="flowBar"></i></div>
         <div class="tick-row rv"><a class="accent" href="${GL}" target="_blank" rel="noopener">GitLab ↗</a><a class="accent" href="https://www.reddit.com/r/kyber/" target="_blank" rel="noopener">r/kyber ↗</a><a class="accent" href="https://www.linkedin.com/company/kyber-tech/" target="_blank" rel="noopener">LinkedIn ↗</a></div>
       </aside>
-      <div class="panel rv" id="panel">
+      <form class="panel rv" id="panel" novalidate>
         <div class="stage" data-s="0">
-          <h2 class="q">${T('flow.q1')}</h2>
-          <div class="roles">${[1, 2, 3, 4, 5, 6].map(i => `<button type="button" class="chipbtn" data-g="role" data-v="r${i}" aria-pressed="false">${RICO[i - 1]}<span>${T('flow.r' + i)}</span></button>`).join('')}</div>
+          ${group('role', 'flow.q1', `<div class="roles">${ROLES.map(r => `<button type="button" class="chipbtn" data-g="role" data-v="${r}" aria-pressed="false">${RICO[r]}<span>${T('flow.' + r)}</span></button>`).join('')}</div>`, false, 'h2', 'q')}
           <div class="hintbox" id="devHint" hidden><span>${T('flow.devHint')}</span><a class="btn btn--accent btn--sm" href="#/sdk">${T('common.getSdk')} ${ARR}</a></div>
           <div class="grid2">${fld('name', 'flow.name')}${fld('email', 'flow.email', 'email')}${fld('company', 'flow.company', 'text', true)}</div>
         </div>
         <div class="stage" data-s="1">
-          <div class="grp" data-show="nojob">
-            <h2 class="q">${T('flow.q2')}</h2>
-            <div class="pills">${SOL.map(x => pill('need', x, T(`solutions.${x}.name`), 1)).join('')}${pill('need', 'other', T('flow.other'), 1)}</div>
-            <p class="qs">${T('flow.q2b')}</p>
-            <div class="pills">${[1, 2, 3, 4].map(i => pill('stack', 'st' + i, T('flow.st' + i))).join('')}</div>
+          <div class="grp" data-show="biz">
+            ${group('need', 'flow.q2', `<div class="pills">${SOL.map(x => pill('need', x, T(`solutions.${x}.name`), 1)).join('')}${pill('need', 'other', T('flow.other'), 1)}</div>`, true, 'h2', 'q')}
+            <div class="grp" data-show="other"><div class="grid2" style="margin-top:.6rem">${fld('other', 'flow.otherWhat', 'text', true)}</div></div>
+            <p class="qs" id="q_stack">${T('flow.q2b')} <small class="opt">${T('flow.optional')}</small></p>
+            <div class="vgroup" data-f="stack" role="radiogroup" aria-labelledby="q_stack"><div class="pills">${[1, 2, 3, 4].map(i => pill('stack', 'st' + i, T('flow.st' + i))).join('')}</div></div>
             <p class="qs">${T('flow.q2c')}</p>
-            <div class="latpick"><div class="latpick__val"><b id="latVal">20 ms</b><span id="latTxt"></span></div><input type="range" class="range" id="latR" min="5" max="250" value="20"></div>
-            <p class="qs">${T('flow.q2d')}</p>
-            <div class="pills">${['1–10', '10–100', '100–1k', '1k+'].map(v => pill('scale', v, v + ' ' + T('flow.machines'))).join('')}</div>
-            <p class="qs">${T('flow.q2e')}</p>
-            <div class="pills">${[1, 2, 3].map(i => pill('timeline', 'tl' + i, T('flow.tl' + i))).join('')}</div>
+            <div class="latpick"><div class="latpick__val"><b id="latVal">20 ms</b><span id="latTxt"></span></div><input type="range" class="range" id="latR" min="5" max="250" value="20" aria-label="${T('flow.q2c')}"></div>
+            <p class="qs" id="q_scale">${T('flow.q2d')} <small class="opt">${T('flow.optional')}</small></p>
+            <div class="vgroup" data-f="scale" role="radiogroup" aria-labelledby="q_scale"><div class="pills">${['1–10', '10–100', '100–1k', '1k+'].map(v => pill('scale', v, v + ' ' + T('flow.machines'))).join('')}</div></div>
+            ${group('timeline', 'flow.q2e', `<div class="pills">${[1, 2, 3].map(i => pill('timeline', 'tl' + i, T('flow.tl' + i))).join('')}</div>`)}
+          </div>
+          <div class="grp" data-show="talk" hidden>
+            ${group('topic', 'flow.topicQ', `<div class="pills">${[1, 2, 3, 4, 5].map(i => pill('topic', 'tp' + i, T('flow.tp' + i))).join('')}</div>`, false, 'h2', 'q')}
+            <div class="grid2">${fld('org', 'flow.org', 'text', true)}</div>
           </div>
           <div class="grp" data-show="job" hidden>
-            <h2 class="q">${T('flow.jobQ')}</h2>
-            <div class="pills">${jobs.map(j => pill('job', j, T('about.' + j))).join('')}</div>
+            ${group('job', 'flow.jobQ', `<div class="pills">${jobs.map(j => pill('job', j, T('about.' + j))).join('')}</div>`, false, 'h2', 'q')}
             <div class="grid2">${fld('link', 'flow.linkedin', 'url', true)}</div>
-            <div class="hintbox"><span>${T('about.stackLine')}</span><a class="btn btn--accent btn--sm" id="jobGo" href="${K}/about#careers" target="_blank" rel="noopener">${T('flow.jobApply')} ${ARRUR}</a></div>
+            <div class="hintbox"><span>${T('att.cvHint')}</span><a class="btn btn--ghost btn--sm" id="jobGo" href="${K}/about#careers" target="_blank" rel="noopener">${T('flow.jobApply')} ${ARRUR}</a></div>
           </div>
         </div>
         <div class="stage" data-s="2">
-          <h2 class="q">${T('flow.q3')}</h2>
-          <div class="pills">${[1, 2, 3, 4].map(i => pill('channel', 'c' + i, T('flow.c' + i))).join('')}</div>
+          ${group('channel', 'flow.q3', `<div class="pills">${[1, 2, 3, 4].map(i => pill('channel', 'c' + i, T('flow.c' + i))).join('')}</div>`, false, 'h2', 'q')}
           <div class="grp" data-show="phone"><div class="grid2">${fld('phone', 'flow.phone', 'tel', true)}</div></div>
+          <div class="grp" data-show="office">${group('office', 'flow.office', `<div class="pills">${[1, 2, 3].map(i => pill('office', 'of' + i, T('flow.of' + i))).join('')}</div>`)}</div>
           <div class="grp" data-show="when">
-            <p class="qs">${T('flow.q3b')}</p>
-            <div class="days">${days.map(x => `<button type="button" class="day" data-g="day" data-v="${x.toISOString().slice(0, 10)}" aria-pressed="false"><small>${fmtD(x, { weekday: 'short' })}</small><b>${fmtD(x, { day: 'numeric' })}</b><small>${fmtD(x, { month: 'short' })}</small></button>`).join('')}</div>
-            <p class="qs">${T('flow.q3c')}</p>
-            <div class="pills">${['morning', 'afternoon', 'evening'].map(v => pill('time', v, T('flow.' + v))).join('')}</div>
+            ${group('day', 'flow.q3b', `<div class="days">${days.map(x => `<button type="button" class="day" data-g="day" data-v="${x.toISOString().slice(0, 10)}" aria-pressed="false" aria-label="${esc(fmtD(x, { weekday: 'long', day: 'numeric', month: 'long' }))}"><small>${fmtD(x, { weekday: 'short' })}</small><b>${fmtD(x, { day: 'numeric' })}</b><small>${fmtD(x, { month: 'short' })}</small></button>`).join('')}</div>`)}
+            ${group('time', 'flow.q3c', `<div class="pills">${['morning', 'afternoon', 'evening'].map(v => pill('time', v, T('flow.' + v))).join('')}</div>`)}
             <div class="tzline"><span>${T('flow.tz')}: ${esc(tz)}</span><span>${T('flow.parisTime')}: <b id="parisNow" style="direction:ltr;display:inline-block">--:--</b></span></div>
           </div>
-          <div class="grid2"><div class="fld full"><textarea id="f_note" data-k="note" placeholder=" "></textarea><label for="f_note">${T('flow.note')}</label></div></div>
+          <div class="grid2"><div class="fld full" data-f="note"><textarea id="f_note" data-k="note" placeholder=" " maxlength="${NOTE_MAX + 200}" aria-describedby="e_note"></textarea><label for="f_note">${T('flow.note')} <small class="opt">${T('flow.optional')}</small></label><span class="fld__count mono" id="noteCount" aria-hidden="true"></span>${ferr('note')}</div></div>
+          <div class="att" data-f="files">
+            <div class="att__head"><b>${T('att.title')}</b><span>${T('att.sub')}</span></div>
+            <label class="att__drop" id="attDrop" tabindex="0" role="button" aria-describedby="attLim e_files">
+              <input type="file" id="attIn" multiple hidden accept=".pdf,.png,.jpg,.jpeg,.webp,.gif,.svg,.heic,.txt,.md,.rtf,.doc,.docx,.odt,.ppt,.pptx,.odp,.key,.xls,.xlsx,.ods,.csv,.json,.zip,.7z,.tar,.gz,.mp3,.m4a,.wav,.ogg,.webm,.mp4,.mov">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 16V4M7 9l5-5 5 5"/><path d="M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3"/></svg>
+              <span>${fill(T('att.drop'), { browse: `<u>${T('att.browse')}</u>` })}</span>
+              <small id="attLim">${T('att.limits')}</small>
+            </label>
+            <ul class="att__list" id="attList"></ul>
+            ${ferr('files')}
+            <div class="voice" data-f="voice" id="voice">
+              <button type="button" class="voice__rec" id="vRec"><i class="voice__dot" aria-hidden="true"></i><span id="vRecL">${T('att.rec')}</span></button>
+              <canvas class="voice__wave" id="vWave" width="320" height="40" aria-hidden="true"></canvas>
+              <span class="voice__t mono" id="vTime">${T('att.recMax')}</span>
+              <div class="voice__play" id="vPlay" hidden><audio id="vAudio" controls preload="metadata"></audio><button type="button" class="pill" id="vAgain">${T('att.recAgain')}</button><button type="button" class="pill" id="vDel">${T('att.recDelete')}</button></div>
+            </div>
+            ${ferr('voice')}
+          </div>
         </div>
         <div class="stage" data-s="3">
           <h2 class="q">${T('flow.review')}</h2>
           <dl class="sum" id="sum"></dl>
+          <div class="consent" data-f="consent"><label class="check"><input type="checkbox" id="f_consent" aria-describedby="e_consent"><span class="check__box" aria-hidden="true"></span><span>${fill(T('flow.consent'), { link: `<a href="${K}/legal/privacy-policy/" target="_blank" rel="noopener">${T('flow.privacy')}</a>` })}</span></label>${ferr('consent')}</div>
           <p class="mono" style="font-size:var(--t-xs);color:var(--faint);margin-top:1rem">${T('contact.demoNote')}</p>
         </div>
         <div class="flow__nav">
           <button type="button" class="btn btn--ghost btn--sm" id="fBack">${T('common.back2')}</button>
-          <span class="flow__err" id="fErr" role="alert">${T('flow.required')}</span>
+          <button type="button" class="flow__err" id="fErr" tabindex="-1" aria-live="polite"></button>
           <button type="button" class="btn btn--accent magnetic" id="fNext">${T('common.continue')} ${ARR}</button>
         </div>
         <div class="doneview" role="status">
@@ -728,74 +766,238 @@
           <div class="big">${T('flow.done')}</div>
           <div class="ms mono" id="doneMs"></div>
           <p>${T('flow.doneLead')}</p>
+          <div class="donefiles" id="doneFiles" hidden></div>
           <div class="btns"><a class="btn btn--accent" id="fMail" href="mailto:contact@kyber.tech">${T('flow.sendEmail')} ${ARR}</a> ${btnSdk('btn--ghost')} <button type="button" class="btn btn--ghost" id="fRestart">${T('flow.restart')}</button></div>
         </div>
-      </div>
+      </form>
     </div></section>`;
   }
 
   function initFlow(main) {
     const panel = $('#panel', main); if (!panel) return;
     const st = FS; const G = window.gsap;
-    const stages = $$('.stage', panel), stepsEl = $$('.steps li', main), bar = $('#flowBar', main), err = $('#fErr', main);
+    const stages = $$('.stage', panel), stepsEl = $$('.steps li', main), bar = $('#flowBar', main), errBtn = $('#fErr', main);
+    const kind = () => isJob() ? 'job' : TALK.includes(st.role) ? 'talk' : 'biz';
     const isJob = () => st.role === 'r6';
+    const rtl = () => document.documentElement.dir === 'rtl';
+    /* ---------- roving focus inside choice groups: Tab = next field, arrows = move inside a group ---------- */
+    const rove = () => $$('.vgroup', panel).forEach(g => { const bs = $$('[data-g]', g); if (!bs.length) return; const sel = bs.find(b => b.getAttribute('aria-pressed') === 'true'); const cur = bs.find(b => b.tabIndex === 0 && b !== sel); const act = sel || (cur && !g.contains(document.activeElement) ? bs[0] : cur) || bs[0]; bs.forEach(b => b.tabIndex = b === (g.contains(document.activeElement) ? document.activeElement : act) ? 0 : -1); });
+    panel.addEventListener('keydown', (e) => {
+      const b = e.target.closest('.vgroup [data-g]');
+      if (b && ['ArrowRight', 'ArrowLeft', 'ArrowDown', 'ArrowUp', 'Home', 'End'].includes(e.key)) {
+        const bs = $$('[data-g]', b.closest('.vgroup')); let i = bs.indexOf(b); const fw = rtl() ? 'ArrowLeft' : 'ArrowRight', bw = rtl() ? 'ArrowRight' : 'ArrowLeft';
+        i = e.key === 'Home' ? 0 : e.key === 'End' ? bs.length - 1 : (e.key === fw || e.key === 'ArrowDown') ? (i + 1) % bs.length : (i - 1 + bs.length) % bs.length;
+        e.preventDefault(); bs.forEach(x => x.tabIndex = -1); bs[i].tabIndex = 0; bs[i].focus();
+        return;
+      }
+      if (e.key === 'Enter' && e.target.matches('input[data-k]')) { e.preventDefault(); nextField(e.target); }
+    });
+    const focusables = () => $$('.stage.on :is(input[data-k],textarea,[data-g][tabindex="0"],#attDrop,#vRec,#f_consent,input[type=range])', panel).filter(x => x.offsetParent !== null && !x.closest('[hidden]'));
+    const nextField = (el) => { const f = focusables(); const i = f.indexOf(el); const n = f[i + 1]; if (n && !n.matches('[data-g]')) n.focus(); else $('#fNext', main).click(); };
+    /* ---------- state -> UI ---------- */
     const sync = () => {
       $$('[data-g]', panel).forEach(b => { const g = b.dataset.g, v = b.dataset.v; const cur = st[g]; b.setAttribute('aria-pressed', Array.isArray(cur) ? cur.includes(v) : cur === v); });
       $$('[data-k]', panel).forEach(i => { if (document.activeElement !== i) i.value = st[i.dataset.k] || ''; });
+      const k = kind();
       $('#devHint', panel).hidden = st.role !== 'r1';
-      $$('[data-show="nojob"]', panel).forEach(e => e.hidden = isJob()); $$('[data-show="job"]', panel).forEach(e => e.hidden = !isJob());
+      $$('[data-show="biz"]', panel).forEach(e => e.hidden = k !== 'biz'); $$('[data-show="talk"]', panel).forEach(e => e.hidden = k !== 'talk'); $$('[data-show="job"]', panel).forEach(e => e.hidden = k !== 'job');
+      $$('[data-show="other"]', panel).forEach(e => e.hidden = !st.need.includes('other'));
       $$('[data-show="when"]', panel).forEach(e => e.hidden = st.channel === 'c3');
       $$('[data-show="phone"]', panel).forEach(e => e.hidden = st.channel !== 'c2');
+      $$('[data-show="office"]', panel).forEach(e => e.hidden = st.channel !== 'c4');
+      $('#l_email', panel).textContent = t(BIZ.includes(st.role) ? 'flow.email' : 'flow.emailAlt');
+      $('#l_company', panel).innerHTML = T('flow.company') + (NEEDS_CO.includes(st.role) ? '' : ` <small class="opt">${T('flow.optional')}</small>`);
       const jg = $('#jobGo', panel); if (jg) { const J = { j1: '/job/senior-windows-systems-developer', j2: '/job/3ddxr-developpper', j3: '/job/network-systems-developer', j4: '/job/sdr-developpper', j5: '/job/forward-deployed-engineer' }; jg.href = K + (J[st.job] || '/about#careers'); }
       const lr = $('#latR', panel); lr.value = st.lat; $('#latVal', panel).textContent = st.lat + ' ms';
       const lk = st.lat <= 10 ? 'lat1' : st.lat <= 100 ? 'lat2' : st.lat <= 300 ? 'lat3' : 'lat4'; $('#latTxt', panel).textContent = '≈ ' + t('home.' + lk);
+      const nc = $('#noteCount', panel); const nl = st.note.length; nc.textContent = nl ? `${nl.toLocaleString(LANG)} / ${NOTE_MAX.toLocaleString(LANG)}` : ''; nc.classList.toggle('over', nl > NOTE_MAX);
+      $('#f_consent', panel).checked = !!st.consent;
+      renderFiles(); rove();
     };
-    const show = (n, dir = 1) => {
-      st.step = n;
-      stages.forEach((x, i) => x.classList.toggle('on', i === n));
+    /* ---------- validation: one rule per case, one message per field ---------- */
+    const rules = (n) => {
+      const E = []; const add = (f, k, extra) => E.push({ f, msg: extra ? fill(t('fv.' + k), extra) : t('fv.' + k) });
+      if (n === 0) {
+        if (!st.role) add('role', 'roleReq');
+        const nm = st.name.trim(); if (!nm) add('name', 'nameReq'); else if (!/\p{L}/u.test(nm)) add('name', 'nameBad'); else if (nm.replace(/\s/g, '').length < 2) add('name', 'nameShort');
+        const em = st.email.trim();
+        if (!em) add('email', 'emailReq');
+        else if (/\s/.test(em)) add('email', 'emailSpace');
+        else if (!em.includes('@')) add('email', 'emailNoAt');
+        else if (em.split('@').length > 2 || em.startsWith('@')) add('email', 'emailBad');
+        else { const dom = em.split('@')[1]; if (!dom || !/^[^.]+(\.[^.]+)*\.[\p{L}]{2,}$/u.test(dom) || /\.\./.test(dom)) add('email', 'emailDomain'); }
+        if (NEEDS_CO.includes(st.role) && !st.company.trim()) add('company', 'companyReq');
+      }
+      if (n === 1) {
+        const k = kind();
+        if (k === 'biz') { if (!st.need.length) add('need', 'needReq'); if (st.need.includes('other') && st.other.trim().length < 3) add('other', 'otherReq'); if (!st.timeline) add('timeline', 'timelineReq'); }
+        if (k === 'talk') { if (!st.topic) add('topic', 'topicReq'); }
+        if (k === 'job') {
+          if (!st.job) add('job', 'jobReq');
+          const l = st.link.trim(); if (!l) add('link', 'linkReq');
+          else { let ok = false; try { const u = new URL(/^https?:\/\//i.test(l) ? l : 'https://' + l); ok = /\.[a-z]{2,}$/i.test(u.hostname) && !/\s/.test(l); } catch (e) { } if (!ok) add('link', 'linkBad'); }
+        }
+      }
+      if (n === 2) {
+        if (!st.channel) add('channel', 'channelReq');
+        if (st.channel === 'c2') { const p = st.phone.trim(); const dg = p.replace(/\D/g, ''); if (!p) add('phone', 'phoneReq'); else if (/[^\d\s+().\-]/.test(p) || (p.lastIndexOf('+') > 0)) add('phone', 'phoneBad'); else if (dg.length < 7) add('phone', 'phoneShort'); else if (dg.length > 15) add('phone', 'phoneLong'); }
+        if (st.channel === 'c4' && !st.office) add('office', 'officeReq');
+        if (st.channel && st.channel !== 'c3') { if (!st.day) add('day', 'dayReq'); if (!st.time) add('time', 'timeReq'); }
+        if (st.note.length > NOTE_MAX) add('note', 'noteLong', { n: NOTE_MAX.toLocaleString(LANG) });
+      }
+      if (n === 3) { if (!st.consent) add('consent', 'consentReq'); }
+      return E;
+    };
+    const wrapOf = (f) => $(`[data-f="${f}"]`, panel);
+    const controlOf = (f) => { const w = wrapOf(f); if (!w) return null; return $('input[data-k],textarea,input[type=checkbox]', w) || $('[data-g][tabindex="0"]', w) || $('[data-g]', w); };
+    const setErr = (f, msg, anim) => {
+      const w = wrapOf(f), box = $('#e_' + f, panel); if (!w || !box) return;
+      const was = w.classList.contains('is-invalid');
+      w.classList.add('is-invalid'); w.classList.remove('is-valid');
+      const c = controlOf(f); if (c && c.matches('input,textarea')) c.setAttribute('aria-invalid', 'true'); else w.setAttribute('aria-invalid', 'true');
+      const b = $('b', box); if (b.textContent !== msg) { b.textContent = msg; if (was && !RM) box.animate([{ opacity: .3, transform: 'translateY(-3px)' }, { opacity: 1, transform: 'none' }], { duration: 260, easing: 'ease-out' }); }
+      box.classList.add('on');
+      if (anim && !RM) w.animate([{ transform: 'translateX(0)' }, { transform: 'translateX(-7px)' }, { transform: 'translateX(6px)' }, { transform: 'translateX(-3px)' }, { transform: 'translateX(0)' }], { duration: 380, easing: 'ease-out' });
+    };
+    const clrErr = (f, ok) => { const w = wrapOf(f), box = $('#e_' + f, panel); if (!w) return; const had = w.classList.contains('is-invalid'); w.classList.remove('is-invalid'); w.removeAttribute('aria-invalid'); const c = controlOf(f); c?.removeAttribute?.('aria-invalid'); box?.classList.remove('on'); if (had && ok && w.classList.contains('fld')) { w.classList.add('is-valid'); setTimeout(() => w.classList.remove('is-valid'), 1600); } };
+    const FIELDS = ['role', 'name', 'email', 'company', 'need', 'other', 'timeline', 'topic', 'job', 'link', 'channel', 'phone', 'office', 'day', 'time', 'note', 'consent'];
+    const stageFields = (n) => FIELDS.filter(f => { const w = wrapOf(f); return w && stages[n].contains(w); });
+    const summary = (E) => { if (!E.length) { errBtn.classList.remove('on'); errBtn.textContent = ''; return; } errBtn.textContent = E.length === 1 ? t('flow.fix1') : fill(t('flow.fixN'), { n: E.length }); errBtn.classList.add('on'); };
+    const apply = (n, { anim = false, only = null } = {}) => {
+      const E = rules(n); const bad = new Set(E.map(e => e.f));
+      stageFields(n).forEach(f => { if (only && f !== only) return; const e = E.find(x => x.f === f); if (e) setErr(f, e.msg, anim); else clrErr(f, true); });
+      if (st.tried[n]) summary(E);
+      return E;
+    };
+    const emailHint = () => {
+      const w = wrapOf('email'); let h = $('.fhint', w); const s = emailSuggest(st.email); const dom = (st.email.split('@')[1] || '').toLowerCase();
+      const personal = !s && BIZ.includes(st.role) && st.role !== 'r1' && st.role !== 'r4' && PERSONAL.test(dom) && !rules(0).some(e => e.f === 'email');
+      if (!s && !personal) { h?.remove(); return; }
+      if (!h) { h = document.createElement('p'); h.className = 'fhint'; w.appendChild(h); }
+      h.innerHTML = s ? `${esc(fill(t('flow.didYouMean'), { s: '§' })).replace('§', `<button type="button" class="fhint__fix" data-fix="${esc(s)}">${esc(s)}</button>`)}` : esc(t('flow.emailPersonal'));
+    };
+    /* ---------- steps ---------- */
+    const show = (n, dir = 1, focus = false) => {
+      st.step = n; clrErr('files'); clrErr('voice');
+      stages.forEach((x, i) => { x.classList.toggle('on', i === n); x.inert = i !== n; });
       stepsEl.forEach((x, i) => { x.classList.toggle('on', i === n); x.classList.toggle('done', i < n); });
       bar.style.width = (n / 3 * 100) + '%';
       $('#fBack', main).style.visibility = n ? 'visible' : 'hidden';
       $('#fNext', main).innerHTML = (n === 3 ? T('flow.send') : T('common.continue')) + ' ' + ARR;
-      err.classList.remove('on');
+      summary([]);
       if (n === 3) renderSum();
+      sync();
       const cur = stages[n];
-      if (G && !RM) G.fromTo(cur.children, { opacity: 0, y: 24 * dir, filter: 'blur(6px)' }, { opacity: 1, y: 0, filter: 'blur(0px)', duration: .7, stagger: .04, ease: 'expo.out' });
+      if (G && !RM) G.fromTo(cur.children, { opacity: 0, y: 24 * dir, filter: 'blur(6px)' }, { opacity: 1, y: 0, filter: 'blur(0px)', duration: .7, stagger: .04, ease: 'expo.out', clearProps: 'filter,transform' });
+      if (focus) { const top = panel.getBoundingClientRect().top; if (top < 0 || top > innerHeight * .4) panel.scrollIntoView({ behavior: RM ? 'auto' : 'smooth', block: 'start' }); setTimeout(() => focusables()[0]?.focus({ preventScroll: true }), 60); }
     };
-    const valid = (n) => {
-      if (n === 0) return st.role && st.name.trim() && /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(st.email);
-      if (n === 1) return isJob() ? !!st.job : (st.need.length && st.timeline);
-      if (n === 2) return st.channel && (st.channel !== 'c2' || st.phone.trim().length > 5) && (st.channel === 'c3' || (st.day && st.time));
-      return true;
+    const goFirst = (E) => {
+      const f = E[0].f; const w = wrapOf(f); const c = controlOf(f) || w;
+      const r = w.getBoundingClientRect(); if (r.top < 90 || r.bottom > innerHeight - 40) w.scrollIntoView({ behavior: RM ? 'auto' : 'smooth', block: 'center' });
+      setTimeout(() => c.focus({ preventScroll: true }), RM ? 0 : 280);
     };
     const renderSum = () => {
-      const role = st.role ? t('flow.' + st.role) : '—';
-      const need = isJob() ? t('about.' + st.job) : [st.need.map(x => x === 'other' ? t('flow.other') : t(`solutions.${x}.name`)).join(', '), st.stack ? t('flow.' + st.stack) : '', st.lat + ' ms', st.scale ? st.scale + ' ' + t('flow.machines') : '', st.timeline ? t('flow.' + st.timeline) : ''].filter(Boolean).join(' · ');
+      const role = st.role ? t('flow.' + st.role) : '—'; const k = kind();
+      const need = k === 'job' ? t('about.' + st.job) : k === 'talk' ? [t('flow.' + st.topic), st.org].filter(Boolean).join(' · ') : [st.need.map(x => x === 'other' ? (st.other.trim() || t('flow.other')) : t(`solutions.${x}.name`)).join(', '), st.stack ? t('flow.' + st.stack) : '', st.lat + ' ms', st.scale ? st.scale + ' ' + t('flow.machines') : '', st.timeline ? t('flow.' + st.timeline) : ''].filter(Boolean).join(' · ');
       let when = st.channel ? t('flow.' + st.channel) : '—';
+      if (st.channel === 'c4' && st.office) when += ' · ' + t('flow.' + st.office);
       if (st.channel !== 'c3' && st.day) { try { when += ' · ' + new Intl.DateTimeFormat(LANG, { weekday: 'long', day: 'numeric', month: 'long' }).format(new Date(st.day + 'T12:00')); } catch (e) { when += ' · ' + st.day; } if (st.time) when += ' · ' + t('flow.' + st.time); }
+      const files = [...st.files.map(x => `${esc(x.name)} <span class="muted">(${fmtB(x.size)})</span>`), st.voice ? `${T('att.recLabel')} <span class="muted">(${st.voice.dur}s)</span>` : ''].filter(Boolean);
       const rows = [[t('flow.summaryRole'), `${esc(role)}<br><span class="muted">${esc(st.name)} · ${esc(st.email)}${st.company ? ' · ' + esc(st.company) : ''}${st.phone ? ' · ' + esc(st.phone) : ''}</span>`, 0], [t('flow.summaryNeed'), esc(need) + (st.link ? `<br><span class="muted">${esc(st.link)}</span>` : ''), 1], [t('flow.summaryWhen'), esc(when) + (st.note ? `<br><span class="muted">“${esc(st.note)}”</span>` : ''), 2]];
-      $('#sum', panel).innerHTML = rows.map(([k, v, s2]) => `<div><dt>${esc(k)}</dt><dd>${v}</dd><button type="button" data-goto="${s2}">${T('flow.edit')}</button></div>`).join('');
+      if (files.length) rows.push([t('att.summaryFiles'), files.join('<br>'), 2]);
+      $('#sum', panel).innerHTML = rows.map(([k2, v, s2]) => `<div><dt>${esc(k2)}</dt><dd>${v}</dd><button type="button" data-goto="${s2}">${T('flow.edit')}</button></div>`).join('');
     };
+    /* ---------- attachments ---------- */
+    let attT = 0; const attErr = (msgs) => { clearTimeout(attT); if (msgs.length) { setErr('files', msgs.join(' '), true); attT = setTimeout(() => clrErr('files'), 9000); } else clrErr('files'); };
+    const addFiles = (list) => {
+      const msgs = [];
+      [...list].forEach(f => {
+        if (st.files.length >= MAXF) { if (!msgs.includes(t('att.tooMany'))) msgs.push(t('att.tooMany')); return; }
+        if (!OKEXT.test(f.name)) return msgs.push(fill(t('att.badType'), { f: f.name }));
+        if (f.size === 0) return msgs.push(fill(t('att.empty'), { f: f.name }));
+        if (f.size > MAXB) return msgs.push(fill(t('att.tooBig'), { f: f.name, s: fmtB(f.size) }));
+        if (st.files.some(x => x.name === f.name && x.size === f.size)) return msgs.push(fill(t('att.dup'), { f: f.name }));
+        st.files.push({ name: f.name, size: f.size, type: f.type, file: f });
+      });
+      renderFiles(true); attErr(msgs);
+    };
+    const renderFiles = (anim) => {
+      const ul = $('#attList', panel); if (!ul) return;
+      ul.innerHTML = st.files.map((f, i) => `<li${anim && i === st.files.length - 1 ? ' class="new"' : ''}><span class="att__ext mono">${esc((f.name.split('.').pop() || '').slice(0, 4).toUpperCase())}</span><span class="att__nm">${esc(f.name)}</span><span class="att__sz mono">${fmtB(f.size)}</span><button type="button" class="att__rm" data-rm="${i}" aria-label="${T('att.remove')} ${esc(f.name)}">✕</button></li>`).join('');
+      $('#attDrop', panel).classList.toggle('full', st.files.length >= MAXF);
+    };
+    const drop = $('#attDrop', panel), inp = $('#attIn', panel);
+    inp.addEventListener('change', () => { addFiles(inp.files); inp.value = ''; });
+    drop.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); inp.click(); } });
+    ['dragenter', 'dragover'].forEach(ev => drop.addEventListener(ev, (e) => { e.preventDefault(); drop.classList.add('over'); }));
+    ['dragleave', 'drop'].forEach(ev => drop.addEventListener(ev, (e) => { e.preventDefault(); drop.classList.remove('over'); }));
+    drop.addEventListener('drop', (e) => { if (e.dataTransfer?.files?.length) addFiles(e.dataTransfer.files); });
+    /* ---------- voice note ---------- */
+    const V = { rec: null, stream: null, chunks: [], t0: 0, raf: 0, timer: 0, an: null, ctx: null };
+    const vRec = $('#vRec', panel), vL = $('#vRecL', panel), vT = $('#vTime', panel), vW = $('#vWave', panel), vP = $('#vPlay', panel), vA = $('#vAudio', panel);
+    const voiceUI = () => { const has = !!st.voice; vP.hidden = !has; vRec.hidden = has; vW.hidden = has && !V.rec; if (has) { vA.src = st.voice.url; vT.textContent = st.voice.dur + 's'; } else if (!V.rec) { vT.textContent = t('att.recMax'); } };
+    const stopRec = () => { if (V.rec && V.rec.state !== 'inactive') V.rec.stop(); };
+    const draw = () => { const c = vW.getContext('2d'); const W = vW.width, H = vW.height; const buf = new Uint8Array(V.an.fftSize); const acc = getComputedStyle(document.documentElement).getPropertyValue('--accent').trim() || '#2c56f5'; const f = () => { V.an.getByteTimeDomainData(buf); c.clearRect(0, 0, W, H); c.strokeStyle = acc; c.lineWidth = 2; c.beginPath(); for (let i = 0; i < buf.length; i += 8) { const x = i / buf.length * W, y = (buf[i] / 255) * H; i ? c.lineTo(x, y) : c.moveTo(x, y); } c.stroke(); V.raf = requestAnimationFrame(f); }; f(); };
+    vRec.addEventListener('click', async () => {
+      if (V.rec) return stopRec();
+      clrErr('voice');
+      if (!navigator.mediaDevices?.getUserMedia || !window.MediaRecorder) return setErr('voice', t('att.recUnsupported'), true);
+      try { V.stream = await navigator.mediaDevices.getUserMedia({ audio: true }); }
+      catch (e) { return setErr('voice', t(e && (e.name === 'NotFoundError' || e.name === 'OverconstrainedError') ? 'att.recNoMic' : (e && e.name === 'NotAllowedError' || e.name === 'SecurityError') ? 'att.recDenied' : 'att.recUnsupported'), true); }
+      V.chunks = []; V.rec = new MediaRecorder(V.stream); V.t0 = performance.now();
+      try { V.ctx = new (window.AudioContext || window.webkitAudioContext)(); V.an = V.ctx.createAnalyser(); V.an.fftSize = 1024; V.ctx.createMediaStreamSource(V.stream).connect(V.an); draw(); } catch (e) { }
+      V.rec.ondataavailable = (e) => e.data.size && V.chunks.push(e.data);
+      V.rec.onstop = () => {
+        cancelAnimationFrame(V.raf); clearInterval(V.timer); V.stream.getTracks().forEach(x => x.stop()); V.ctx?.close?.();
+        const dur = Math.max(1, Math.round((performance.now() - V.t0) / 1000)); const blob = new Blob(V.chunks, { type: V.rec.mimeType || 'audio/webm' });
+        V.rec = null; panel.classList.remove('recording'); vRec.classList.remove('on'); vL.textContent = t('att.rec');
+        if (blob.size) { if (st.voice) URL.revokeObjectURL(st.voice.url); st.voice = { blob, url: URL.createObjectURL(blob), dur, type: blob.type }; }
+        voiceUI();
+      };
+      V.rec.start(250); panel.classList.add('recording'); vRec.classList.add('on'); vL.textContent = t('att.recStop'); vW.hidden = false;
+      V.timer = setInterval(() => { const s = Math.round((performance.now() - V.t0) / 1000); vT.textContent = `${t('att.recording')} ${Math.floor(s / 60)}:${String(s % 60).padStart(2, '0')} / 2:00`; if (s >= 120) stopRec(); }, 250);
+    });
+    $('#vDel', panel).addEventListener('click', () => { if (st.voice) URL.revokeObjectURL(st.voice.url); st.voice = null; voiceUI(); vRec.focus(); });
+    $('#vAgain', panel).addEventListener('click', () => { if (st.voice) URL.revokeObjectURL(st.voice.url); st.voice = null; voiceUI(); vRec.click(); });
+    on(() => { stopRec(); });
+    voiceUI();
+    /* ---------- events ---------- */
     panel.addEventListener('click', (e) => {
+      const fx = e.target.closest('[data-fix]'); if (fx) { st.email = fx.dataset.fix; sync(); emailHint(); apply(0, { only: 'email' }); $('#f_email', panel).focus(); return; }
+      const rm = e.target.closest('[data-rm]'); if (rm) { st.files.splice(+rm.dataset.rm, 1); renderFiles(); clrErr('files'); (st.files.length ? $('.att__rm', panel) : drop).focus(); return; }
       const b = e.target.closest('[data-g]');
-      if (b) { const g = b.dataset.g, v = b.dataset.v; if (b.dataset.multi) { const a = st[g]; const i = a.indexOf(v); i < 0 ? a.push(v) : a.splice(i, 1); } else st[g] = st[g] === v && g !== 'role' ? null : v; sync(); err.classList.remove('on'); return; }
-      const go = e.target.closest('[data-goto]'); if (go) show(+go.dataset.goto, -1);
+      if (b) {
+        const g = b.dataset.g, v = b.dataset.v; if (b.dataset.multi) { const a = st[g]; const i = a.indexOf(v); i < 0 ? a.push(v) : a.splice(i, 1); } else st[g] = st[g] === v && g !== 'role' && g !== 'channel' ? null : v;
+        sync(); bs(b); if (st.tried[st.step]) apply(st.step); else clrErr(g);
+        if (g === 'role') emailHint();
+        return;
+      }
+      const go = e.target.closest('[data-goto]'); if (go) return show(+go.dataset.goto, -1, true);
+      if (e.target === errBtn) { const E = rules(st.step); if (E.length) goFirst(E); }
     });
-    panel.addEventListener('input', (e) => { const k = e.target.dataset.k; if (k) st[k] = e.target.value; if (e.target.id === 'latR') { st.lat = +e.target.value; sync(); } });
-    panel.addEventListener('keydown', (e) => { if (e.key === 'Enter' && e.target.matches('input')) { e.preventDefault(); $('#fNext', main).click(); } });
-    $('#fBack', main).addEventListener('click', () => show(Math.max(0, st.step - 1), -1));
+    const bs = (b) => { const g = b.closest('.vgroup'); if (!g) return; $$('[data-g]', g).forEach(x => x.tabIndex = x === b ? 0 : -1); };
+    panel.addEventListener('input', (e) => {
+      const k = e.target.dataset.k; if (k) { st[k] = e.target.value; if (k === 'note') sync(); if (st.tried[st.step] || wrapOf(k)?.classList.contains('is-invalid')) apply(st.step, { only: k }); if (k === 'email') emailHint(); }
+      if (e.target.id === 'latR') { st.lat = +e.target.value; sync(); }
+    });
+    panel.addEventListener('change', (e) => { if (e.target.id === 'f_consent') { st.consent = e.target.checked; if (st.tried[3]) apply(3); } });
+    panel.addEventListener('focusout', (e) => { const k = e.target.dataset?.k; if (k && st[k] && String(st[k]).trim()) apply(st.step, { only: k }); });
+    $('#fBack', main).addEventListener('click', () => show(Math.max(0, st.step - 1), -1, true));
     $('#fNext', main).addEventListener('click', () => {
-      if (!valid(st.step)) { err.classList.add('on'); if (G) G.fromTo(stages[st.step], { x: -8 }, { x: 0, duration: .5, ease: 'elastic.out(1,.3)' }); return; }
-      if (st.step < 3) return show(st.step + 1);
+      const n = st.step; st.tried[n] = true; const E = apply(n, { anim: true });
+      if (E.length) { summary(E); goFirst(E); return; }
+      if (n < 3) return show(n + 1, 1, true);
       const nb = $('#fNext', main); nb.textContent = t('flow.sending'); nb.disabled = true;
-      const sumTxt = $$('#sum > div', panel).map(r => r.querySelector('dt').textContent + ': ' + r.querySelector('dd').innerText.replace(/\n/g, ' — ')).join('\n') + (st.phone ? '\n' + t('flow.phone') + ': ' + st.phone : '');
+      const sumTxt = $$('#sum > div', panel).map(r => r.querySelector('dt').textContent + ': ' + r.querySelector('dd').innerText.replace(/\n/g, ' — ')).join('\n');
       $('#fMail', main).href = 'mailto:contact@kyber.tech?subject=' + encodeURIComponent('Kyber — ' + (st.company || st.name)) + '&body=' + encodeURIComponent(sumTxt);
+      const df = $('#doneFiles', main);
+      if (st.files.length || st.voice) { df.hidden = false; df.innerHTML = `<p>${T('att.doneFiles')}</p><ul>${st.files.map(f => `<li>${esc(f.name)} · ${fmtB(f.size)}</li>`).join('')}${st.voice ? `<li><a href="${st.voice.url}" download="kyber-voice-note.${/ogg/.test(st.voice.type) ? 'ogg' : /mp4|aac/.test(st.voice.type) ? 'm4a' : 'webm'}">${T('att.downloadVoice')}</a> · ${st.voice.dur}s</li>` : ''}</ul>`; }
       const tSend = performance.now();
-      setTimeout(() => { panel.classList.add('sent'); $('#doneMs', main).textContent = t('ui.proto') + ' · 0 B · ' + (performance.now() - tSend).toFixed(0) + ' ms'; stepsEl.forEach(x => { x.classList.remove('on'); x.classList.add('done'); }); bar.style.width = '100%'; if (G && !RM) G.from($('.doneview', panel).children, { opacity: 0, y: 30, stagger: .08, duration: .9, ease: 'expo.out' }); }, 650);
+      setTimeout(() => { panel.classList.add('sent'); $('#doneMs', main).textContent = t('ui.proto') + ' · 0 B · ' + (performance.now() - tSend).toFixed(0) + ' ms'; stepsEl.forEach(x => { x.classList.remove('on'); x.classList.add('done'); }); bar.style.width = '100%'; if (G && !RM) G.from($('.doneview', panel).children, { opacity: 0, y: 30, stagger: .08, duration: .9, ease: 'expo.out' }); $('#fMail', main).focus({ preventScroll: true }); }, 650);
     });
-    $('#fRestart', main).addEventListener('click', () => { FS = freshFS(); route(true); });
+    $('#fRestart', main).addEventListener('click', () => { if (st.voice) URL.revokeObjectURL(st.voice.url); FS = freshFS(); route(true); });
     const pn = $('#parisNow', main); const tick = () => { try { pn.textContent = new Intl.DateTimeFormat('en-GB', { hour: '2-digit', minute: '2-digit', timeZone: 'Europe/Paris' }).format(new Date()); } catch (e) { } }; tick(); const id = setInterval(tick, 15000); on(() => clearInterval(id));
-    sync(); show(st.step || 0);
+    show(st.step || 0); emailHint();
   }
 
   /* ---------------- chrome (nav panels, footer) ---------------- */
