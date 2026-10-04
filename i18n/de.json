@@ -130,9 +130,6 @@
   "t2008": "VideoLAN wird eine unabhängige gemeinnützige Organisation.",
   "t2009": "VLC erreicht weltweit 100 Millionen Nutzer.",
   "t2012": "Videolabs wird gegründet, um Produkte und Dienste rund um VLC zu entwickeln.",
-  "t2020": "Kyber entsteht als Nebenprojekt, während JB als CTO beim Cloud-Gaming-Unternehmen Shadow tätig ist.",
-  "t2022": "Kyber 0.1.0: Windows- und Linux-Host und -Client über eine einzige verschlüsselte QUIC-Verbindung.",
-  "t2023": "Kyber wird erstmals öffentlich auf der KDE Akademy vorgestellt.",
   "t2024": "Kyber entsteht als Nebenprojekt für Echtzeit-Streaming.",
   "t2025": "Kyber als Unternehmen wird in Paris gegründet. VLC erreicht 6 Milliarden Downloads.",
   "t2026a": "Kyber tritt mit einer 5-Mio.-$-Seed-Runde unter Führung von Lightspeed aus dem Stealth-Modus.",
@@ -153,6 +150,9 @@
   "pipeKyber": "Kyber End-to-End, optimale Bedingungen",
   "pipeCall": "Typischer Videoanruf",
   "pipeFits": "Bei 120 Hz dauert ein einzelner Frame 8,3 ms. Kybers gesamte Pipeline — von der Aufnahme bis zur Anzeige — ist darauf ausgelegt, genau darin zu passen.",
+  "t2020": "Kyber entsteht als Nebenprojekt, während JB als CTO beim Cloud-Gaming-Unternehmen Shadow tätig ist.",
+  "t2022": "Kyber 0.1.0: Windows- und Linux-Host und -Client über eine einzige verschlüsselte QUIC-Verbindung.",
+  "t2023": "Kyber wird erstmals öffentlich auf der KDE Akademy vorgestellt.",
   "ossRepos": "Die Repositories",
   "ossRepoLead": "Kyber ist in fokussierte Repositories aufgeteilt — Core, Apps, Abhängigkeiten und Betrieb. Überwiegend Rust, ergänzt durch VLC und FFmpeg.",
   "ossLatest": "Neuestes Release",
@@ -495,7 +495,6 @@
   "notTitleA": "Nicht WebRTC.",
   "notTitleB": "Absichtlich.",
   "notLead": "WebRTC wurde vor einem Jahrzehnt für Videoanrufe zwischen Menschen gebaut. 100–200 ms sind für Gespräche in Ordnung. Für Maschinensteuerung sind sie gefährlich. Die großen Player haben jahrelang und zig Millionen in eigene Teleoperations-Stacks investiert. Kyber bringt genau diese Fähigkeit – für alle anderen.",
-  "cmpFeature": "",
   "cmpLatency": "Typische Latenz",
   "cmpClock": "Einheitlicher Takt",
   "cmpPorts": "Firewall-Ports",
@@ -812,7 +811,28 @@
  },
  "con": {
   "hint": "K drücken, um die Konsole zu öffnen",
-  "welcome": "help eingeben. Alles läuft hier lokal im Browser."
+  "welcome": "help eingeben. Alles läuft hier lokal im Browser.",
+  "h_help": "diese Liste",
+  "h_metrics": "Live-Frame-Timing und Eingabeverzögerung (dieser Tab)",
+  "h_perf": "von dieser Seite geladene Ressourcen mit echten Ladezeiten",
+  "h_lag": "Geistercursor folgt dir mit <ms> Verzögerung – spür mal 200 ms",
+  "h_repos": "Kyber-Repositorys (GitLab)",
+  "h_release": "neuester Windows-Installer",
+  "h_sdk": "so legst du los",
+  "h_jobs": "offene Stellen",
+  "h_theme": "Design wechseln",
+  "h_goto": "Technologie · SDK · Über uns · Blog · Kontakt · Karriere",
+  "h_whoami": "was dein Browser über dich verrät (bleibt lokal)",
+  "h_clear": "Bildschirm leeren · Konsole schließen",
+  "pressKey": "Drück eine Taste",
+  "target": "Kyber-Zielwert Ende-zu-Ende: 8–10 ms (unter optimalen Bedingungen)",
+  "lagOn": "Der Geistercursor folgt dir jetzt mit {n} ms Verzögerung. Beweg die Maus – tippe „lag off“, um ihn zu stoppen.",
+  "lagOff": "Geistercursor aus.",
+  "local": "Nichts verlässt diesen Tab.",
+  "sudo": "Netter Versuch. Über Latenz wird nicht verhandelt.",
+  "cone": "Über 7 Mrd. Downloads. Das Hütchen ist zufrieden.",
+  "rtt": "HTTP-Roundtrip zu dieser Website: {n} ms (nicht Kyber – sondern dein Netzwerk und das CDN)",
+  "notFound": "{c}: Befehl nicht gefunden – tippe help"
  },
  "a11y": {
   "open": "Barrierefreiheitsoptionen",
@@ -874,7 +894,18 @@
   "changes": "Änderungen",
   "yrs": "J.",
   "proto": "Prototyp · nichts wird gesendet",
-  "docs": "Dokumentation"
+  "docs": "Dokumentation",
+  "home": "Kyber-Startseite",
+  "primaryNav": "Hauptnavigation",
+  "gitlabStars": "Kyber auf GitLab",
+  "frameTitle": "In deinem Browser gemessenes Frame-Intervall",
+  "consoleTitle": "Konsole (K drücken)",
+  "a11yOpen": "Optionen für Barrierefreiheit",
+  "toTop": "Nach oben",
+  "close": "Schließen",
+  "command": "Befehl",
+  "active": "Aktiv",
+  "boot": "ms Start"
  },
  "ext": {
   "kicker": "Sie verlassen den Entwurf",
@@ -1084,5 +1115,12 @@
   "eCvType": "Bitte hänge deinen Lebenslauf als PDF an.",
   "eCvBig": "Dein Lebenslauf ist {s} groß – das Limit liegt bei 10 MB.",
   "share": "Stelle teilen"
+ },
+ "lm": {
+  "title": "Sprache wählen",
+  "lead": "Kyber spricht die {n} meistgesprochenen Sprachen der Welt.",
+  "search": "Nach Name oder Code suchen…",
+  "none": "Keine Sprache passt zu „{q}“.",
+  "suggested": "Vorschläge für deinen Browser:"
  }
 }

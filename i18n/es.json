@@ -495,7 +495,6 @@
   "notTitleA": "No es WebRTC.",
   "notTitleB": "A propósito.",
   "notLead": "WebRTC se diseñó hace una década para videollamadas entre personas. 100–200 ms es aceptable para conversar. Es peligroso para el control de máquinas. Los grandes jugadores invirtieron años y decenas de millones en desarrollar sus propios stacks de teleoperación. Kyber pone esa capacidad al alcance de todos.",
-  "cmpFeature": "",
   "cmpLatency": "Latencia típica",
   "cmpClock": "Reloj unificado",
   "cmpPorts": "Puertos de firewall",
@@ -812,7 +811,28 @@
  },
  "con": {
   "hint": "Pulsa K para abrir la consola",
-  "welcome": "Escribe help. Todo se ejecuta localmente en tu navegador."
+  "welcome": "Escribe help. Todo se ejecuta localmente en tu navegador.",
+  "h_help": "esta lista",
+  "h_metrics": "tiempos de fotograma y retardo de entrada en vivo (esta pestaña)",
+  "h_perf": "recursos que cargó esta página, con tiempos reales",
+  "h_lag": "cursor fantasma que te sigue con <ms> de retraso — prueba 200 ms",
+  "h_repos": "repositorios de Kyber (GitLab)",
+  "h_release": "último instalador para Windows",
+  "h_sdk": "cómo empezar",
+  "h_jobs": "puestos vacantes",
+  "h_theme": "cambiar de tema",
+  "h_goto": "technology · sdk · about · blog · connect · careers",
+  "h_whoami": "lo que tu navegador nos dice (no sale de tu equipo)",
+  "h_clear": "limpiar la pantalla · cerrar la consola",
+  "pressKey": "pulsa una tecla",
+  "target": "Objetivo de Kyber de extremo a extremo: 8–10 ms (en condiciones óptimas)",
+  "lagOn": "El cursor fantasma ahora te sigue con {n} ms de retraso. Muévete y escribe «lag off» para detenerlo.",
+  "lagOff": "Cursor fantasma desactivado.",
+  "local": "Nada sale de esta pestaña.",
+  "sudo": "Buen intento. La latencia no se negocia.",
+  "cone": "Más de 7000 millones de descargas. El cono da su aprobación.",
+  "rtt": "Ida y vuelta HTTP a este sitio: {n} ms (no es Kyber, sino tu red y la CDN)",
+  "notFound": "{c}: comando no encontrado; escribe help"
  },
  "a11y": {
   "open": "Opciones de accesibilidad",
@@ -874,7 +894,18 @@
   "changes": "cambios",
   "yrs": "años",
   "proto": "prototipo · no se envía nada",
-  "docs": "Documentación"
+  "docs": "Documentación",
+  "home": "Inicio de Kyber",
+  "primaryNav": "Navegación principal",
+  "gitlabStars": "Kyber en GitLab",
+  "frameTitle": "Intervalo entre fotogramas medido en tu navegador",
+  "consoleTitle": "Consola (pulsa K)",
+  "a11yOpen": "Opciones de accesibilidad",
+  "toTop": "Volver arriba",
+  "close": "Cerrar",
+  "command": "Comando",
+  "active": "Activo",
+  "boot": "ms de arranque"
  },
  "ext": {
   "kicker": "Saliendo de la propuesta",
@@ -1084,5 +1115,12 @@
   "eCvType": "Por favor, adjunta tu currículum en formato PDF.",
   "eCvBig": "Tu currículum pesa {s} : el límite es de 10 MB.",
   "share": "Compartir este puesto"
+ },
+ "lm": {
+  "title": "Elige tu idioma",
+  "lead": "Kyber habla los {n} idiomas más hablados del mundo.",
+  "search": "Buscar por nombre o código…",
+  "none": "Ningún idioma coincide con «{q}».",
+  "suggested": "Sugeridos para tu navegador:"
  }
 }

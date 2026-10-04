@@ -495,7 +495,6 @@
   "notTitleA": "Não é WebRTC.",
   "notTitleB": "Intencionalmente.",
   "notLead": "O WebRTC foi criado há uma década para videochamadas entre humanos. 100–200 ms é aceitável para conversar. É perigoso para controlar máquinas. Os gigantes gastaram anos e dezenas de milhões a construir pilhas de teleoperação à medida. Kyber é essa capacidade, ao alcance de todos os outros.",
-  "cmpFeature": "",
   "cmpLatency": "Latência típica",
   "cmpClock": "Relógio unificado",
   "cmpPorts": "Portas de firewall",
@@ -812,7 +811,28 @@
  },
  "con": {
   "hint": "Prima K para abrir a consola",
-  "welcome": "Escreva help. Tudo aqui corre localmente no seu browser."
+  "welcome": "Escreva help. Tudo aqui corre localmente no seu browser.",
+  "h_help": "esta lista",
+  "h_metrics": "tempo de fotogramas e atraso de entrada em tempo real (neste separador)",
+  "h_perf": "recursos carregados por esta página, com tempos reais",
+  "h_lag": "cursor fantasma com <ms> de atraso — experimente 200 ms",
+  "h_repos": "repositórios do Kyber (GitLab)",
+  "h_release": "instalador mais recente para Windows",
+  "h_sdk": "como começar",
+  "h_jobs": "vagas em aberto",
+  "h_theme": "mudar de tema",
+  "h_goto": "tecnologia · sdk · sobre · blog · contacto · carreiras",
+  "h_whoami": "o que o seu navegador nos revela (não sai daqui)",
+  "h_clear": "limpar o ecrã · fechar a consola",
+  "pressKey": "prima uma tecla",
+  "target": "Objetivo de ponta a ponta do Kyber: 8–10 ms (em condições ideais)",
+  "lagOn": "O cursor fantasma segue-o agora com {n} ms de atraso. Mova o rato e escreva «lag off» para parar.",
+  "lagOff": "Cursor fantasma desativado.",
+  "local": "Nada sai deste separador.",
+  "sudo": "Boa tentativa. A latência não é negociável.",
+  "cone": "Mais de 7 mil milhões de transferências. O cone aprova.",
+  "rtt": "Ida e volta HTTP até esta página: {n} ms (não é o Kyber, é a sua rede e a CDN)",
+  "notFound": "{c}: comando não encontrado. Escreva «help»"
  },
  "a11y": {
   "open": "Opções de acessibilidade",
@@ -874,7 +894,18 @@
   "changes": "alterações",
   "yrs": "anos",
   "proto": "protótipo · nada enviado",
-  "docs": "Documentação"
+  "docs": "Documentação",
+  "home": "Página inicial do Kyber",
+  "primaryNav": "Navegação principal",
+  "gitlabStars": "Kyber no GitLab",
+  "frameTitle": "Intervalo entre fotogramas medido no seu navegador",
+  "consoleTitle": "Consola (prima K)",
+  "a11yOpen": "Opções de acessibilidade",
+  "toTop": "Voltar ao topo",
+  "close": "Fechar",
+  "command": "Comando",
+  "active": "Ativo",
+  "boot": "ms de arranque"
  },
  "ext": {
   "kicker": "A sair da proposta",
@@ -984,7 +1015,6 @@
   "questions": "Dúvidas sobre esta política?"
  },
  "car": {
-  "st4": "transferências do VLC",
   "kicker": "Carreiras na Kyber",
   "titleA": "Constrói o sistema nervoso",
   "titleB": "das máquinas.",
@@ -994,6 +1024,7 @@
   "st1": "pessoas na equipa",
   "st2": "anos de infraestrutura de vídeo",
   "st3": "escritórios: Paris, São Francisco, Singapura",
+  "st4": "transferências do VLC",
   "missionK": "Missão",
   "missionT": "Fazer a distância desaparecer.",
   "missionD": "A 200 milissegundos vês o que aconteceu. A 8 milissegundos controlas o que está a acontecer. Fechamos essa diferença — para cirurgiões, operadores, pilotos de drones e agentes de IA — e publicamos o código para que qualquer pessoa possa construir sobre ele.",
@@ -1084,5 +1115,12 @@
   "eCvType": "Por favor, anexa o teu currículo em formato PDF.",
   "eCvBig": "O teu currículo tem {s} — o limite é 10 MB.",
   "share": "Partilhar esta vaga"
+ },
+ "lm": {
+  "title": "Escolha o seu idioma",
+  "lead": "O Kyber está disponível nos {n} idiomas mais falados do mundo.",
+  "search": "Pesquisar por nome ou código…",
+  "none": "Nenhum idioma corresponde a «{q}».",
+  "suggested": "Sugeridos para o seu navegador:"
  }
 }

@@ -11,24 +11,21 @@
   document.documentElement.classList.add('js');
 
   /* ---------------- i18n ---------------- */
-  const LANGS = [
-    ['en', 'English'], ['fr', 'Français'], ['de', 'Deutsch'], ['es', 'Español'], ['pt', 'Português'],
-    ['zh', '中文'], ['ja', '日本語'], ['hi', 'हिन्दी'], ['ar', 'العربية'], ['he', 'עברית']
-  ];
-  const FONTS = {
-    zh: 'Noto+Sans+SC:wght@400;500;700', ja: 'Noto+Sans+JP:wght@400;500;700',
-    ar: 'IBM+Plex+Sans+Arabic:wght@400;500;600', he: 'Heebo:wght@400;500;700', hi: 'Noto+Sans+Devanagari:wght@400;500;600'
-  };
+  const LANGS = [["en", "English", "English"], ["zh", "简体中文", "Chinese (Simplified)"], ["hi", "हिन्दी", "Hindi"], ["es", "Español", "Spanish"], ["ar", "العربية", "Arabic"], ["fr", "Français", "French"], ["bn", "বাংলা", "Bengali"], ["pt", "Português", "Portuguese"], ["id", "Bahasa Indonesia", "Indonesian"], ["ur", "اردو", "Urdu"], ["ru", "Русский", "Russian"], ["de", "Deutsch", "German"], ["ja", "日本語", "Japanese"], ["pcm", "Naijá", "Nigerian Pidgin"], ["mr", "मराठी", "Marathi"], ["vi", "Tiếng Việt", "Vietnamese"], ["te", "తెలుగు", "Telugu"], ["sw", "Kiswahili", "Swahili"], ["ha", "Hausa", "Hausa"], ["tr", "Türkçe", "Turkish"], ["pa", "ਪੰਜਾਬੀ", "Punjabi"], ["fil", "Filipino", "Filipino (Tagalog)"], ["ta", "தமிழ்", "Tamil"], ["zh-Hant", "繁體中文", "Chinese (Traditional)"], ["fa", "فارسی", "Persian"], ["ko", "한국어", "Korean"], ["am", "አማርኛ", "Amharic"], ["th", "ไทย", "Thai"], ["jv", "Basa Jawa", "Javanese"], ["it", "Italiano", "Italian"], ["gu", "ગુજરાતી", "Gujarati"], ["kn", "ಕನ್ನಡ", "Kannada"], ["yo", "Yorùbá", "Yoruba"], ["bho", "भोजपुरी", "Bhojpuri"], ["pl", "Polski", "Polish"], ["my", "မြန်မာ", "Burmese"], ["or", "ଓଡ଼ିଆ", "Odia"], ["ml", "മലയാളം", "Malayalam"], ["uk", "Українська", "Ukrainian"], ["uz", "Oʻzbekcha", "Uzbek"], ["ro", "Română", "Romanian"], ["nl", "Nederlands", "Dutch"], ["ps", "پښتو", "Pashto"], ["az", "Azərbaycanca", "Azerbaijani"], ["su", "Basa Sunda", "Sundanese"], ["ne", "नेपाली", "Nepali"], ["ms", "Bahasa Melayu", "Malay"], ["zu", "isiZulu", "Zulu"], ["el", "Ελληνικά", "Greek"], ["he", "עברית", "Hebrew"]];
+  const AUD = ["en", "fr", "de", "es", "pt", "zh", "ja", "hi", "ar", "he"];
+  const RTL = ["ar", "he", "ur", "fa", "ps"];
+  const SX = ["zh", "zh-Hant", "ja", "ko", "hi", "mr", "ne", "bho", "bn", "pa", "gu", "or", "ta", "te", "kn", "ml", "th", "my", "am", "ar", "ur", "fa", "ps", "he"];
+  const FONTS = {"zh": "Noto+Sans+SC:wght@400;500;700", "zh-Hant": "Noto+Sans+TC:wght@400;500;700", "ja": "Noto+Sans+JP:wght@400;500;700", "ko": "Noto+Sans+KR:wght@400;500;700", "ar": "IBM+Plex+Sans+Arabic:wght@400;500;600", "he": "Heebo:wght@400;500;700", "hi": "Noto+Sans+Devanagari:wght@400;500;600", "mr": "Noto+Sans+Devanagari:wght@400;500;600", "ne": "Noto+Sans+Devanagari:wght@400;500;600", "bho": "Noto+Sans+Devanagari:wght@400;500;600", "bn": "Noto+Sans+Bengali:wght@400;500;600", "pa": "Noto+Sans+Gurmukhi:wght@400;500;600", "gu": "Noto+Sans+Gujarati:wght@400;500;600", "or": "Noto+Sans+Oriya:wght@400;500;600", "ta": "Noto+Sans+Tamil:wght@400;500;600", "te": "Noto+Sans+Telugu:wght@400;500;600", "kn": "Noto+Sans+Kannada:wght@400;500;600", "ml": "Noto+Sans+Malayalam:wght@400;500;600", "th": "Noto+Sans+Thai:wght@400;500;600", "my": "Noto+Sans+Myanmar:wght@400;500;600", "am": "Noto+Sans+Ethiopic:wght@400;500;600", "ur": "Noto+Nastaliq+Urdu:wght@400;500;600", "fa": "Vazirmatn:wght@400;500;600", "ps": "Noto+Naskh+Arabic:wght@400;500;600", "ru": "Inter:wght@400;500;600", "uk": "Inter:wght@400;500;600", "el": "Inter:wght@400;500;600", "vi": "Inter:wght@400;500;600"};
   const cache = {};
   let D = {}, EN = {}, LANG = 'en';
   const get = (o, k) => k.split('.').reduce((a, p) => (a && a[p] != null ? a[p] : undefined), o);
-  const RTLFIX = (s) => (LANG === 'ar' || LANG === 'he') && typeof s === 'string' ? s.replace(/(\d+(?:[.,–-]\d+)*\s?ms)\b/g, '\u2066$1\u2069') : s;
+  const RTLFIX = (s) => RTL.includes(LANG) && typeof s === 'string' ? s.replace(/(\d+(?:[.,–-]\d+)*\s?ms)\b/g, '\u2066$1\u2069') : s;
   const t = (k) => { const v = get(D, k); return RTLFIX(v != null && v !== '' ? v : (get(EN, k) ?? '')); };
   const esc = (s) => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
   const T = (k) => esc(t(k));
   async function load(l) {
     if (cache[l]) return cache[l];
-    const r = await fetch(`i18n/${l}.json?v=1791064854`); if (!r.ok) throw new Error('lang'); return (cache[l] = await r.json());
+    const r = await fetch(`i18n/${l}.json?v=1791073647`); if (!r.ok) throw new Error('lang'); return (cache[l] = await r.json());
   }
   function loadFont(l) {
     if (!FONTS[l] || document.getElementById('font-' + l)) return;
@@ -39,13 +36,15 @@
     if (!LANGS.find(x => x[0] === l)) l = 'en';
     try { D = await load(l); } catch (e) { l = 'en'; D = EN; }
     LANG = l; loadFont(l);
-    const html = document.documentElement; html.lang = l; html.dir = (l === 'ar' || l === 'he') ? 'rtl' : 'ltr';
+    const html = document.documentElement; html.lang = l; html.dir = RTL.includes(l) ? 'rtl' : 'ltr'; html.classList.toggle('sx', SX.includes(l));
     try { const u = new URL(location.href); if (l === 'en') u.searchParams.delete('lang'); else u.searchParams.set('lang', l); history.replaceState(null, '', u); } catch (e) { }
-    $('#langCode').textContent = l.toUpperCase();
+    $('#langCode').textContent = l.split('-')[0].toUpperCase();
     $$('#langList button').forEach(b => b.setAttribute('aria-selected', b.dataset.l === l));
     document.title = t('meta.title');
     $$('[data-i]').forEach(e => e.textContent = t(e.dataset.i));
     $$('[data-ia]').forEach(e => e.setAttribute('aria-label', t(e.dataset.ia)));
+    $$('[data-it]').forEach(e => e.setAttribute('title', t(e.dataset.it)));
+    const cur = LANGS.find(x => x[0] === l); $$('.js-langname').forEach(e => e.textContent = cur ? cur[1] : l);
     renderChrome();
     if (rerender) route(true);
   }
@@ -148,7 +147,7 @@
 
   const REPOS = [['kyber/kyber', 'rk_kyber', 'docs'], ['kyber/core/kysdk', 'rk_kysdk', 'core'], ['kyber/core/kyctl', 'rk_kyctl', 'core'], ['kyber/core/kymux', 'rk_kymux', 'core'], ['kyber/core/kynput', 'rk_kynput', 'core'], ['kyber/core/kymedia', 'rk_kymedia', 'core'], ['kyber/core/kyutil', 'rk_kyutil', 'core'], ['kyber/apps/kyber-desktop', 'rk_desktop', 'apps'], ['kyber/apps/kyber-web', 'rk_web', 'apps'], ['kyber/apps/kyber-installer', 'rk_installer', 'apps']];
   const REPOSNAP = { 'kyber/kyber': [83, '2026-06-24'], 'kyber/core/kysdk': [2, '2026-08-19'], 'kyber/core/kyctl': [2, '2026-08-19'], 'kyber/core/kymux': [1, '2026-08-19'], 'kyber/core/kynput': [1, '2026-08-19'], 'kyber/core/kymedia': [1, '2026-08-19'], 'kyber/core/kyutil': [1, '2026-08-19'], 'kyber/apps/kyber-desktop': [16, '2026-08-19'], 'kyber/apps/kyber-web': [4, '2026-08-19'], 'kyber/apps/kyber-installer': [8, '2026-08-19'] };
-  const repoWall = () => `<div class="repos">${REPOS.map(([path, k, grp]) => { const [st, last] = REPOSNAP[path]; const name = path.split('/').pop(); return `<a class="repo-c rv" data-tilt href="https://gitlab.com/${path}" target="_blank" rel="noopener" data-repo="${path}"><div class="repo-c__h"><span class="mono grp">${grp}/</span><b class="mono">${name}</b><span class="dotok" title="active"></span></div><p>${T('home.' + k)}</p><div class="repo-c__m mono"><span>★ <span class="js-rs">${st}</span></span><span class="js-rl">${last}</span></div></a>`; }).join('')}</div>`;
+  const repoWall = () => `<div class="repos">${REPOS.map(([path, k, grp]) => { const [st, last] = REPOSNAP[path]; const name = path.split('/').pop(); return `<a class="repo-c rv" data-tilt href="https://gitlab.com/${path}" target="_blank" rel="noopener" data-repo="${path}"><div class="repo-c__h"><span class="mono grp">${grp}/</span><b class="mono">${name}</b><span class="dotok" title="${T('ui.active')}"></span></div><p>${T('home.' + k)}</p><div class="repo-c__m mono"><span>★ <span class="js-rs">${st}</span></span><span class="js-rl">${last}</span></div></a>`; }).join('')}</div>`;
   const REL = { tag: '0.28.0-1', date: '2026-08-19', url: 'https://gitlab.com/kyber/apps/kyber-installer/-/releases/0.28.0-1', file: 'kyber-installer-win64-0.28.0.exe', dl: 'https://gitlab.com/api/v4/projects/78083474/packages/generic/kyber-installer/0.28.0/kyber-installer-win64-0.28.0.exe' };
   const releaseCard = () => `<div class="relcard rv"><div><span class="mono faint">${T('home.ossLatest')} · ${T('home.ossInstaller')}</span><b class="mono js-reltag">${REL.tag}</b><span class="mono faint js-reldate">${REL.date}</span></div><div class="btns"><a class="btn btn--accent btn--sm js-reldl" href="${REL.dl}" rel="noopener">${T('home.ossDownload')} .exe</a><a class="btn btn--ghost btn--sm js-relurl" href="${REL.url}" target="_blank" rel="noopener">${T('sdk.readNotes')} ${ARRUR}</a></div></div>`;
 
@@ -623,11 +622,11 @@
     <section class="simple"><div class="simple__in">
       <h1>${T('simple.title')}</h1>
       <div class="simple__bar">
-        <div class="simple__lang"><label for="sLang">${T('simple.langLabel')}</label><span class="sselect"><select id="sLang">${LANGS.map(([c, n]) => `<option value="${c}"${c === LANG ? ' selected' : ''}>${n}</option>`).join('')}</select><svg viewBox="0 0 12 8" width="14" height="10" aria-hidden="true"><path d="M1 1.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
+        <div class="simple__lang"><span class="simple__lbl" id="sLangL">${T('simple.langLabel')}</span><button type="button" class="sselect" data-langmodal aria-describedby="sLangL"><span>${(LANGS.find(x => x[0] === LANG) || [0, LANG])[1]}</span><svg viewBox="0 0 12 8" width="14" height="10" aria-hidden="true"><path d="M1 1.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div>
         <div class="simple__listen">
           <span class="simple__min"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>${esc(fill(t('simple.read'), { n: num(mins) }))}</span>
-          <button type="button" class="splay" id="sPlay" aria-label="${T('simple.listenAria')}" aria-pressed="false"><span class="splay__i" aria-hidden="true"><svg class="i-play" viewBox="0 0 24 24" width="22" height="22"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg><svg class="i-pause" viewBox="0 0 24 24" width="22" height="22"><path d="M7 5h4v14H7zM13 5h4v14h-4z" fill="currentColor"/></svg></span><span class="splay__t"><b id="sPlayL">${T('simple.listen')}</b><small id="sPlayTime" class="mono" dir="ltr"></small></span><i class="splay__bar" aria-hidden="true"><i id="sPlayBar"></i></i></button>
-          <audio id="sAudio" preload="metadata" src="audio/simple-${LANG}.mp3?v=${window.__v || ''}"></audio>
+          ${AUD.includes(LANG) ? `<button type="button" class="splay" id="sPlay" aria-label="${T('simple.listenAria')}" aria-pressed="false"><span class="splay__i" aria-hidden="true"><svg class="i-play" viewBox="0 0 24 24" width="22" height="22"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg><svg class="i-pause" viewBox="0 0 24 24" width="22" height="22"><path d="M7 5h4v14H7zM13 5h4v14h-4z" fill="currentColor"/></svg></span><span class="splay__t"><b id="sPlayL">${T('simple.listen')}</b><small id="sPlayTime" class="mono" dir="ltr"></small></span><i class="splay__bar" aria-hidden="true"><i id="sPlayBar"></i></i></button>
+          <audio id="sAudio" preload="metadata" src="audio/simple-${LANG}.mp3?v=${window.__v || ''}"></audio>` : ''}
         </div>
       </div>
       <p class="simple__err" id="sErr" role="alert" hidden>${T('simple.audioErr')}</p>
@@ -1084,7 +1083,7 @@
       <div><div class="kicker">${T('nav.solutions')}</div><div class="sub">${SOL.map(s => `<a href="#/solutions/${s}">${T(`solutions.${s}.name`)}</a>`).join('')}</div></div>
       <div class="btns">${btnSdk('btn--accent')}</div>
       <div class="mnav__legal"><a href="#/simple">${T('a11y.simple')}</a>${Object.keys(LEGAL).map(k => `<a href="#/legal/${k}">${T('footer.' + k)}</a>`).join('')}</div>
-      <div class="mtools"><label class="mtools__lang"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.7 3.8 5.7 3.8 9s-1.3 6.3-3.8 9c-2.5-2.7-3.8-5.7-3.8-9S9.5 5.7 12 3z"/></svg><span class="sr-only">${T('nav.language')}</span><select data-mlang aria-label="${T('nav.language')}">${LANGS.map(([c, n]) => `<option value="${c}" ${c === LANG ? 'selected' : ''}>${n}</option>`).join('')}</select></label>
+      <div class="mtools"><button type="button" class="mtools__lang" data-langmodal><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.7 3.8 5.7 3.8 9s-1.3 6.3-3.8 9c-2.5-2.7-3.8-5.7-3.8-9S9.5 5.7 12 3z"/></svg><span class="js-langname">${(LANGS.find(x => x[0] === LANG) || [0, LANG])[1]}</span><svg class="chev" viewBox="0 0 12 8" width="12" height="8" aria-hidden="true"><path d="M1 1.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></button>
         <button type="button" class="iconbtn" data-mtheme aria-label="${T('nav.theme')}"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg></button><button type="button" class="iconbtn mono" data-open-console aria-label="${T('common.console')}">›_</button></div>`;
     $('#ftr').innerHTML = `
       <div class="ftr__top">
@@ -1662,7 +1661,6 @@
     main.innerHTML = html;
     document.title = window.__docTitle ? window.__docTitle + ' — Kyber' : t('meta.title');
     document.documentElement.classList.toggle('is-simple', path === 'simple');
-    const sl = $('#sLang', main); if (sl) sl.addEventListener('change', () => setLang(sl.value));
     $$('.hdr__nav>a').forEach(a => a.classList.toggle('is-active', a.getAttribute('href') === '#/' + active && active));
     $('.dd').classList.toggle('is-active', active === 'solutions');
     closeMenus();
@@ -1695,8 +1693,7 @@
     dd.addEventListener('pointerleave', (e) => { if (e.pointerType === 'mouse') ddT = setTimeout(() => { dd.classList.remove('open'); ddb.setAttribute('aria-expanded', false); }, 180); });
     ddb.addEventListener('click', () => { const o = !dd.classList.contains('open'); dd.classList.toggle('open', o); ddb.setAttribute('aria-expanded', o); });
     const lg = $('.lang'), lgb = $('.lang__btn');
-    lgb.addEventListener('click', (e) => { e.stopPropagation(); const o = !lg.classList.contains('open'); lg.classList.toggle('open', o); lgb.setAttribute('aria-expanded', o); });
-    $('#mnav').addEventListener('change', (e) => { if (e.target.matches('[data-mlang]')) { closeMenus(); setLang(e.target.value); } });
+    lgb.setAttribute('data-langmodal', ''); lgb.setAttribute('aria-haspopup', 'dialog');
     $('#mnav').addEventListener('click', (e) => { if (e.target.closest('[data-mtheme]')) $('#themeBtn').click(); if (e.target.closest('[data-open-console]')) closeMenus(); });
     $('#langList').addEventListener('click', (e) => { const b = e.target.closest('button[data-l]'); if (!b) return; closeMenus(); setLang(b.dataset.l); });
     document.addEventListener('click', (e) => { if (!e.target.closest('.lang')) { lg.classList.remove('open'); lgb.setAttribute('aria-expanded', false); } if (!e.target.closest('.dd')) dd.classList.remove('open'); });
@@ -1813,6 +1810,43 @@
     bindFooter(); new MutationObserver(bindFooter).observe(ftr, { childList: true });
   }
 
+
+  /* ---------------- language modal ---------------- */
+  const ALIAS = { bn: 'bangla', fa: 'farsi', fil: 'tagalog pilipino', zh: 'mandarin putonghua chinese', 'zh-Hant': 'cantonese taiwan hong kong 粵語 廣東話', my: 'myanmar', pcm: 'pidgin naija', ms: 'malaysian', id: 'bahasa', ar: 'arabic', he: 'ivrit', el: 'hellenic', uz: 'ozbek', az: 'azeri', pa: 'panjabi', or: 'oriya', jv: 'jawa', su: 'sunda' };
+  function initLangModal() {
+    const m = document.createElement('div'); m.className = 'xm lm'; m.id = 'lm'; m.hidden = true; m.setAttribute('role', 'dialog'); m.setAttribute('aria-modal', 'true'); m.setAttribute('aria-labelledby', 'lmT');
+    document.body.appendChild(m); let last = null;
+    const norm = (x) => x.toLocaleLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+    const browser = (navigator.languages || [navigator.language || 'en']).map(x => { const lo = x.toLowerCase(); if (/^zh-(tw|hk|mo|hant)/.test(lo)) return 'zh-Hant'; if (lo.startsWith('tl')) return 'fil'; return lo.split('-')[0]; }).find(c => LANGS.some(x => x[0] === c));
+    const item = ([c, n, e], i) => `<button type="button" class="lm__i${c === LANG ? ' on' : ''}" data-setlang="${c}"${c === LANG ? ' aria-current="true"' : ''} data-q="${esc(norm(n + ' ' + e + ' ' + c + ' ' + (ALIAS[c] || '')))}"><span class="lm__n" lang="${c}" dir="${RTL.includes(c) ? 'rtl' : 'ltr'}">${esc(n)}</span><span class="lm__e" lang="en" dir="ltr">${esc(e)}</span><span class="lm__c mono" dir="ltr">${String(i + 1).padStart(2, '0')}</span></button>`;
+    const render = () => {
+      const sug = browser && browser !== LANG ? LANGS.find(x => x[0] === browser) : null;
+      m.innerHTML = `<div class="xm__card lm__card" role="document">
+        <button type="button" class="sdkm__x iconbtn" data-close aria-label="${T('ui.close')}">✕</button>
+        <span class="kicker">${T('nav.language')}</span>
+        <h2 id="lmT">${T('lm.title')}</h2>
+        <p class="lm__lead">${esc(fill(t('lm.lead'), { n: LANGS.length }))}</p>
+        <div class="lm__search"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><input type="search" id="lmQ" placeholder="${T('lm.search')}" aria-label="${T('lm.search')}" autocomplete="off" spellcheck="false"></div>
+        ${sug ? `<div class="lm__sug"><span>${T('lm.suggested')}</span><button type="button" class="pill" data-setlang="${sug[0]}" lang="${sug[0]}">${esc(sug[1])}</button></div>` : ''}
+        <div class="lm__grid" id="lmG" role="list">${LANGS.map(item).join('')}</div>
+        <p class="lm__none" id="lmNone" hidden></p>
+      </div>`;
+    };
+    const open = () => { last = document.activeElement; closeMenus(); render(); m.hidden = false; document.documentElement.classList.add('modal-open'); requestAnimationFrame(() => { const q = $('#lmQ', m); if (matchMedia('(pointer:fine)').matches) q.focus(); else $('.lm__i.on', m)?.focus(); $('.lm__i.on', m)?.scrollIntoView({ block: 'center' }); }); };
+    const close = () => { if (m.hidden) return; m.hidden = true; document.documentElement.classList.remove('modal-open'); last?.focus?.(); };
+    document.addEventListener('click', (e) => { if (e.target.closest('[data-langmodal]')) { e.preventDefault(); e.stopPropagation(); open(); } }, true);
+    m.addEventListener('click', (e) => { if (e.target === m || e.target.closest('[data-close]')) return close(); const b = e.target.closest('[data-setlang]'); if (b) { close(); if (b.dataset.setlang !== LANG) setLang(b.dataset.setlang); } });
+    m.addEventListener('input', (e) => { if (e.target.id !== 'lmQ') return; const q = norm(e.target.value.trim()); let n = 0; $$('.lm__i', m).forEach(b => { const ok = !q || b.dataset.q.includes(q); b.hidden = !ok; if (ok) n++; }); const no = $('#lmNone', m); no.hidden = !!n; no.textContent = fill(t('lm.none'), { q: e.target.value.trim() }); });
+    m.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' && e.target.id === 'lmQ') { const f = $$('.lm__i', m).find(b => !b.hidden); if (f) f.click(); return; }
+      if (e.key === 'ArrowDown' && e.target.id === 'lmQ') { e.preventDefault(); $$('.lm__i', m).find(b => !b.hidden)?.focus(); return; }
+      const b = e.target.closest('.lm__i'); if (!b || !['ArrowRight', 'ArrowLeft', 'ArrowDown', 'ArrowUp'].includes(e.key)) return;
+      e.preventDefault(); const vis = $$('.lm__i', m).filter(x => !x.hidden); const i = vis.indexOf(b); const cols = Math.max(1, Math.round($('#lmG', m).clientWidth / b.offsetWidth)); const rtl = document.documentElement.dir === 'rtl';
+      const d = { ArrowRight: rtl ? -1 : 1, ArrowLeft: rtl ? 1 : -1, ArrowDown: cols, ArrowUp: -cols }[e.key]; const n2 = vis[i + d]; if (n2) n2.focus(); else if (e.key === 'ArrowUp') $('#lmQ', m).focus();
+    });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !m.hidden) { e.preventDefault(); e.stopImmediatePropagation(); close(); } }, true);
+  }
+
   /* ---------------- SDK install modal ---------------- */
   const INSTALL = {
     start: ['git clone https://gitlab.com/kyber/kyber.git', 'cd kyber', '# read “Where to start”, then pick a component', 'git clone https://gitlab.com/kyber/apps/kyber-desktop.git'],
@@ -1837,7 +1871,7 @@
     };
     const render = () => {
       m.innerHTML = `<div class="xm__card sdkm__card" role="document">
-        <button type="button" class="sdkm__x iconbtn" data-close aria-label="Esc">✕</button>
+        <button type="button" class="sdkm__x iconbtn" data-close aria-label="${T('ui.close')}">✕</button>
         <span class="kicker">${T('sdk.kicker')}</span>
         <h2 id="sdkmT">${T('sdkm.title')}</h2>
         <p class="sdkm__lead">${T('sdkm.lead')}</p>
@@ -1896,16 +1930,16 @@
   /* ---------------- developer console ---------------- */
   function initConsole() {
     const el = document.createElement('div'); el.className = 'con'; el.id = 'con'; el.setAttribute('role', 'dialog'); el.setAttribute('aria-label', 'Console'); el.hidden = true;
-    el.innerHTML = `<div class="con__bar"><i></i><i></i><i></i><span class="mono">kyber@browser: ~</span><button class="mono" data-x>esc</button></div><div class="con__out mono" role="log" aria-live="polite"></div><label class="con__in mono"><span>❯</span><input spellcheck="false" autocomplete="off" aria-label="command"></label>`;
+    el.innerHTML = `<div class="con__bar"><i></i><i></i><i></i><span class="mono">kyber@browser: ~</span><button class="mono" data-x>esc</button></div><div class="con__out mono" role="log" aria-live="polite"></div><label class="con__in mono"><span>❯</span><input spellcheck="false" autocomplete="off" aria-label="${T('ui.command')}"></label>`;
     document.body.appendChild(el);
     const out = $('.con__out', el), inp = $('input', el); const hist = []; let hi = 0;
     const print = (txt, cls = '') => { const d = document.createElement('div'); if (cls) d.className = cls; d.textContent = txt; out.appendChild(d); out.scrollTop = out.scrollHeight; };
     const f1 = (v) => v == null ? '—' : v.toFixed(2);
     const CMD = {
-      help: () => ['help            this list', 'metrics         live frame timing + input delay (this tab)', 'perf            resources this page loaded, with real timings', 'lag <ms|off>    ghost cursor trailing you by <ms> — feel 200 ms', 'repos           Kyber repositories (GitLab)', 'release         latest Windows installer', 'sdk             how to start', 'jobs            open positions', 'theme [dark|light]   switch theme', 'lang <code>     en fr de es pt zh ja hi ar he', 'goto <page>     technology sdk about blog connect', 'whoami          what your browser tells us (stays local)', 'clear · exit'].forEach(l => print(l)),
-      metrics: () => { const m = FX.metrics; print(`frame p50 ${f1(m.p50)} ms · p95 ${f1(m.p95)} ms · jitter ${f1(m.p95 - m.p50)} ms`); print(`refresh ≈ ${m.hz} Hz · frames ${m.frames} · long frames (>50 ms) ${m.longF}`); print(`last input → next frame ${m.inputNext == null ? '— (press a key)' : f1(m.inputNext) + ' ms'} · handler delay ${f1(m.input)} ms`); print('kyber end-to-end target: 8–10 ms (optimal conditions)', 'dim'); },
+      help: () => [['help', 'h_help'], ['metrics', 'h_metrics'], ['perf', 'h_perf'], ['lag <ms|off>', 'h_lag'], ['repos', 'h_repos'], ['release', 'h_release'], ['sdk', 'h_sdk'], ['jobs', 'h_jobs'], ['theme [dark|light]', 'h_theme'], ['lang <code>', 'h_lang'], ['goto <page>', 'h_goto'], ['whoami', 'h_whoami'], ['clear · exit', 'h_clear']].forEach(([c, k]) => print(c.padEnd(19) + ' ' + (k === 'h_lang' ? LANGS.map(x => x[0]).join(' ') : t('con.' + k)))),
+      metrics: () => { const m = FX.metrics; print(`frame p50 ${f1(m.p50)} ms · p95 ${f1(m.p95)} ms · jitter ${f1(m.p95 - m.p50)} ms`); print(`refresh ≈ ${m.hz} Hz · frames ${m.frames} · long frames (>50 ms) ${m.longF}`); print(`last input → next frame ${m.inputNext == null ? '— (' + t('con.pressKey') + ')' : f1(m.inputNext) + ' ms'} · handler delay ${f1(m.input)} ms`); print(t('con.target'), 'dim'); },
       perf: () => { const nav = performance.getEntriesByType('navigation')[0]; if (nav) print(`navigation  ttfb ${f1(nav.responseStart)} ms · dom ${f1(nav.domContentLoadedEventEnd)} ms · boot ${f1(window.__boot || 0)} ms`); performance.getEntriesByType('resource').slice(-14).forEach(r => print(`${(r.duration).toFixed(1).padStart(7)} ms  ${r.transferSize === 0 ? 'cache' : (r.transferSize / 1024).toFixed(1) + ' kB'}  ${r.name.replace(location.origin, '').split('?')[0].slice(-58)}`)); },
-      lag: (a) => { const v = a === 'off' ? 0 : Math.max(0, Math.min(2000, +a || 200)); FX.lag = v; print(v ? `ghost cursor now trails you by ${v} ms. move around. 'lag off' to stop.` : 'ghost cursor off.'); },
+      lag: (a) => { const v = a === 'off' ? 0 : Math.max(0, Math.min(2000, +a || 200)); FX.lag = v; print(v ? fill(t('con.lagOn'), { n: v }) : t('con.lagOff')); },
       repos: () => REPOS.forEach(([pth]) => { const v = REPOSNAP[pth]; print(`★${String(v[0]).padStart(3)}  ${v[1]}  gitlab.com/${pth}`); }),
       release: () => { print(`${REL.tag}  ${REL.date}  ${REL.file}`); print(REL.url, 'dim'); },
       sdk: () => { print('$ ' + CLONE); print('docs   ' + DOCS); print('build  gitlab.com/kyber/apps/kyber-desktop'); print('embed  gitlab.com/kyber/core/kysdk  (Rust · C via cbindgen · JS via wasm-bindgen)'); },
@@ -1913,10 +1947,10 @@
       theme: (a) => { const n = a || (document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark'); document.documentElement.dataset.theme = n; print('theme → ' + n); },
       lang: (a) => { if (!a) return print('lang <code>'); setLang(a); print('lang → ' + a); },
       goto: (a) => { location.hash = '#/' + (a || ''); print('route → /' + (a || '')); },
-      whoami: () => { print(`lang ${navigator.language} · tz ${Intl.DateTimeFormat().resolvedOptions().timeZone}`); print(`viewport ${innerWidth}×${innerHeight} @${devicePixelRatio}x · ${FX.metrics.hz} Hz · cores ${navigator.hardwareConcurrency || '?'}`); print(`webtransport ${'WebTransport' in window ? 'yes' : 'no'} · webcodecs ${'VideoEncoder' in window ? 'yes' : 'no'} · webgpu ${'gpu' in navigator ? 'yes' : 'no'}`); print('nothing leaves this tab.', 'dim'); },
-      clear: () => { out.innerHTML = ''; }, exit: () => close(), sudo: () => print('nice try. latency is not negotiable.', 'dim'), vlc: () => print('▲ 7B+ downloads. the cone approves.', 'dim'), ping: () => { const t0 = performance.now(); fetch('i18n/en.json', { cache: 'no-store' }).then(() => print(`HTTP round trip to this site: ${(performance.now() - t0).toFixed(1)} ms (not Kyber — your network + CDN)`)); }
+      whoami: () => { print(`lang ${navigator.language} · tz ${Intl.DateTimeFormat().resolvedOptions().timeZone}`); print(`viewport ${innerWidth}×${innerHeight} @${devicePixelRatio}x · ${FX.metrics.hz} Hz · cores ${navigator.hardwareConcurrency || '?'}`); print(`webtransport ${'WebTransport' in window ? 'yes' : 'no'} · webcodecs ${'VideoEncoder' in window ? 'yes' : 'no'} · webgpu ${'gpu' in navigator ? 'yes' : 'no'}`); print(t('con.local'), 'dim'); },
+      clear: () => { out.innerHTML = ''; }, exit: () => close(), sudo: () => print(t('con.sudo'), 'dim'), vlc: () => print('▲ ' + t('con.cone'), 'dim'), ping: () => { const t0 = performance.now(); fetch('i18n/en.json', { cache: 'no-store' }).then(() => print(fill(t('con.rtt'), { n: (performance.now() - t0).toFixed(1) }))); }
     };
-    const run = (line) => { print('❯ ' + line, 'cmd'); const [c, ...a] = line.trim().split(/\s+/); if (!c) return; (CMD[c] || (() => print(`${c}: command not found — try help`, 'err')))(a.join(' ')); };
+    const run = (line) => { print('❯ ' + line, 'cmd'); const [c, ...a] = line.trim().split(/\s+/); if (!c) return; (CMD[c] || (() => print(fill(t('con.notFound'), { c }), 'err')))(a.join(' ')); };
     const open = () => { el.hidden = false; if (!out.childElementCount) { print('kyber console · ' + t('con.welcome'), 'dim'); print(`boot ${Math.round(window.__boot || 0)} ms · frame p50 ${FX.metrics.p50.toFixed(1)} ms · ${FX.metrics.hz} Hz`, 'dim'); } requestAnimationFrame(() => inp.focus()); };
     const close = () => { el.hidden = true; $('#conBtn')?.focus(); };
     inp.addEventListener('keydown', (e) => {
@@ -1948,7 +1982,7 @@
     const q = new URLSearchParams(location.search).get('lang');
     const want = q || 'en';
     const loadP = (async () => { EN = await load('en'); await setLang(want, false); })();
-    ui(); initConsole(); initA11y(); initExternal(); initSdkModal(); initLogo();
+    ui(); initConsole(); initA11y(); initExternal(); initSdkModal(); initLogo(); initLangModal();
     await loadP;
     route(true);
     window.__boot = performance.now();

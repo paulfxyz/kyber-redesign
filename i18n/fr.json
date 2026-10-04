@@ -495,7 +495,6 @@
   "notTitleA": "Pas WebRTC.",
   "notTitleB": "Délibérément.",
   "notLead": "WebRTC a été conçu il y a dix ans pour des appels vidéo entre humains. 100–200 ms, c'est acceptable pour une conversation. C'est dangereux pour le contrôle de machines. Les grands groupes ont consacré des années et des dizaines de millions à bâtir des piles de télé-opération sur mesure. Kyber, c'est cette capacité — mise à la portée de tous.",
-  "cmpFeature": "",
   "cmpLatency": "Latence typique",
   "cmpClock": "Horloge unifiée",
   "cmpPorts": "Ports pare-feu",
@@ -812,7 +811,28 @@
  },
  "con": {
   "hint": "Appuyez sur K pour ouvrir la console",
-  "welcome": "Tapez help. Tout s'exécute localement dans votre navigateur."
+  "welcome": "Tapez help. Tout s'exécute localement dans votre navigateur.",
+  "h_help": "cette liste",
+  "h_metrics": "cadence d’images et latence d’entrée en direct (cet onglet)",
+  "h_perf": "ressources chargées par cette page, avec leurs temps réels",
+  "h_lag": "curseur fantôme qui vous suit avec <ms> de retard — ressentez 200 ms",
+  "h_repos": "dépôts Kyber (GitLab)",
+  "h_release": "dernier programme d’installation Windows",
+  "h_sdk": "pour bien démarrer",
+  "h_jobs": "postes ouverts",
+  "h_theme": "changer de thème",
+  "h_goto": "technology · sdk · about · blog · connect · careers",
+  "h_whoami": "ce que votre navigateur nous révèle (reste en local)",
+  "h_clear": "effacer l’écran · fermer la console",
+  "pressKey": "appuyez sur une touche",
+  "target": "Objectif de bout en bout de Kyber : 8–10 ms (conditions optimales)",
+  "lagOn": "Le curseur fantôme vous suit désormais avec {n} ms de retard. Bougez la souris — tapez « lag off » pour arrêter.",
+  "lagOff": "Curseur fantôme désactivé.",
+  "local": "Rien ne sort de cet onglet.",
+  "sudo": "Bien essayé. La latence, ça ne se négocie pas.",
+  "cone": "Plus de 7 milliards de téléchargements. Le cône approuve.",
+  "rtt": "Aller-retour HTTP vers ce site : {n} ms (pas Kyber — votre réseau et le CDN)",
+  "notFound": "{c} : commande introuvable — tapez help"
  },
  "a11y": {
   "open": "Options d'accessibilité",
@@ -874,7 +894,18 @@
   "changes": "modifications",
   "yrs": "ans",
   "proto": "prototype · aucune donnée envoyée",
-  "docs": "Docs"
+  "docs": "Docs",
+  "home": "Accueil Kyber",
+  "primaryNav": "Navigation principale",
+  "gitlabStars": "Kyber sur GitLab",
+  "frameTitle": "Intervalle entre images mesuré dans votre navigateur",
+  "consoleTitle": "Console (touche K)",
+  "a11yOpen": "Options d’accessibilité",
+  "toTop": "Retour en haut",
+  "close": "Fermer",
+  "command": "Commande",
+  "active": "Actif",
+  "boot": "ms de démarrage"
  },
  "ext": {
   "kicker": "Quitter la proposition",
@@ -1084,5 +1115,12 @@
   "eCvType": "Merci de joindre votre CV au format PDF.",
   "eCvBig": "Votre CV fait {s} — la taille maximale est de 10 Mo.",
   "share": "Partager ce poste"
+ },
+ "lm": {
+  "title": "Choisissez votre langue",
+  "lead": "Kyber parle les {n} langues les plus parlées au monde.",
+  "search": "Rechercher par nom ou code…",
+  "none": "Aucune langue ne correspond à « {q} ».",
+  "suggested": "Suggestions pour votre navigateur :"
  }
 }

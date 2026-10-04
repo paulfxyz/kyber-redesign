@@ -1,0 +1,12 @@
+{
+ "slug": "senior-windows-systems-developer",
+ "key": "j1",
+ "title": "資深 Windows 系統開發工程師",
+ "meta": [
+  "Full-time · CDI",
+  "Paris 13ème (on-site, hybrid or full remote)",
+  "Salary aligned with the market + typical French benefits (Health Insurance, 50% Transportation card)"
+ ],
+ "html": "<h2>職務內容</h2><p>獲選者將負責：</p><ul><li>為 Kyber 設計、開發並最佳化 Windows 底層系統元件</li><li>開發 Windows 服務、系統代理程式與驅動程式（視情況涵蓋使用者模式與核心模式）</li><li>直接運用 Windows 原生 API（Win32、NT 原生 API），並與 Windows 生態系統（如 Active Directory、Kerberos 等）進行整合</li><li>調查並解決與效能、記憶體管理、同步機制及安全性相關的複雜問題</li><li>執行進階除錯工作（當機傾印分析、核心除錯、堆疊分析，偶爾涉及逆向工程）</li><li>撰寫清楚易懂且經得起時間考驗的技術文件</li><li>參與底層架構決策及關鍵程式碼審查</li><li>持續追蹤 Windows 內部機制與系統層級工具的技術發展。</li></ul><h2>必備技術能力</h2><ul><li>精通 Windows 內部架構及其生態系統</li><li>深入理解同步機制、記憶體管理與系統層級錯誤處理，並清楚掌握使用者模式與核心模式的界線，以及使用者工作階段管理</li><li>具備 Windows 除錯與分析工具的實務經驗</li><li>程式語言：C／C++／Rust／x86/x64 組合語言</li><li>工具與環境：Visual Studio 與 Windows 工具鏈、GitLab 及協作開發流程</li></ul><h2>我們希望你具備</h2><ul><li>5 至 10 年軟體開發工作經驗，且以 Windows 系統程式設計為主要專長</li><li>具備參與高技術複雜度及關鍵系統開發的具體實績</li><li>擁有扎實的底層思維，能夠快速理解大型既有程式碼庫</li><li>做事嚴謹、能獨立作業且注重細節，熱衷於解決具挑戰性的技術難題</li><li>樂於分享專業知識，並能指導資淺工程師</li></ul><p>加分條件：</p><ul><li>具備系統安全或 Windows 元件強化經驗、有逆向工程或惡意程式分析背景，或曾參與底層、系統導向的開源專案</li><li>具備在嚴苛條件環境下的開發經驗（如即時系統、高可用性系統、安全關鍵軟體）</li></ul><h2>面試流程</h2><ol><li>15 分鐘初步通話：輕鬆聊聊你的動機與適配度，並解答你在技術以外的任何疑問。</li><li>兩場各 1 小時的技術／產品面談：與我們的 CTO 及／或首席解決方案架構師深入探討你解決問題的思路。</li><li>團隊見面會：以輕鬆的方式彼此認識，確認雙方文化契合。</li></ol><h2>我們提供</h2><ul><li>高度技術導向、極具智識挑戰的專案</li><li>重視真正工程實力、以技術為核心的工作環境（沒有無意義的會議或報告）</li><li>在技術決策上擁有高度自主權</li></ul>",
+ "legal": false
+}

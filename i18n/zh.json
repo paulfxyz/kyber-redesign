@@ -130,9 +130,6 @@
   "t2008": "VideoLAN 正式成为独立非营利组织。",
   "t2009": "VLC 全球用户突破 1 亿。",
   "t2012": "Videolabs 成立，专注围绕 VLC 构建产品与服务。",
-  "t2020": "JB 担任云游戏公司 Shadow 的 CTO 期间，Kyber 作为旁线项目悄然启动。",
-  "t2022": "Kyber 0.1.0 发布：支持 Windows 与 Linux 主机及客户端，通过单条加密 QUIC 连接传输。",
-  "t2023": "Kyber 在 KDE Akademy 上首次公开亮相。",
   "t2024": "Kyber 作为实时流传输的探索项目悄然启动。",
   "t2025": "Kyber 公司在巴黎正式成立。VLC 累计下载量突破 60 亿次。",
   "t2026a": "Kyber 正式亮相，完成由 Lightspeed 领投的 $5M 种子轮融资。",
@@ -153,6 +150,9 @@
   "pipeKyber": "Kyber 端到端，最优条件",
   "pipeCall": "典型视频通话",
   "pipeFits": "120 Hz 下单帧仅持续 8.3 ms。Kyber 的完整流水线——从采集到显示——正是为此而设计。",
+  "t2020": "JB 担任云游戏公司 Shadow 的 CTO 期间，Kyber 作为旁线项目悄然启动。",
+  "t2022": "Kyber 0.1.0 发布：支持 Windows 与 Linux 主机及客户端，通过单条加密 QUIC 连接传输。",
+  "t2023": "Kyber 在 KDE Akademy 上首次公开亮相。",
   "ossRepos": "代码仓库",
   "ossRepoLead": "Kyber 按职责拆分为多个专项仓库——核心层、应用层、依赖层与运维层。主要以 Rust 编写，并集成 VLC 与 FFmpeg。",
   "ossLatest": "最新版本",
@@ -495,7 +495,6 @@
   "notTitleA": "不是 WebRTC。",
   "notTitleB": "这是有意为之。",
   "notLead": "WebRTC 诞生于十年前，专为人与人之间的视频通话设计。100–200 ms 的延迟在通话中无伤大雅，用于机器控制则危险。科技巨头耗费数年、投入数千万美元构建定制遥操作系统。Kyber 将这种能力，带给所有其他人。",
-  "cmpFeature": "",
   "cmpLatency": "典型延迟",
   "cmpClock": "统一时钟",
   "cmpPorts": "防火墙端口",
@@ -812,7 +811,28 @@
  },
  "con": {
   "hint": "按 K 打开控制台",
-  "welcome": "输入 help。所有操作均在您的浏览器本地运行。"
+  "welcome": "输入 help。所有操作均在您的浏览器本地运行。",
+  "h_help": "显示此列表",
+  "h_metrics": "实时帧时序与输入延迟（当前标签页）",
+  "h_perf": "本页已加载的资源及实测耗时",
+  "h_lag": "幽灵光标以 <ms> 延迟跟随你——体验一下 200 ms",
+  "h_repos": "Kyber 代码仓库（GitLab）",
+  "h_release": "最新 Windows 安装程序",
+  "h_sdk": "快速上手",
+  "h_jobs": "在招职位",
+  "h_theme": "切换主题",
+  "h_goto": "跳转至 technology · sdk · about · blog · connect · careers",
+  "h_whoami": "你的浏览器透露了哪些信息（仅保留在本地）",
+  "h_clear": "清屏 · 关闭控制台",
+  "pressKey": "请按任意键",
+  "target": "Kyber 端到端目标：8–10 ms（理想条件下）",
+  "lagOn": "幽灵光标现以 {n} ms 的延迟跟随你。随便移动试试——输入“lag off”即可停止。",
+  "lagOff": "幽灵光标已关闭。",
+  "local": "所有数据都不会离开此标签页。",
+  "sudo": "想得美。延迟没得商量。",
+  "cone": "下载量超 70 亿次。橙色锥桶表示认可。",
+  "rtt": "到本站的 HTTP 往返时间：{n} ms（并非 Kyber 延迟，取决于你的网络和 CDN）",
+  "notFound": "{c}：未找到命令——输入 help 查看帮助"
  },
  "a11y": {
   "open": "无障碍选项",
@@ -874,7 +894,18 @@
   "changes": "项更改",
   "yrs": "年",
   "proto": "原型演示 · 不发送任何数据",
-  "docs": "文档"
+  "docs": "文档",
+  "home": "Kyber 首页",
+  "primaryNav": "主导航",
+  "gitlabStars": "GitLab 上的 Kyber",
+  "frameTitle": "在你的浏览器中测得的帧间隔",
+  "consoleTitle": "控制台（按 K）",
+  "a11yOpen": "无障碍选项",
+  "toTop": "返回顶部",
+  "close": "关闭",
+  "command": "命令",
+  "active": "当前",
+  "boot": "ms 启动"
  },
  "ext": {
   "kicker": "即将离开",
@@ -1084,5 +1115,12 @@
   "eCvType": "请上传 PDF 格式的简历。",
   "eCvBig": "你上传的简历大小为 {s}，已超过 10 MB 的限制。",
   "share": "分享该职位"
+ },
+ "lm": {
+  "title": "选择语言",
+  "lead": "Kyber 支持全球使用最广泛的 {n} 种语言。",
+  "search": "按名称或代码搜索…",
+  "none": "没有与“{q}”匹配的语言。",
+  "suggested": "根据你的浏览器推荐："
  }
 }

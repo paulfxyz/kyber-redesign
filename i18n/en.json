@@ -812,7 +812,28 @@
  },
  "con": {
   "hint": "Press K to open the console",
-  "welcome": "Type help. Everything here runs locally in your browser."
+  "welcome": "Type help. Everything here runs locally in your browser.",
+  "h_help": "this list",
+  "h_metrics": "live frame timing and input delay (this tab)",
+  "h_perf": "resources this page loaded, with real timings",
+  "h_lag": "ghost cursor trailing you by <ms> — feel 200 ms",
+  "h_repos": "Kyber repositories (GitLab)",
+  "h_release": "latest Windows installer",
+  "h_sdk": "how to start",
+  "h_jobs": "open positions",
+  "h_theme": "switch theme",
+  "h_goto": "technology · sdk · about · blog · connect · careers",
+  "h_whoami": "what your browser tells us (stays local)",
+  "h_clear": "clear the screen · close the console",
+  "pressKey": "press a key",
+  "target": "Kyber end-to-end target: 8–10 ms (optimal conditions)",
+  "lagOn": "Ghost cursor now trails you by {n} ms. Move around — type “lag off” to stop.",
+  "lagOff": "Ghost cursor off.",
+  "local": "Nothing leaves this tab.",
+  "sudo": "Nice try. Latency is not negotiable.",
+  "cone": "7B+ downloads. The cone approves.",
+  "rtt": "HTTP round trip to this site: {n} ms (not Kyber — your network and CDN)",
+  "notFound": "{c}: command not found — type help"
  },
  "a11y": {
   "open": "Accessibility options",
@@ -874,7 +895,18 @@
   "changes": "changes",
   "yrs": "yrs",
   "proto": "prototype · nothing sent",
-  "docs": "Docs"
+  "docs": "Docs",
+  "home": "Kyber home",
+  "primaryNav": "Main navigation",
+  "gitlabStars": "Kyber on GitLab",
+  "frameTitle": "Frame interval measured in your browser",
+  "consoleTitle": "Console (press K)",
+  "a11yOpen": "Accessibility options",
+  "toTop": "Back to top",
+  "close": "Close",
+  "command": "Command",
+  "active": "Active",
+  "boot": "ms boot"
  },
  "ext": {
   "kicker": "Leaving the proposal",
@@ -1084,5 +1116,12 @@
   "eCvType": "Please attach your CV as a PDF.",
   "eCvBig": "Your CV is {s} — the limit is 10 MB.",
   "share": "Share this role"
+ },
+ "lm": {
+  "title": "Choose your language",
+  "lead": "Kyber speaks the {n} most widely spoken languages in the world.",
+  "search": "Search by name or code…",
+  "none": "No language matches “{q}”.",
+  "suggested": "Suggested for your browser:"
  }
 }
