@@ -905,7 +905,10 @@
   "close": "Pa á dé",
   "command": "Àṣẹ",
   "active": "Ń ṣiṣẹ́",
-  "boot": "ms ìbẹ̀rẹ̀"
+  "boot": "ms ìbẹ̀rẹ̀",
+  "dockQ": "Kí ni Kyber?",
+  "dockS": "Ní èdè tó rọrùn",
+  "dockAria": "Kí ni Kyber? Kà á ní èdè tó rọrùn"
  },
  "ext": {
   "kicker": "Ò ń kúrò nínú àbá náà",

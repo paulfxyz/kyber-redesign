@@ -905,7 +905,10 @@
   "close": "关闭",
   "command": "命令",
   "active": "当前",
-  "boot": "ms 启动"
+  "boot": "ms 启动",
+  "dockQ": "Kyber 是什么？",
+  "dockS": "通俗解读",
+  "dockAria": "Kyber 是什么？阅读通俗解读"
  },
  "ext": {
   "kicker": "即将离开",

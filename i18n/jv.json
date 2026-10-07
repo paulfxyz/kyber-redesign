@@ -905,7 +905,10 @@
   "close": "Tutup",
   "command": "Prentah",
   "active": "Aktif",
-  "boot": "ms miwiti"
+  "boot": "ms miwiti",
+  "dockQ": "Kyber iku apa?",
+  "dockS": "Nganggo basa sing gampang",
+  "dockAria": "Kyber iku apa? Wacanen nganggo basa sing gampang"
  },
  "ext": {
   "kicker": "Metu saka usulan",

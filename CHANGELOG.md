@@ -2,6 +2,14 @@
 
 All notable changes to this project are documented here. Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versioning: [SemVer](https://semver.org/).
 
+## [1.1.0] — 2026-10-07
+
+### Added
+- “What’s Kyber? In simple words” floating widget, shown before scrolling on desktop and mobile; links to the Simple view and hands over to the SDK dock once you scroll. Translated into all 50 languages.
+
+### Fixed
+- Page changes now always return to the top, even with inertial scrolling (trackpads, iOS) or browser scroll restoration.
+
 ## [1.0.0] — 2026-10-04
 
 First public-ready release of the concept.

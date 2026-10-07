@@ -25,7 +25,7 @@
   const T = (k) => esc(t(k));
   async function load(l) {
     if (cache[l]) return cache[l];
-    const r = await fetch(`i18n/${l}.json?v=1791073647`); if (!r.ok) throw new Error('lang'); return (cache[l] = await r.json());
+    const r = await fetch(`i18n/${l}.json?v=1791383595`); if (!r.ok) throw new Error('lang'); return (cache[l] = await r.json());
   }
   function loadFont(l) {
     if (!FONTS[l] || document.getElementById('font-' + l)) return;
@@ -1665,7 +1665,7 @@
     $('.dd').classList.toggle('is-active', active === 'solutions');
     closeMenus();
     const anchor = pendingAnchor; pendingAnchor = null;
-    if (!force || lastPath !== path) { lenis ? lenis.scrollTo(0, { immediate: true }) : scrollTo(0, 0); }
+    if (!force || lastPath !== path) toTop();
     lastPath = path;
     animate(main);
     if (window.ScrollTrigger) { ScrollTrigger.sort && ScrollTrigger.sort(); ScrollTrigger.refresh(); }
@@ -1676,6 +1676,7 @@
     if (anchor) setTimeout(() => { const el = document.getElementById(anchor); el && (lenis ? lenis.scrollTo(el, { offset: -80 }) : el.scrollIntoView()); }, 300);
     if (doWipe) gsap.fromTo(wipe, { clipPath: 'inset(0 0 0% 0)' }, { clipPath: 'inset(0 0 100% 0)', duration: .22, ease: 'power2.out' });
     first = false;
+    dispatchEvent(new Event('scroll')); setTimeout(() => dispatchEvent(new Event('scroll')), 500);
   }
 
   /* ---------------- UI ---------------- */
@@ -1686,6 +1687,21 @@
     document.body.style.overflow = ''; lenis && lenis.start();
   }
   let lenis = null;
+  /* reliable scroll reset on page change: kills momentum (iOS/trackpads), beats scroll restoration and ScrollTrigger memory */
+  let userMoved = false, topAt = 0;
+  ['wheel', 'touchstart', 'keydown'].forEach(ev => addEventListener(ev, () => { if (performance.now() - topAt > 450) userMoved = true; }, { passive: true }));
+  function toTop() {
+    userMoved = false; topAt = performance.now();
+    const de = document.documentElement, prev = de.style.overflow;
+    de.style.overflow = 'hidden'; // interrupts inertial scrolling
+    if (lenis) lenis.scrollTo(0, { immediate: true });
+    de.scrollTop = 0; document.body.scrollTop = 0; scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    de.style.overflow = prev;
+    if (window.ScrollTrigger && ScrollTrigger.clearScrollMemory) ScrollTrigger.clearScrollMemory('manual');
+    const again = () => { if (!userMoved && scrollY > 0) scrollTo({ top: 0, left: 0, behavior: 'instant' }); };
+    requestAnimationFrame(() => requestAnimationFrame(again));
+    [60, 180, 400, 900, 1400].forEach(ms => setTimeout(again, ms));
+  }
   function ui() {
     const dd = $('.dd'), ddb = $('.dd__btn');
     let ddT;
@@ -1737,6 +1753,7 @@
       const h = document.documentElement.scrollHeight - innerHeight; prog.style.transform = `scaleX(${h > 0 ? y / h : 0})`;
       const p = parse(); const hideDock = p === 'sdk' || p === 'connect' || p === 'contact';
       $('#dock').classList.toggle('on', y > innerHeight * .8 && !hideDock && h - y > 300);
+      $('#dockS').classList.toggle('on', y <= innerHeight * .8 && p !== 'simple' && document.documentElement.classList.contains('dock-ready'));
     };
     // smooth scroll
     if (false && window.Lenis) {
@@ -1752,6 +1769,8 @@
     const ping = $('#ping'); FX.onMetrics((m) => { ping.textContent = m.p50.toFixed(1); });
     FX.cursor();
     FX.magnetic(document.querySelector('.hdr'));
+    if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+    setTimeout(() => { document.documentElement.classList.add('dock-ready'); dispatchEvent(new Event('scroll')); }, 1400);
     addEventListener('hashchange', () => route());
   }
 

@@ -905,7 +905,10 @@
   "close": "Kapat",
   "command": "Komut",
   "active": "Etkin",
-  "boot": "ms açılış"
+  "boot": "ms açılış",
+  "dockQ": "Kyber nedir?",
+  "dockS": "Sade bir dille",
+  "dockAria": "Kyber nedir? Sade bir dille okuyun"
  },
  "ext": {
   "kicker": "Tekliften ayrılıyorsunuz",

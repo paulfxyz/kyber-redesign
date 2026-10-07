@@ -1605,3 +1605,22 @@ button.sselect svg{position:static}
 button.sselect:hover,button.sselect:focus-visible{border-color:var(--accent)}
 :is(:lang(ml),:lang(ta),:lang(te),:lang(kn),:lang(my),:lang(or),:lang(am),:lang(si)) :is(.hero__title,.phero__title,.h-display){font-size:clamp(2.1rem,.8rem + 4.6vw,5.4rem);overflow-wrap:anywhere;hyphens:auto}
 :is(:lang(ml),:lang(ta),:lang(te),:lang(kn),:lang(my),:lang(or)) :is(.h1,.h2,.doc__title,.q){overflow-wrap:anywhere}
+/* "What's Kyber?" dock — shown before scrolling */
+.dock--s{padding:.35rem .35rem .35rem .45rem;gap:.7rem;text-decoration:none;color:var(--ink);cursor:pointer}
+.dockS__ico{display:grid;place-items:center;width:36px;height:36px;border-radius:50%;background:color-mix(in oklab,var(--accent) 14%,transparent);color:var(--accent);flex:none;position:relative}
+.dockS__ico::after{content:"";position:absolute;inset:-3px;border-radius:50%;border:1px solid var(--accent);opacity:0;animation:dockRing 2.4s var(--ease) infinite}
+@keyframes dockRing{0%{transform:scale(.85);opacity:.6}70%,100%{transform:scale(1.35);opacity:0}}
+.dockS__t{display:flex;flex-direction:column;line-height:1.2;min-width:0;padding-inline-end:.2rem}
+.dockS__t b{font-size:var(--t-sm);font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dockS__t span{font-size:var(--t-xs);color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dockS__go{padding:.6rem .75rem}
+.dock--s:hover .dockS__go{transform:translateX(3px)}
+.dockS__go{transition:transform .3s var(--ease)}
+.dock--s:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+[dir=rtl] .dockS__go svg{transform:scaleX(-1)}
+[dir=rtl] .dock--s{direction:rtl}
+@media (max-width:640px){.dock--s{padding:.3rem .3rem .3rem .35rem;gap:.55rem}.dockS__ico{width:32px;height:32px}}
+@media (prefers-reduced-motion:reduce){.dockS__ico::after{animation:none}}
+.dock.dock--s{left:0;right:0;margin-inline:auto;translate:none;width:max-content;max-width:calc(100vw - 8.6rem)}
+@media (max-width:640px){.dock.dock--s{max-width:calc(100vw - 8rem)}}
+@media (max-width:640px){.dock.dock--s{left:4.4rem;right:.8rem;max-width:none}}

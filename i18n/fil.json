@@ -905,7 +905,10 @@
   "close": "Isara",
   "command": "Utos",
   "active": "Aktibo",
-  "boot": "ms sa pag-boot"
+  "boot": "ms sa pag-boot",
+  "dockQ": "Ano ang Kyber?",
+  "dockS": "Sa simpleng salita",
+  "dockAria": "Ano ang Kyber? Basahin sa simpleng salita"
  },
  "ext": {
   "kicker": "Paglabas sa panukala",

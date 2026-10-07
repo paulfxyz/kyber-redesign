@@ -905,7 +905,10 @@
   "close": "ዝጋ",
   "command": "ትዕዛዝ",
   "active": "ንቁ",
-  "boot": "ms የማስነሻ ጊዜ"
+  "boot": "ms የማስነሻ ጊዜ",
+  "dockQ": "Kyber ምንድን ነው?",
+  "dockS": "በቀላል ቋንቋ",
+  "dockAria": "Kyber ምንድን ነው? በቀላል ቋንቋ ያንብቡ"
  },
  "ext": {
   "kicker": "ከረቂቅ ንድፉ እየወጡ ነው",

@@ -905,7 +905,10 @@
   "close": "關閉",
   "command": "指令",
   "active": "啟用中",
-  "boot": "ms 啟動"
+  "boot": "ms 啟動",
+  "dockQ": "Kyber 是什麼？",
+  "dockS": "白話解說",
+  "dockAria": "Kyber 是什麼？閱讀白話解說"
  },
  "ext": {
   "kicker": "即將離開提案頁面",

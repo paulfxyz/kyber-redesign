@@ -905,7 +905,10 @@
   "close": "Tutup",
   "command": "Arahan",
   "active": "Aktif",
-  "boot": "ms permulaan"
+  "boot": "ms permulaan",
+  "dockQ": "Apa itu Kyber?",
+  "dockS": "Dalam bahasa mudah",
+  "dockAria": "Apa itu Kyber? Baca dalam bahasa mudah"
  },
  "ext": {
   "kicker": "Meninggalkan cadangan",

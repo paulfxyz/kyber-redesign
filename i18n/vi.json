@@ -905,7 +905,10 @@
   "close": "Đóng",
   "command": "Lệnh",
   "active": "Đang hoạt động",
-  "boot": "ms khởi động"
+  "boot": "ms khởi động",
+  "dockQ": "Kyber là gì?",
+  "dockS": "Giải thích dễ hiểu",
+  "dockAria": "Kyber là gì? Đọc phần giải thích dễ hiểu"
  },
  "ext": {
   "kicker": "Rời khỏi bản đề xuất",

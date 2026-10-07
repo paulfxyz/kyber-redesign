@@ -905,7 +905,10 @@
   "close": "Fermer",
   "command": "Commande",
   "active": "Actif",
-  "boot": "ms de démarrage"
+  "boot": "ms de démarrage",
+  "dockQ": "Kyber, c’est quoi ?",
+  "dockS": "En termes simples",
+  "dockAria": "Kyber, c’est quoi ? Explication en termes simples"
  },
  "ext": {
   "kicker": "Quitter la proposition",

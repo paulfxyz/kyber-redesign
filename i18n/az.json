@@ -905,7 +905,10 @@
   "close": "Bağla",
   "command": "Əmr",
   "active": "Aktiv",
-  "boot": "ms yüklənmə"
+  "boot": "ms yüklənmə",
+  "dockQ": "Kyber nədir?",
+  "dockS": "Sadə dillə",
+  "dockAria": "Kyber nədir? Sadə dillə oxuyun"
  },
  "ext": {
   "kicker": "Təklifdən çıxırsınız",

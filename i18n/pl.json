@@ -905,7 +905,10 @@
   "close": "Zamknij",
   "command": "Polecenie",
   "active": "Aktywne",
-  "boot": "ms rozruchu"
+  "boot": "ms rozruchu",
+  "dockQ": "Czym jest Kyber?",
+  "dockS": "W prostych słowach",
+  "dockAria": "Czym jest Kyber? Przeczytaj w prostych słowach"
  },
  "ext": {
   "kicker": "Opuszczasz projekt",

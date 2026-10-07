@@ -905,7 +905,10 @@
   "close": "Close",
   "command": "Command",
   "active": "E dey on",
-  "boot": "ms to start"
+  "boot": "ms to start",
+  "dockQ": "Wetin be Kyber?",
+  "dockS": "For simple language",
+  "dockAria": "Wetin be Kyber? Read am for simple language"
  },
  "ext": {
   "kicker": "You dey comot from di proposal",

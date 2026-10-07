@@ -905,7 +905,10 @@
   "close": "닫기",
   "command": "명령어",
   "active": "활성",
-  "boot": "ms 부팅"
+  "boot": "ms 부팅",
+  "dockQ": "Kyber란?",
+  "dockS": "쉬운 말로 알아보기",
+  "dockAria": "Kyber란 무엇인가요? 쉬운 말로 읽어 보기"
  },
  "ext": {
   "kicker": "시안 페이지를 벗어납니다",

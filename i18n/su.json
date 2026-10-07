@@ -905,7 +905,10 @@
   "close": "Tutup",
   "command": "Paréntah",
   "active": "Aktip",
-  "boot": "ms ngamimitian"
+  "boot": "ms ngamimitian",
+  "dockQ": "Naon ari Kyber?",
+  "dockS": "Ku basa nu basajan",
+  "dockAria": "Naon ari Kyber? Baca ku basa nu basajan"
  },
  "ext": {
   "kicker": "Ninggalkeun usulan",

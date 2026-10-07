@@ -905,7 +905,10 @@
   "close": "Funga",
   "command": "Amri",
   "active": "Inatumika",
-  "boot": "ms za kuwasha"
+  "boot": "ms za kuwasha",
+  "dockQ": "Kyber ni nini?",
+  "dockS": "Kwa lugha rahisi",
+  "dockAria": "Kyber ni nini? Soma kwa lugha rahisi"
  },
  "ext": {
   "kicker": "Unaondoka kwenye pendekezo",

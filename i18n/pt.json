@@ -905,7 +905,10 @@
   "close": "Fechar",
   "command": "Comando",
   "active": "Ativo",
-  "boot": "ms de arranque"
+  "boot": "ms de arranque",
+  "dockQ": "O que é a Kyber?",
+  "dockS": "Em palavras simples",
+  "dockAria": "O que é a Kyber? Leia em palavras simples"
  },
  "ext": {
   "kicker": "A sair da proposta",

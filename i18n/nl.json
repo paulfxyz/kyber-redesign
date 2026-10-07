@@ -905,7 +905,10 @@
   "close": "Sluiten",
   "command": "Opdracht",
   "active": "Actief",
-  "boot": "ms opstarttijd"
+  "boot": "ms opstarttijd",
+  "dockQ": "Wat is Kyber?",
+  "dockS": "In gewone taal",
+  "dockAria": "Wat is Kyber? Lees het in gewone taal"
  },
  "ext": {
   "kicker": "Je verlaat het voorstel",

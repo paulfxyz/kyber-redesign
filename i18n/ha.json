@@ -905,7 +905,10 @@
   "close": "Rufe",
   "command": "Umarni",
   "active": "Yana aiki",
-  "boot": "ms na farawa"
+  "boot": "ms na farawa",
+  "dockQ": "Mene ne Kyber?",
+  "dockS": "Cikin sauƙaƙan kalmomi",
+  "dockAria": "Mene ne Kyber? Karanta cikin sauƙaƙan kalmomi"
  },
  "ext": {
   "kicker": "Barin shawarar",

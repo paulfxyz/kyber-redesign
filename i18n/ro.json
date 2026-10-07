@@ -905,7 +905,10 @@
   "close": "Închide",
   "command": "Comandă",
   "active": "Activ",
-  "boot": "ms pornire"
+  "boot": "ms pornire",
+  "dockQ": "Ce este Kyber?",
+  "dockS": "Pe înțelesul tuturor",
+  "dockAria": "Ce este Kyber? Citește pe înțelesul tuturor"
  },
  "ext": {
   "kicker": "Părăsești propunerea",

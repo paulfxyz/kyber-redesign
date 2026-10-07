@@ -905,7 +905,10 @@
   "close": "Vala",
   "command": "Umyalo",
   "active": "Kuyasebenza",
-  "boot": "ms ukuqalisa"
+  "boot": "ms ukuqalisa",
+  "dockQ": "Yini i-Kyber?",
+  "dockS": "Ngamazwi alula",
+  "dockAria": "Yini i-Kyber? Funda ngamazwi alula"
  },
  "ext": {
   "kicker": "Ushiya isiphakamiso",

@@ -905,7 +905,10 @@
   "close": "Yopish",
   "command": "Buyruq",
   "active": "Faol",
-  "boot": "ms yuklanish"
+  "boot": "ms yuklanish",
+  "dockQ": "Kyber nima?",
+  "dockS": "Oddiy tilda",
+  "dockAria": "Kyber nima? Oddiy tilda o‘qing"
  },
  "ext": {
   "kicker": "Taklif doirasidan chiqyapsiz",

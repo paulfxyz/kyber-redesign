@@ -906,7 +906,10 @@
   "close": "Close",
   "command": "Command",
   "active": "Active",
-  "boot": "ms boot"
+  "boot": "ms boot",
+  "dockQ": "What’s Kyber?",
+  "dockS": "In simple words",
+  "dockAria": "What’s Kyber? Read it in simple words"
  },
  "ext": {
   "kicker": "Leaving the proposal",

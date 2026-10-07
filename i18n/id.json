@@ -905,7 +905,10 @@
   "close": "Tutup",
   "command": "Perintah",
   "active": "Aktif",
-  "boot": "ms waktu mulai"
+  "boot": "ms waktu mulai",
+  "dockQ": "Apa itu Kyber?",
+  "dockS": "Dengan bahasa sederhana",
+  "dockAria": "Apa itu Kyber? Baca penjelasannya dengan bahasa sederhana"
  },
  "ext": {
   "kicker": "Meninggalkan proposal",

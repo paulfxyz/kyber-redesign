@@ -905,7 +905,10 @@
   "close": "閉じる",
   "command": "コマンド",
   "active": "有効",
-  "boot": "ms で起動"
+  "boot": "ms で起動",
+  "dockQ": "Kyberとは？",
+  "dockS": "わかりやすく解説",
+  "dockAria": "Kyberとは？わかりやすい解説を読む"
  },
  "ext": {
   "kicker": "提案サイトの外へ",
