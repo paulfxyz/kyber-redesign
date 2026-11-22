@@ -1624,3 +1624,4 @@ button.sselect:hover,button.sselect:focus-visible{border-color:var(--accent)}
 .dock.dock--s{left:0;right:0;margin-inline:auto;translate:none;width:max-content;max-width:calc(100vw - 8.6rem)}
 @media (max-width:640px){.dock.dock--s{max-width:calc(100vw - 8rem)}}
 @media (max-width:640px){.dock.dock--s{left:4.4rem;right:.8rem;max-width:none}}
+.post--feat .post__img{position:relative;background:#0b0c17;overflow:hidden;isolation:isolate}.post--feat .post__img::before{content:"";position:absolute;inset:-30px;background:var(--cov) center/cover;filter:blur(24px) brightness(.55) saturate(1.2);z-index:-1}.post--feat .post__img img{object-fit:contain;object-position:center;position:relative}

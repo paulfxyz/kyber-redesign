@@ -631,7 +631,11 @@
   "r27c": "Brauzerda OIDC orqali kirish: Keycloak, Auth0, Authelia va boshqalar.",
   "r26a": "Kompyuter ilovasi va serverda OIDC, FFmpeg 8.1, AMD va VAAPI kodlashini sozlash.",
   "r25a": "IPv6, Linuxda DRM/KMS orqali ekranni yozib olish, kyctl yordamida JWT yaratish.",
-  "readNotes": "Reliz eslatmalarini oʻqish"
+  "readNotes": "Reliz eslatmalarini oʻqish",
+  "r29a": "Zaxira WebSocket yo‘nalishi: korporativ tarmoq QUIC’ni bloklasa ham, Kyber baribir ulanadi.",
+  "r29b": "Asl o‘lchamda to‘liq 4:4:4 rang — endi 4K ish stoli 4K sifatda uzatiladi.",
+  "r29c": "GStreamer orqali tasvirga olish va tezroq kodlash — Raspberry Pi va chekka qurilmalarga yo‘l ochadi.",
+  "r29d": "Qurilmalar parki uchun poydevor: host signallari, tokenni avtomatik yangilash va kyber:// havolalari."
  },
  "faq": {
   "title": "Koʻp beriladigan savollar",
@@ -658,7 +662,8 @@
   "p4": "Kyber VivaTech koʻrgazmasida ishtirok etdi",
   "p5": "Kyber jismoniy sunʼiy intellekt uchun real vaqt infratuzilmasini yaratish maqsadida 5 mln $ jalb qildi",
   "p6": "Kyber 0.26 relizi",
-  "p7": "Kyber 0.25 relizi"
+  "p7": "Kyber 0.25 relizi",
+  "p8": "Kyber 0.29 versiyasi"
  },
  "contact": {
   "kicker": "Aloqa",
@@ -1037,7 +1042,7 @@
   "legacy1": "2001 · VideoLAN ochiq manbali loyihaga aylanadi",
   "legacy2": "2008 · VideoLAN notijorat tashkiloti tuziladi",
   "legacy3": "2020 · Kyber qoʻshimcha loyiha sifatida boshlanadi",
-  "legacy4": "2026 · 5 mln $ boshlangʻich investitsiya, 26 kishi, 0.28-versiya",
+  "legacy4": "2026 · 5 mln $ boshlangʻich investitsiya, 26 kishi, 0.29-versiya",
   "teamK": "Jamoa",
   "teamT": "Kichik jamoa. Chuqur tajriba.",
   "teamD": "Har kuni foydalanadigan kodingizni yozgan insonlar bilan oraliq boʻgʻinlarsiz, bevosita ishlaysiz.",

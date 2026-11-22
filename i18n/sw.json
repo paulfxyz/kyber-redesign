@@ -631,7 +631,11 @@
   "r27c": "Kuingia kwa OIDC kwenye kivinjari — Keycloak, Auth0, Authelia na mengineyo.",
   "r26a": "OIDC kwenye kompyuta ya mezani na seva, FFmpeg 8.1, uboreshaji wa usimbaji wa AMD na VAAPI.",
   "r25a": "IPv6, kunasa kwa DRM/KMS kwenye Linux, kutengeneza JWT ndani ya kyctl.",
-  "readNotes": "Soma maelezo ya toleo"
+  "readNotes": "Soma maelezo ya toleo",
+  "r29a": "Njia mbadala ya WebSocket: mtandao wa kampuni ukizuia QUIC, Kyber bado inaunganishwa.",
+  "r29b": "Rangi kamili za 4:4:4 kwa ubora asilia — eneo-kazi la 4K sasa linatiririshwa kwa 4K.",
+  "r29c": "Kunasa kwa GStreamer na usimbaji wa kasi zaidi, kuandaa njia kwa Raspberry Pi na vifaa vya pembezoni.",
+  "r29d": "Msingi wa usimamizi wa makundi ya vifaa: mapigo ya moyo ya seva pangishi, usasishaji wa tokeni kiotomatiki na viungo vya kyber://."
  },
  "faq": {
   "title": "Maswali yanayoulizwa mara kwa mara",
@@ -658,7 +662,8 @@
   "p4": "Kyber ilishiriki VivaTech",
   "p5": "Kyber yachangisha dola milioni 5 kujenga miundombinu ya wakati halisi kwa akili bandia ya ulimwengu halisi",
   "p6": "Toleo la Kyber 0.26",
-  "p7": "Toleo la Kyber 0.25"
+  "p7": "Toleo la Kyber 0.25",
+  "p8": "Toleo la Kyber 0.29"
  },
  "contact": {
   "kicker": "Wasiliana nasi",
@@ -1037,7 +1042,7 @@
   "legacy1": "2001 · VideoLAN yakuwa programu huria",
   "legacy2": "2008 · VideoLAN yakuwa shirika lisilo la faida",
   "legacy3": "2020 · Kyber yaanza kama mradi wa pembeni",
-  "legacy4": "2026 · Ufadhili wa awali wa $5M, watu 26, toleo 0.28",
+  "legacy4": "2026 · Ufadhili wa awali wa $5M, watu 26, toleo 0.29",
   "teamK": "Watu wetu",
   "teamT": "Timu ndogo. Utaalamu wa kina.",
   "teamD": "Utafanya kazi moja kwa moja na watu walioandika msimbo unaoutumia kila siku — bila ngazi katikati.",

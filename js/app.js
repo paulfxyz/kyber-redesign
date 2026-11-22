@@ -4,7 +4,7 @@
   const $$ = (s, r = document) => [...r.querySelectorAll(s)];
   let RM = FX.RM;
   const K = 'https://kyber.tech';
-  const DOCS = 'https://kyber-27201e.gitlab.io/';
+  const DOCS = 'https://docs.kyber.tech/';
   const GL = 'https://gitlab.com/kyber/kyber';
   const CLONE = 'git clone https://gitlab.com/kyber/kyber.git';
   const REPO = { stars: 83, forks: 35, last: '2026-06-24T19:28:39Z', live: false };
@@ -25,7 +25,7 @@
   const T = (k) => esc(t(k));
   async function load(l) {
     if (cache[l]) return cache[l];
-    const r = await fetch(`i18n/${l}.json?v=1791383595`); if (!r.ok) throw new Error('lang'); return (cache[l] = await r.json());
+    const r = await fetch(`i18n/${l}.json?v=1795359034`); if (!r.ok) throw new Error('lang'); return (cache[l] = await r.json());
   }
   function loadFont(l) {
     if (!FONTS[l] || document.getElementById('font-' + l)) return;
@@ -65,6 +65,7 @@
   const SOLURL = { 'remote-desktop': 'remote-desktop', xr: 'xr', robotics: 'robotics', drones: 'drones', 'autonomous-vehicles': 'autonomous-vehicles', 'ai-agents': 'ai-agents' };
   const img = (s) => `img/${s}.webp`;
   const POSTS = [
+    { k: 'p8', d: '2026-10-13', m: 4, c: 'r', u: '/article/v-029/', v: '0.29' },
     { k: 'p1', d: '2026-09-28', m: 4, c: 'a', u: '/article/avatar-medical-and-kyber-awarded/', i: 'xr' },
     { k: 'p2', d: '2026-08-20', m: 8, c: 'r', u: '/article/v-028/', v: '0.28' },
     { k: 'p3', d: '2026-06-26', m: 6, c: 'r', u: '/article/v-027/', v: '0.27' },
@@ -74,7 +75,7 @@
     { k: 'p7', d: '2026-03-31', m: 2, c: 'r', u: '/article/v-025/', v: '0.25' }
   ];
   POSTS.forEach(p => { p.s = p.u.split('/')[2]; });
-  const HERO = {"first-fundraising-announcement": "img/blog/i_s_KC_Kk_Sk_4_K_e513736b94.webp", "v-027": "img/blog/Kyber_release_0_27_1_ed7beaae7e.webp", "v-026": "img/blog/Creative_Workstations_3_D_Video_CAD_21580c1546.webp", "v-025": "img/blog/364c68af5adda22e370fa317d1b86c73c6c627e0_0d0c48bdd8.webp", "avatar-medical-and-kyber-awarded": "img/blog/Kyber_and_Avatar_Medical_d0de18bd2e.webp", "kyberatvivatech": "img/blog/Design_sans_titre_1_cefe71b05b.webp", "v-028": "img/blog/Kyber_release_0_28_278d96fecc.webp"};
+  const HERO = {"v-029": "img/blog/Kyber_release_0_27_3_ee6964b2f0.webp", "first-fundraising-announcement": "img/blog/i_s_KC_Kk_Sk_4_K_e513736b94.webp", "v-027": "img/blog/Kyber_release_0_27_1_ed7beaae7e.webp", "v-026": "img/blog/Creative_Workstations_3_D_Video_CAD_21580c1546.webp", "v-025": "img/blog/364c68af5adda22e370fa317d1b86c73c6c627e0_0d0c48bdd8.webp", "avatar-medical-and-kyber-awarded": "img/blog/Kyber_and_Avatar_Medical_d0de18bd2e.webp", "kyberatvivatech": "img/blog/Design_sans_titre_1_cefe71b05b.webp", "v-028": "img/blog/Kyber_release_0_28_278d96fecc.webp"};
   const LEGAL = { privacy: 'doc-p', cookies: 'doc-c', terms: 'doc-t' };
   const fmtDate = (d) => { try { return new Intl.DateTimeFormat(LANG, { day: '2-digit', month: 'short', year: 'numeric' }).format(new Date(d + 'T12:00:00')); } catch (e) { return d; } };
   const num = (n, o) => { try { return new Intl.NumberFormat(LANG === 'ar' ? 'ar-u-nu-latn' : LANG, o).format(n); } catch (e) { return n; } };
@@ -148,7 +149,7 @@
   const REPOS = [['kyber/kyber', 'rk_kyber', 'docs'], ['kyber/core/kysdk', 'rk_kysdk', 'core'], ['kyber/core/kyctl', 'rk_kyctl', 'core'], ['kyber/core/kymux', 'rk_kymux', 'core'], ['kyber/core/kynput', 'rk_kynput', 'core'], ['kyber/core/kymedia', 'rk_kymedia', 'core'], ['kyber/core/kyutil', 'rk_kyutil', 'core'], ['kyber/apps/kyber-desktop', 'rk_desktop', 'apps'], ['kyber/apps/kyber-web', 'rk_web', 'apps'], ['kyber/apps/kyber-installer', 'rk_installer', 'apps']];
   const REPOSNAP = { 'kyber/kyber': [83, '2026-06-24'], 'kyber/core/kysdk': [2, '2026-08-19'], 'kyber/core/kyctl': [2, '2026-08-19'], 'kyber/core/kymux': [1, '2026-08-19'], 'kyber/core/kynput': [1, '2026-08-19'], 'kyber/core/kymedia': [1, '2026-08-19'], 'kyber/core/kyutil': [1, '2026-08-19'], 'kyber/apps/kyber-desktop': [16, '2026-08-19'], 'kyber/apps/kyber-web': [4, '2026-08-19'], 'kyber/apps/kyber-installer': [8, '2026-08-19'] };
   const repoWall = () => `<div class="repos">${REPOS.map(([path, k, grp]) => { const [st, last] = REPOSNAP[path]; const name = path.split('/').pop(); return `<a class="repo-c rv" data-tilt href="https://gitlab.com/${path}" target="_blank" rel="noopener" data-repo="${path}"><div class="repo-c__h"><span class="mono grp">${grp}/</span><b class="mono">${name}</b><span class="dotok" title="${T('ui.active')}"></span></div><p>${T('home.' + k)}</p><div class="repo-c__m mono"><span>★ <span class="js-rs">${st}</span></span><span class="js-rl">${last}</span></div></a>`; }).join('')}</div>`;
-  const REL = { tag: '0.28.0-1', date: '2026-08-19', url: 'https://gitlab.com/kyber/apps/kyber-installer/-/releases/0.28.0-1', file: 'kyber-installer-win64-0.28.0.exe', dl: 'https://gitlab.com/api/v4/projects/78083474/packages/generic/kyber-installer/0.28.0/kyber-installer-win64-0.28.0.exe' };
+  const REL = { tag: '0.29.0', date: '2026-10-09', url: 'https://gitlab.com/kyber/apps/kyber-installer/-/releases/0.29.0', file: 'kyber-installer-win64-0.29.0.exe', dl: 'https://gitlab.com/api/v4/projects/78083474/packages/generic/kyber-installer/0.29.0/kyber-installer-win64-0.29.0.exe' };
   const releaseCard = () => `<div class="relcard rv"><div><span class="mono faint">${T('home.ossLatest')} · ${T('home.ossInstaller')}</span><b class="mono js-reltag">${REL.tag}</b><span class="mono faint js-reldate">${REL.date}</span></div><div class="btns"><a class="btn btn--accent btn--sm js-reldl" href="${REL.dl}" rel="noopener">${T('home.ossDownload')} .exe</a><a class="btn btn--ghost btn--sm js-relurl" href="${REL.url}" target="_blank" rel="noopener">${T('sdk.readNotes')} ${ARRUR}</a></div></div>`;
 
   const TL = [['2001', 't2001'], ['2003', 't2003'], ['2004', 't2004'], ['2006', 't2006'], ['2008', 't2008'], ['2009', 't2009'], ['2012', 't2012'], ['2020', 't2020', 1], ['2022', 't2022', 1], ['2023', 't2023', 1], ['2025', 't2025', 1], ['2026', 't2026a', 1], ['2026', 't2026b']];
@@ -604,6 +605,7 @@
   }
   function microscope() {
     const R = [
+      ['0.29', '2026-10-13', '/article/v-029/', [['r29a', 'QUIC → WebSocket fallback'], ['r29b', 'YUV 4:4:4 · no 1920 px cap'], ['r29c', 'GStreamer capture · Raspberry Pi'], ['r29d', 'heartbeat · token renewal · kyber://']]],
       ['0.28', '2026-08-20', '/article/v-028/', [['r28a', 'macOS host · ScreenCaptureKit · VideoToolbox'], ['r28b', 'click → video rect only'], ['r28c', 'backend = "libavconv"'], ['r28d', 'Position → kynput_Position']]],
       ['0.27', '2026-06-26', '/article/v-027/', [['r27a', '[kycontroller] multi_client = true'], ['r27b', 'server · network · browser'], ['r27c', 'auth = OIDC']]],
       ['0.26', '2026-05-13', '/article/v-026/', [['r26a', 'FFmpeg 8.1 · AMF · VAAPI']]],
@@ -669,7 +671,7 @@
       <div class="filters" role="group">
         <button aria-pressed="true" data-f="*">${T('blog.all')}</button><button aria-pressed="false" data-f="r">${T('blog.releases')}</button><button aria-pressed="false" data-f="a">${T('blog.announcements')}</button>
       </div>
-      <div class="posts" id="posts">${POSTS.map((p, i) => `<a data-tilt class="post rv${i === 0 ? ' post--feat' : ''}" data-c="${p.c}" href="#/blog/${p.s}"><div class="post__img">${cover(p)}</div><div class="post__b"><div class="post__m"><span>${T(p.c === 'r' ? 'blog.releases' : 'blog.announcements')}</span><span>${fmtDate(p.d)}</span></div><h3>${T('blog.' + p.k)}</h3><div class="post__m"><span>${p.m} ${T('common.minRead')}</span><span>${T('common.readArticle')} ${ARR}</span></div></div></a>`).join('')}</div>
+      <div class="posts" id="posts">${POSTS.map((p, i) => `<a data-tilt class="post rv${i === 0 ? ' post--feat' : ''}" data-c="${p.c}" href="#/blog/${p.s}"><div class="post__img"${HERO[p.s] ? ` style="--cov:url('${new URL(HERO[p.s], location.href).href}')"` : ''}>${cover(p)}</div><div class="post__b"><div class="post__m"><span>${T(p.c === 'r' ? 'blog.releases' : 'blog.announcements')}</span><span>${fmtDate(p.d)}</span></div><h3>${T('blog.' + p.k)}</h3><div class="post__m"><span>${p.m} ${T('common.minRead')}</span><span>${T('common.readArticle')} ${ARR}</span></div></div></a>`).join('')}</div>
     </div></section>
     ${ctaBlock()}`;
   }

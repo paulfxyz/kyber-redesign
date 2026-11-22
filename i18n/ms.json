@@ -631,7 +631,11 @@
   "r27c": "Log masuk OIDC dalam pelayar: Keycloak, Auth0, Authelia dan banyak lagi.",
   "r26a": "OIDC pada desktop dan pelayan, FFmpeg 8.1, penalaan pengekodan AMD dan VAAPI.",
   "r25a": "IPv6, tangkapan DRM/KMS Linux, penjanaan JWT dalam kyctl.",
-  "readNotes": "Baca nota keluaran"
+  "readNotes": "Baca nota keluaran",
+  "r29a": "Laluan sandaran WebSocket: jika rangkaian korporat menyekat QUIC, Kyber tetap bersambung.",
+  "r29b": "Warna 4:4:4 penuh pada resolusi asal — desktop 4K kini distrim dalam 4K.",
+  "r29c": "Tangkapan GStreamer dan pengekodan lebih pantas, membuka jalan untuk Raspberry Pi dan peranti pinggir.",
+  "r29d": "Asas pengurusan armada: degupan hos, pembaharuan token automatik dan pautan kyber://."
  },
  "faq": {
   "title": "Soalan lazim",
@@ -658,7 +662,8 @@
   "p4": "Kyber di VivaTech",
   "p5": "Kyber mengumpul $5 juta untuk membina lapisan infrastruktur masa nyata bagi AI fizikal",
   "p6": "Keluaran Kyber 0.26",
-  "p7": "Keluaran Kyber 0.25"
+  "p7": "Keluaran Kyber 0.25",
+  "p8": "Kyber keluaran 0.29"
  },
  "contact": {
   "kicker": "Hubungi kami",
@@ -1037,7 +1042,7 @@
   "legacy1": "2001 · VideoLAN menjadi sumber terbuka",
   "legacy2": "2008 · VideoLAN menjadi badan bukan untung",
   "legacy3": "2020 · Kyber bermula sebagai projek sampingan",
-  "legacy4": "2026 · Dana benih $5 juta, 26 orang, keluaran 0.28",
+  "legacy4": "2026 · Dana benih $5 juta, 26 orang, keluaran 0.29",
   "teamK": "Warga kami",
   "teamT": "Pasukan kecil. Kepakaran mendalam.",
   "teamD": "Anda akan bekerja secara langsung dengan orang yang menulis kod yang anda gunakan setiap hari — tanpa lapisan pengurusan di tengah.",

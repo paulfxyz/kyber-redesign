@@ -631,7 +631,11 @@
   "r27c": "Logowanie przez OIDC w przeglądarce — Keycloak, Auth0, Authelia i inne.",
   "r26a": "OIDC w kliencie stacjonarnym i na serwerze, FFmpeg 8.1, dostrojone kodowanie AMD i VAAPI.",
   "r25a": "IPv6, przechwytywanie DRM/KMS w Linuksie, generowanie tokenów JWT w kyctl.",
-  "readNotes": "Przeczytaj informacje o wydaniu"
+  "readNotes": "Przeczytaj informacje o wydaniu",
+  "r29a": "Zapasowe połączenie przez WebSocket: nawet gdy sieć firmowa blokuje QUIC, Kyber nadal się połączy.",
+  "r29b": "Pełny kolor 4:4:4 w natywnej rozdzielczości — pulpit 4K jest teraz przesyłany w 4K.",
+  "r29c": "Przechwytywanie przez GStreamer i szybsze kodowanie torują drogę dla Raspberry Pi i urządzeń brzegowych.",
+  "r29d": "Fundamenty zarządzania flotą: sygnał heartbeat hosta, automatyczne odnawianie tokenów i linki kyber://."
  },
  "faq": {
   "title": "Najczęściej zadawane pytania",
@@ -658,7 +662,8 @@
   "p4": "Kyber na VivaTech",
   "p5": "Kyber pozyskuje 5 mln $ na budowę infrastruktury czasu rzeczywistego dla fizycznej sztucznej inteligencji",
   "p6": "Kyber w wersji 0.26",
-  "p7": "Kyber w wersji 0.25"
+  "p7": "Kyber w wersji 0.25",
+  "p8": "Kyber w wersji 0.29"
  },
  "contact": {
   "kicker": "Kontakt",
@@ -1037,7 +1042,7 @@
   "legacy1": "2001 · VideoLAN otwiera kod źródłowy",
   "legacy2": "2008 · VideoLAN staje się organizacją niekomercyjną",
   "legacy3": "2020 · Kyber rusza jako projekt poboczny",
-  "legacy4": "2026 · 5 mln USD finansowania zalążkowego, 26 osób, wydanie 0.28",
+  "legacy4": "2026 · 5 mln USD finansowania zalążkowego, 26 osób, wydanie 0.29",
   "teamK": "Ludzie",
   "teamT": "Mały zespół. Ogromna wiedza.",
   "teamD": "Będziesz pracować bezpośrednio z ludźmi, którzy napisali kod, z którego korzystasz na co dzień. Bez żadnych szczebli pośrednich.",

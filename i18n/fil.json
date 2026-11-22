@@ -631,7 +631,11 @@
   "r27c": "Pag-sign in gamit ang OIDC sa browser: Keycloak, Auth0, Authelia at iba pa.",
   "r26a": "OIDC sa desktop at server, FFmpeg 8.1, pinahusay na pag-encode sa AMD at VAAPI.",
   "r25a": "IPv6, pag-capture gamit ang Linux DRM/KMS, pagbuo ng JWT sa kyctl.",
-  "readNotes": "Basahin ang mga tala ng release"
+  "readNotes": "Basahin ang mga tala ng release",
+  "r29a": "Backup na ruta gamit ang WebSocket: kahit i-block ng corporate network ang QUIC, makakakonekta pa rin ang Kyber.",
+  "r29b": "Buong 4:4:4 na kulay sa native na resolusyon — naka-4K na ang stream ng 4K na desktop.",
+  "r29c": "Capture gamit ang GStreamer at mas mabilis na encoding, para maihanda ang daan sa Raspberry Pi at mga edge device.",
+  "r29d": "Pundasyon para sa fleet: heartbeat ng host, awtomatikong pag-renew ng token, at mga link na kyber://."
  },
  "faq": {
   "title": "Mga madalas itanong",
@@ -658,7 +662,8 @@
   "p4": "Dumalo ang Kyber sa VivaTech",
   "p5": "Nakalikom ang Kyber ng $5M para buuin ang real-time na imprastraktura para sa pisikal na AI",
   "p6": "Release 0.26 ng Kyber",
-  "p7": "Release 0.25 ng Kyber"
+  "p7": "Release 0.25 ng Kyber",
+  "p8": "Kyber release 0.29"
  },
  "contact": {
   "kicker": "Makipag-ugnayan",
@@ -1037,7 +1042,7 @@
   "legacy1": "2001 · Naging open source ang VideoLAN",
   "legacy2": "2008 · Naging non-profit ang VideoLAN",
   "legacy3": "2020 · Nagsimula ang Kyber bilang side project",
-  "legacy4": "2026 · $5M seed, 26 na tao, release 0.28",
+  "legacy4": "2026 · $5M seed, 26 na tao, release 0.29",
   "teamK": "Ang mga tao",
   "teamT": "Maliit na team. Malalim na kadalubhasaan.",
   "teamD": "Direkta kang makikipagtulungan sa mga taong sumulat ng code na ginagamit mo araw-araw — walang mga patong sa pagitan.",

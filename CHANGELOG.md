@@ -2,6 +2,18 @@
 
 All notable changes to this project are documented here. Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versioning: [SemVer](https://semver.org/).
 
+## [1.2.0] — 2026-11-22
+
+### Added
+- **Kyber release 0.29** blog post (13 Oct 2026) in all 50 languages, with its hero and three inline illustrations: WebSocket fallback, 4:4:4 color at native resolution, GStreamer capture for Raspberry Pi, fleet groundwork and macOS packaging.
+- 0.29 entry in the SDK release timeline.
+
+### Changed
+- Windows installer bumped to **0.29.0** (9 Oct 2026); the live GitLab check still overrides it when reachable.
+- Documentation links now point to **docs.kyber.tech**.
+- Careers legacy line now mentions the 0.29 release.
+- Featured blog card shows the whole hero image on a blurred backdrop instead of cropping its title.
+
 ## [1.1.0] — 2026-10-07
 
 ### Added

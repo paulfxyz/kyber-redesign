@@ -631,7 +631,11 @@
   "r27c": "Authentification OIDC dans le navigateur — Keycloak, Auth0, Authelia et bien d'autres.",
   "r26a": "OIDC sur client lourd et serveur, FFmpeg 8.1, réglage de l'encodage AMD et VAAPI.",
   "r25a": "IPv6, capture Linux DRM/KMS, génération de JWT dans kyctl.",
-  "readNotes": "Lire les notes de version"
+  "readNotes": "Lire les notes de version",
+  "r29a": "Une connexion de secours via WebSocket : même si un réseau d’entreprise bloque QUIC, Kyber se connecte quand même.",
+  "r29b": "Couleur 4:4:4 complète en résolution native : un bureau 4K est désormais diffusé en 4K.",
+  "r29c": "Capture GStreamer et encodage plus rapide, pour ouvrir la voie au Raspberry Pi et aux appareils en périphérie.",
+  "r29d": "Les bases de la gestion de flotte : signal de présence des hôtes, renouvellement automatique des jetons et liens kyber://."
  },
  "faq": {
   "title": "Questions fréquentes",
@@ -658,7 +662,8 @@
   "p4": "Kyber était présent à VivaTech",
   "p5": "Kyber lève $5M pour bâtir la couche d'infrastructure en temps réel pour l'IA physique",
   "p6": "Kyber version 0.26",
-  "p7": "Kyber version 0.25"
+  "p7": "Kyber version 0.25",
+  "p8": "Kyber version 0.29"
  },
  "contact": {
   "kicker": "Contact",
@@ -1037,7 +1042,7 @@
   "legacy1": "2001 · VideoLAN passe en open source",
   "legacy2": "2008 · VideoLAN devient une association",
   "legacy3": "2020 · Kyber démarre comme projet parallèle",
-  "legacy4": "2026 · 5 M$ d'amorçage, 26 personnes, version 0.28",
+  "legacy4": "2026 · 5 M$ d'amorçage, 26 personnes, version 0.29",
   "teamK": "L'équipe",
   "teamT": "Une petite équipe. Une expertise profonde.",
   "teamD": "Vous travaillerez directement avec les personnes qui ont écrit le code que vous utilisez au quotidien — sans intermédiaires.",

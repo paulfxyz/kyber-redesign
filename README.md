@@ -20,7 +20,7 @@ Static · zero build step · 50 languages · light & dark · RTL · accessible �
 
 | | |
 |---|---|
-| **Pages** | Home, Technology, 6 Solutions, About, SDK, Blog (7 posts), Careers (5 roles + embedded application form), Connect (multi-step form with files and voice note), Legal (privacy, cookies, terms), and a plain-language “Simple view” with narrated audio |
+| **Pages** | Home, Technology, 6 Solutions, About, SDK, Blog (8 posts), Careers (5 roles + embedded application form), Connect (multi-step form with files and voice note), Legal (privacy, cookies, terms), and a plain-language “Simple view” with narrated audio |
 | **Languages** | 50 — the most widely spoken languages worldwide plus Hebrew, selected from a searchable language modal. Native script fonts, RTL for Arabic, Urdu, Persian, Pashto and Hebrew |
 | **Themes** | Light and dark, following the system by default |
 | **Accessibility** | Skip link, full keyboard paths, focus management in every modal, reduced-motion support, an accessibility panel (text size, high contrast, easy-to-read font, reduced motion, underlined links, bigger buttons) and the Simple view for older or non-technical readers |

@@ -33,5 +33,5 @@ Return EXACTLY this plain-text format (no JSON, no code fences, no commentary), 
         print('FAIL', code, b, flush=True)
 async def main():
     codes = sys.argv[1:] or NEW
-    await asyncio.gather(*[one(c, p) for c in codes for p in sorted(glob.glob(D + 'en/*.json'))])
+    await asyncio.gather(*[one(c, p) for c in codes for p in sorted(glob.glob(D + 'en/' + os.environ.get('ONLY', '*') + '.json'))])
 asyncio.run(main())

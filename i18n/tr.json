@@ -631,7 +631,11 @@
   "r27c": "Tarayıcıda OIDC ile oturum açma: Keycloak, Auth0, Authelia ve diğerleri.",
   "r26a": "Masaüstü ve sunucuda OIDC, FFmpeg 8.1, AMD ve VAAPI kodlama ince ayarları.",
   "r25a": "IPv6, Linux DRM/KMS yakalama, kyctl'de JWT oluşturma.",
-  "readNotes": "Sürüm notlarını okuyun"
+  "readNotes": "Sürüm notlarını okuyun",
+  "r29a": "WebSocket yedek bağlantısı: Kurumsal ağ QUIC'i engellese bile Kyber yine bağlanır.",
+  "r29b": "Doğal çözünürlükte tam 4:4:4 renk: 4K masaüstü artık 4K olarak aktarılıyor.",
+  "r29c": "GStreamer ile yakalama ve daha hızlı kodlama; Raspberry Pi ve uç cihazlara giden yol açılıyor.",
+  "r29d": "Filo yönetiminin temelleri: ana makine sinyali, otomatik token yenileme ve kyber:// bağlantıları."
  },
  "faq": {
   "title": "Sıkça sorulan sorular",
@@ -658,7 +662,8 @@
   "p4": "Kyber VivaTech'teydi",
   "p5": "Kyber, fiziksel yapay zekâ için gerçek zamanlı altyapı katmanını inşa etmek üzere 5 milyon $ yatırım aldı",
   "p6": "Kyber 0.26 sürümü",
-  "p7": "Kyber 0.25 sürümü"
+  "p7": "Kyber 0.25 sürümü",
+  "p8": "Kyber 0.29 sürümü"
  },
  "contact": {
   "kicker": "İletişim",
@@ -1037,7 +1042,7 @@
   "legacy1": "2001 · VideoLAN açık kaynak oluyor",
   "legacy2": "2008 · VideoLAN kâr amacı gütmeyen bir kuruluşa dönüşüyor",
   "legacy3": "2020 · Kyber bir yan proje olarak doğuyor",
-  "legacy4": "2026 · 5 milyon $ tohum yatırım, 26 kişi, 0.28 sürümü",
+  "legacy4": "2026 · 5 milyon $ tohum yatırım, 26 kişi, 0.29 sürümü",
   "teamK": "Ekip",
   "teamT": "Küçük ekip. Derin uzmanlık.",
   "teamD": "Her gün kullandığınız kodu yazan kişilerle doğrudan çalışacaksınız — arada hiçbir hiyerarşi katmanı olmadan.",

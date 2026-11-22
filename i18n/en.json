@@ -632,7 +632,11 @@
   "r27c": "OIDC sign-in in the browser — Keycloak, Auth0, Authelia and more.",
   "r26a": "OIDC on desktop and server, FFmpeg 8.1, AMD and VAAPI encoding tuning.",
   "r25a": "IPv6, Linux DRM/KMS capture, JWT generation in kyctl.",
-  "readNotes": "Read the release notes"
+  "readNotes": "Read the release notes",
+  "r29a": "A WebSocket backup route: if a corporate network blocks QUIC, Kyber still connects.",
+  "r29b": "Full 4:4:4 color at native resolution — a 4K desktop now streams in 4K.",
+  "r29c": "GStreamer capture and faster encoding, paving the way for Raspberry Pi and edge devices.",
+  "r29d": "Fleet groundwork: host heartbeat, automatic token renewal and kyber:// links."
  },
  "faq": {
   "title": "Frequently asked questions",
@@ -659,7 +663,8 @@
   "p4": "Kyber was at VivaTech",
   "p5": "Kyber raises $5M to build the real-time infrastructure layer for physical AI",
   "p6": "Kyber release 0.26",
-  "p7": "Kyber release 0.25"
+  "p7": "Kyber release 0.25",
+  "p8": "Kyber release 0.29"
  },
  "contact": {
   "kicker": "Contact",
@@ -1038,7 +1043,7 @@
   "legacy1": "2001 · VideoLAN goes open source",
   "legacy2": "2008 · VideoLAN non-profit",
   "legacy3": "2020 · Kyber starts as a side project",
-  "legacy4": "2026 · $5M seed, 26 people, 0.28 release",
+  "legacy4": "2026 · $5M seed, 26 people, 0.29 release",
   "teamK": "The people",
   "teamT": "Small team. Deep expertise.",
   "teamD": "You'll work directly with the people who wrote the code you use every day — no layers in between.",

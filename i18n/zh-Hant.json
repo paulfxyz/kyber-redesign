@@ -631,7 +631,11 @@
   "r27c": "瀏覽器支援 OIDC 登入，包括 Keycloak、Auth0、Authelia 等。",
   "r26a": "桌面版與伺服器支援 OIDC，升級至 FFmpeg 8.1，並調校 AMD 與 VAAPI 編碼。",
   "r25a": "支援 IPv6、Linux DRM/KMS 擷取，kyctl 可產生 JWT。",
-  "readNotes": "閱讀版本資訊"
+  "readNotes": "閱讀版本資訊",
+  "r29a": "新增 WebSocket 備援路線：即使企業網路封鎖 QUIC，Kyber 依然能順利連線。",
+  "r29b": "以原生解析度呈現完整 4:4:4 色彩，4K 桌面現在就以 4K 串流。",
+  "r29c": "支援 GStreamer 擷取並加快編碼速度，為 Raspberry Pi 與邊緣裝置鋪路。",
+  "r29d": "奠定機群管理基礎：主機心跳偵測、權杖自動更新，以及 kyber:// 連結。"
  },
  "faq": {
   "title": "常見問題",
@@ -658,7 +662,8 @@
   "p4": "Kyber 參加 VivaTech",
   "p5": "Kyber 募資 500 萬美元，打造實體 AI 的即時基礎架構層",
   "p6": "Kyber 0.26 版發布",
-  "p7": "Kyber 0.25 版發布"
+  "p7": "Kyber 0.25 版發布",
+  "p8": "Kyber 0.29 版發布"
  },
  "contact": {
   "kicker": "聯絡我們",
@@ -1037,7 +1042,7 @@
   "legacy1": "2001 · VideoLAN 開放原始碼",
   "legacy2": "2008 · VideoLAN 成立非營利組織",
   "legacy3": "2020 · Kyber 以業餘專案起步",
-  "legacy4": "2026 · 500 萬美元種子輪、26 人團隊、發布 0.28 版",
+  "legacy4": "2026 · 500 萬美元種子輪、26 人團隊、發布 0.29 版",
   "teamK": "團隊",
   "teamT": "團隊精簡，專業深厚。",
   "teamD": "你將直接與那些寫出你每天都在用的程式碼的人共事，中間沒有層層關卡。",

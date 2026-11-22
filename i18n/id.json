@@ -631,7 +631,11 @@
   "r27c": "Masuk dengan OIDC di peramban — Keycloak, Auth0, Authelia, dan lainnya.",
   "r26a": "OIDC di desktop dan server, FFmpeg 8.1, serta penyetelan pengodean AMD dan VAAPI.",
   "r25a": "IPv6, penangkapan layar DRM/KMS di Linux, pembuatan JWT di kyctl.",
-  "readNotes": "Baca catatan rilis"
+  "readNotes": "Baca catatan rilis",
+  "r29a": "Rute cadangan WebSocket: jika jaringan perusahaan memblokir QUIC, Kyber tetap terhubung.",
+  "r29b": "Warna 4:4:4 penuh pada resolusi asli — desktop 4K kini di-streaming dalam 4K.",
+  "r29c": "Perekaman GStreamer dan encoding yang lebih cepat, membuka jalan bagi Raspberry Pi dan perangkat edge.",
+  "r29d": "Fondasi pengelolaan armada: heartbeat host, perpanjangan token otomatis, dan tautan kyber://."
  },
  "faq": {
   "title": "Pertanyaan yang sering diajukan",
@@ -658,7 +662,8 @@
   "p4": "Kyber hadir di VivaTech",
   "p5": "Kyber meraih pendanaan $5 juta untuk membangun lapisan infrastruktur waktu nyata bagi AI fisik",
   "p6": "Kyber rilis 0.26",
-  "p7": "Kyber rilis 0.25"
+  "p7": "Kyber rilis 0.25",
+  "p8": "Kyber rilis 0.29"
  },
  "contact": {
   "kicker": "Kontak",
@@ -1037,7 +1042,7 @@
   "legacy1": "2001 · VideoLAN menjadi sumber terbuka",
   "legacy2": "2008 · VideoLAN menjadi organisasi nirlaba",
   "legacy3": "2020 · Kyber dimulai sebagai proyek sampingan",
-  "legacy4": "2026 · Pendanaan awal US$5 juta, 26 orang, rilis 0.28",
+  "legacy4": "2026 · Pendanaan awal US$5 juta, 26 orang, rilis 0.29",
   "teamK": "Orang-orangnya",
   "teamT": "Tim kecil. Keahlian mendalam.",
   "teamD": "Anda akan bekerja langsung dengan orang-orang yang menulis kode yang Anda gunakan setiap hari, tanpa lapisan birokrasi.",

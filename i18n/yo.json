@@ -631,7 +631,11 @@
   "r27c": "Wíwọlé OIDC nínú aṣàwákiri — Keycloak, Auth0, Authelia àti àwọn mìíràn.",
   "r26a": "OIDC lórí kọ̀ǹpútà àti sáfà, FFmpeg 8.1, àtúnṣe ìfikóòdù AMD àti VAAPI.",
   "r25a": "IPv6, gbígba ojú-ìbòjú Linux DRM/KMS, ṣíṣẹ̀dá JWT nínú kyctl.",
-  "readNotes": "Ka àkọsílẹ̀ àwọn ẹ̀dà tuntun"
+  "readNotes": "Ka àkọsílẹ̀ àwọn ẹ̀dà tuntun",
+  "r29a": "Ọ̀nà àfẹ̀yìntì WebSocket: bí nẹ́tíwọ́ọ̀kì ilé-iṣẹ́ bá dí QUIC, Kyber ṣì máa sopọ̀.",
+  "r29b": "Àwọ̀ 4:4:4 kíkún ní ìpinnu àdáyébá: tábìlì-iṣẹ́ 4K ń ṣàn ní 4K báyìí.",
+  "r29c": "Ìgbàsílẹ̀ GStreamer àti fífi-kóòdù-sí tó yára jù, tó ń ṣínà fún Raspberry Pi àti àwọn ẹ̀rọ etí-ìkànnì.",
+  "r29d": "Ìpìlẹ̀ fún ìṣàkóso ọ̀wọ́ ẹ̀rọ: ìlù-ọkàn agbàlejò, ìsọdọ̀tun àmì-ìwọlé aládàáṣe àti àwọn ìjápọ̀ kyber://."
  },
  "faq": {
   "title": "Àwọn ìbéèrè tí a máa ń gbọ́ léraléra",
@@ -658,7 +662,8 @@
   "p4": "Kyber kópa nínú VivaTech",
   "p5": "Kyber kó $5M jọ láti kọ́ ìpele ìpìlẹ̀ àkókò gidi fún òye àtọwọ́dá tó ń ṣiṣẹ́ nínú ayé gidi",
   "p6": "Ẹ̀dà Kyber 0.26",
-  "p7": "Ẹ̀dà Kyber 0.25"
+  "p7": "Ẹ̀dà Kyber 0.25",
+  "p8": "Ẹ̀dà Kyber 0.29"
  },
  "contact": {
   "kicker": "Kàn sí wa",
@@ -1037,7 +1042,7 @@
   "legacy1": "2001 · VideoLAN di orísun-ṣíṣí",
   "legacy2": "2008 · VideoLAN di àjọ tí kì í ṣe fún èrè",
   "legacy3": "2020 · Kyber bẹ̀rẹ̀ gẹ́gẹ́ bí iṣẹ́ àfikún",
-  "legacy4": "2026 · Owó ìbẹ̀rẹ̀ $5M, ènìyàn 26, ẹ̀dà 0.28",
+  "legacy4": "2026 · Owó ìbẹ̀rẹ̀ $5M, ènìyàn 26, ẹ̀dà 0.29",
   "teamK": "Àwọn ènìyàn wa",
   "teamT": "Ẹgbẹ́ kékeré. Ìmọ̀ jíjinlẹ̀.",
   "teamD": "Ìwọ yóò ṣiṣẹ́ tààrà pẹ̀lú àwọn tó kọ kóòdù tí o ń lò lójoojúmọ́ — kò sí alárinà kankan láàárín yín.",

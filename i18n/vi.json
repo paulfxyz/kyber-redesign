@@ -631,7 +631,11 @@
   "r27c": "Đăng nhập OIDC trên trình duyệt — Keycloak, Auth0, Authelia và nhiều hơn nữa.",
   "r26a": "OIDC trên máy tính và máy chủ, FFmpeg 8.1, tinh chỉnh mã hóa AMD và VAAPI.",
   "r25a": "IPv6, ghi hình DRM/KMS trên Linux, tạo JWT trong kyctl.",
-  "readNotes": "Xem ghi chú phát hành"
+  "readNotes": "Xem ghi chú phát hành",
+  "r29a": "Tuyến dự phòng qua WebSocket: dù mạng doanh nghiệp chặn QUIC, Kyber vẫn kết nối được.",
+  "r29b": "Màu 4:4:4 đầy đủ ở độ phân giải gốc — màn hình 4K giờ được truyền ở đúng 4K.",
+  "r29c": "Hỗ trợ ghi hình bằng GStreamer và mã hóa nhanh hơn, mở đường cho Raspberry Pi và các thiết bị biên.",
+  "r29d": "Đặt nền móng quản lý đội thiết bị: tín hiệu heartbeat từ máy chủ, tự động gia hạn token và liên kết kyber://."
  },
  "faq": {
   "title": "Câu hỏi thường gặp",
@@ -658,7 +662,8 @@
   "p4": "Kyber tại VivaTech",
   "p5": "Kyber gọi vốn 5 triệu USD để xây dựng tầng hạ tầng thời gian thực cho AI vật lý",
   "p6": "Kyber phiên bản 0.26",
-  "p7": "Kyber phiên bản 0.25"
+  "p7": "Kyber phiên bản 0.25",
+  "p8": "Kyber phiên bản 0.29"
  },
  "contact": {
   "kicker": "Liên hệ",
@@ -1037,7 +1042,7 @@
   "legacy1": "2001 · VideoLAN chuyển sang mã nguồn mở",
   "legacy2": "2008 · VideoLAN trở thành tổ chức phi lợi nhuận",
   "legacy3": "2020 · Kyber khởi đầu là một dự án phụ",
-  "legacy4": "2026 · Gọi vốn hạt giống 5 triệu USD, 26 người, phiên bản 0.28",
+  "legacy4": "2026 · Gọi vốn hạt giống 5 triệu USD, 26 người, phiên bản 0.29",
   "teamK": "Con người",
   "teamT": "Đội ngũ nhỏ. Chuyên môn sâu.",
   "teamD": "Bạn sẽ làm việc trực tiếp với những người đã viết nên đoạn mã bạn dùng hằng ngày, không qua bất kỳ tầng trung gian nào.",

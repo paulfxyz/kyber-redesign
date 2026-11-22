@@ -631,7 +631,11 @@
   "r27c": "Inicio de sesión OIDC en el navegador — Keycloak, Auth0, Authelia y más.",
   "r26a": "OIDC en escritorio y servidor, FFmpeg 8.1, ajuste de codificación AMD y VAAPI.",
   "r25a": "IPv6, captura Linux DRM/KMS, generación de JWT en kyctl.",
-  "readNotes": "Leer las notas de versión"
+  "readNotes": "Leer las notas de versión",
+  "r29a": "Ruta de respaldo por WebSocket: si una red corporativa bloquea QUIC, Kyber se conecta igualmente.",
+  "r29b": "Color 4:4:4 completo a resolución nativa: un escritorio 4K ahora se transmite en 4K.",
+  "r29c": "Captura con GStreamer y codificación más rápida, allanando el camino para Raspberry Pi y dispositivos edge.",
+  "r29d": "Bases para flotas: latido del host, renovación automática de tokens y enlaces kyber://."
  },
  "faq": {
   "title": "Preguntas frecuentes",
@@ -658,7 +662,8 @@
   "p4": "Kyber estuvo en VivaTech",
   "p5": "Kyber capta 5 millones de dólares para construir la capa de infraestructura en tiempo real para la IA física",
   "p6": "Kyber versión 0.26",
-  "p7": "Kyber versión 0.25"
+  "p7": "Kyber versión 0.25",
+  "p8": "Kyber versión 0.29"
  },
  "contact": {
   "kicker": "Contacto",
@@ -1037,7 +1042,7 @@
   "legacy1": "2001 · VideoLAN se convierte en código abierto",
   "legacy2": "2008 · VideoLAN se constituye como organización sin ánimo de lucro",
   "legacy3": "2020 · Kyber nace como proyecto paralelo",
-  "legacy4": "2026 · 5 M$ en seed, 26 personas, versión 0.28",
+  "legacy4": "2026 · 5 M$ en seed, 26 personas, versión 0.29",
   "teamK": "El equipo",
   "teamT": "Equipo pequeño. Conocimiento profundo.",
   "teamD": "Trabajarás directamente con las personas que escribieron el código que usas cada día, sin intermediarios.",

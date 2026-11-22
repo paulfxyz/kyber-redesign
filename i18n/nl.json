@@ -631,7 +631,11 @@
   "r27c": "OIDC-aanmelding in de browser — Keycloak, Auth0, Authelia en meer.",
   "r26a": "OIDC op desktop en server, FFmpeg 8.1, fijnafstemming van AMD- en VAAPI-codering.",
   "r25a": "IPv6, schermopname via DRM/KMS op Linux, JWT-generatie in kyctl.",
-  "readNotes": "Lees de releaseopmerkingen"
+  "readNotes": "Lees de releaseopmerkingen",
+  "r29a": "Een WebSocket-terugvalroute: blokkeert een bedrijfsnetwerk QUIC, dan maakt Kyber toch verbinding.",
+  "r29b": "Volledige 4:4:4-kleur op native resolutie: een 4K-bureaublad wordt nu ook echt in 4K gestreamd.",
+  "r29c": "GStreamer-capture en snellere encoding, als opstap naar Raspberry Pi en edge-apparaten.",
+  "r29d": "Basis voor vlootbeheer: host-heartbeat, automatische tokenvernieuwing en kyber://-links."
  },
  "faq": {
   "title": "Veelgestelde vragen",
@@ -658,7 +662,8 @@
   "p4": "Kyber was aanwezig op VivaTech",
   "p5": "Kyber haalt $ 5 miljoen op om de realtime infrastructuurlaag voor fysieke AI te bouwen",
   "p6": "Kyber-release 0.26",
-  "p7": "Kyber-release 0.25"
+  "p7": "Kyber-release 0.25",
+  "p8": "Kyber-release 0.29"
  },
  "contact": {
   "kicker": "Contact",
@@ -1037,7 +1042,7 @@
   "legacy1": "2001 · VideoLAN wordt open source",
   "legacy2": "2008 · VideoLAN wordt een non-profitorganisatie",
   "legacy3": "2020 · Kyber begint als zijproject",
-  "legacy4": "2026 · $5M seedronde, 26 mensen, release 0.28",
+  "legacy4": "2026 · $5M seedronde, 26 mensen, release 0.29",
   "teamK": "De mensen",
   "teamT": "Klein team. Diepgaande expertise.",
   "teamD": "Je werkt rechtstreeks samen met de mensen die de code schreven die jij elke dag gebruikt, zonder lagen ertussen.",

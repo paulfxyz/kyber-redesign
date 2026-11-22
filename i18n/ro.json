@@ -631,7 +631,11 @@
   "r27c": "Autentificare OIDC în browser: Keycloak, Auth0, Authelia și altele.",
   "r26a": "OIDC pe desktop și server, FFmpeg 8.1, optimizări ale codării AMD și VAAPI.",
   "r25a": "IPv6, captură DRM/KMS pe Linux, generare de JWT în kyctl.",
-  "readNotes": "Citește notele de versiune"
+  "readNotes": "Citește notele de versiune",
+  "r29a": "O rută de rezervă prin WebSocket: dacă o rețea corporativă blochează QUIC, Kyber se conectează în continuare.",
+  "r29b": "Culoare 4:4:4 completă la rezoluție nativă: un desktop 4K se transmite acum în 4K.",
+  "r29c": "Captură prin GStreamer și codare mai rapidă, deschizând calea către Raspberry Pi și dispozitivele edge.",
+  "r29d": "Bazele gestionării flotelor: heartbeat pentru gazde, reînnoire automată a tokenurilor și linkuri kyber://."
  },
  "faq": {
   "title": "Întrebări frecvente",
@@ -658,7 +662,8 @@
   "p4": "Kyber a fost prezentă la VivaTech",
   "p5": "Kyber atrage 5 milioane de dolari pentru a construi infrastructura în timp real a inteligenței artificiale fizice",
   "p6": "Kyber, versiunea 0.26",
-  "p7": "Kyber, versiunea 0.25"
+  "p7": "Kyber, versiunea 0.25",
+  "p8": "Kyber versiunea 0.29"
  },
  "contact": {
   "kicker": "Contact",
@@ -1037,7 +1042,7 @@
   "legacy1": "2001 · VideoLAN își deschide codul sursă",
   "legacy2": "2008 · VideoLAN devine organizație nonprofit",
   "legacy3": "2020 · Kyber pornește ca proiect secundar",
-  "legacy4": "2026 · finanțare inițială de 5 mil. $, 26 de oameni, versiunea 0.28",
+  "legacy4": "2026 · finanțare inițială de 5 mil. $, 26 de oameni, versiunea 0.29",
   "teamK": "Oamenii",
   "teamT": "Echipă mică. Expertiză profundă.",
   "teamD": "Vei lucra direct cu oamenii care au scris codul pe care îl folosești în fiecare zi, fără niveluri ierarhice intermediare.",

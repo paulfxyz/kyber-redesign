@@ -631,7 +631,11 @@
   "r27c": "Ukungena nge-OIDC esipheqululini — Keycloak, Auth0, Authelia nokunye.",
   "r26a": "I-OIDC kudeskithophu nakuseva, FFmpeg 8.1, ukulungiswa kokufaka amakhodi kwe-AMD ne-VAAPI.",
   "r25a": "I-IPv6, ukuthwebula nge-DRM/KMS ku-Linux, ukwakha ama-JWT ku-kyctl.",
-  "readNotes": "Funda amanothi enguqulo"
+  "readNotes": "Funda amanothi enguqulo",
+  "r29a": "Indlela yokwenza isipele nge-WebSocket: uma inethiwekhi yenkampani ivimba i-QUIC, i-Kyber isaxhuma.",
+  "r29b": "Umbala ogcwele we-4:4:4 ngokucaca kwemvelo — ideskithophu ye-4K manje isakaza nge-4K.",
+  "r29c": "Ukuthwebula nge-GStreamer nokufaka amakhodi ngokushesha, kuvulela indlela i-Raspberry Pi namadivayisi asemaphethelweni.",
+  "r29d": "Isisekelo sokuphatha amaqoqo emishini: ukushaya kwenhliziyo komsingathi, ukuvuselelwa kwamathokheni ngokuzenzakalelayo nezixhumanisi ze-kyber://."
  },
  "faq": {
   "title": "Imibuzo evame ukubuzwa",
@@ -658,7 +662,8 @@
   "p4": "I-Kyber ibikhona e-VivaTech",
   "p5": "I-Kyber iqoqa u-$5M ukuze yakhe isendlalelo sengqalasizinda yesikhathi sangempela sobuhlakani bokwenziwa obusemhlabeni wangempela",
   "p6": "Inguqulo ye-Kyber 0.26",
-  "p7": "Inguqulo ye-Kyber 0.25"
+  "p7": "Inguqulo ye-Kyber 0.25",
+  "p8": "Ukukhishwa kwe-Kyber 0.29"
  },
  "contact": {
   "kicker": "Xhumana nathi",
@@ -1037,7 +1042,7 @@
   "legacy1": "2001 · I-VideoLAN iba ngumthombo ovulekile",
   "legacy2": "2008 · I-VideoLAN iba yinhlangano engenzi nzuzo",
   "legacy3": "2020 · I-Kyber iqala njengephrojekthi eseceleni",
-  "legacy4": "2026 · Uxhaso lokuqala lwe-$5M, abantu abangu-26, ukukhishwa kwe-0.28",
+  "legacy4": "2026 · Uxhaso lokuqala lwe-$5M, abantu abangu-26, ukukhishwa kwe-0.29",
   "teamK": "Abantu",
   "teamT": "Ithimba elincane. Ubuchwepheshe obujulile.",
   "teamD": "Uzosebenza ngqo nabantu ababhale ikhodi oyisebenzisa nsuku zonke — azikho izingqimba phakathi.",

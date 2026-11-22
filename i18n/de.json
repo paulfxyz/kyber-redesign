@@ -631,7 +631,11 @@
   "r27c": "OIDC-Anmeldung im Browser — Keycloak, Auth0, Authelia und mehr.",
   "r26a": "OIDC auf Desktop und Server, FFmpeg 8.1, AMD- und VAAPI-Kodierungsoptimierung.",
   "r25a": "IPv6, Linux DRM/KMS-Aufnahme, JWT-Generierung in kyctl.",
-  "readNotes": "Release-Notes lesen"
+  "readNotes": "Release-Notes lesen",
+  "r29a": "Fallback über WebSocket: Blockiert ein Firmennetzwerk QUIC, verbindet sich Kyber trotzdem.",
+  "r29b": "Volle 4:4:4-Farbtreue in nativer Auflösung – ein 4K-Desktop wird jetzt auch in 4K gestreamt.",
+  "r29c": "GStreamer-Aufnahme und schnellere Kodierung ebnen den Weg für Raspberry Pi und Edge-Geräte.",
+  "r29d": "Grundlagen für Flotten: Host-Heartbeat, automatische Token-Erneuerung und kyber://-Links."
  },
  "faq": {
   "title": "Häufig gestellte Fragen",
@@ -658,7 +662,8 @@
   "p4": "Kyber war auf der VivaTech",
   "p5": "Kyber sammelt 5 Mio. $ ein, um die Echtzeit-Infrastrukturschicht für physische KI aufzubauen",
   "p6": "Kyber Release 0.26",
-  "p7": "Kyber Release 0.25"
+  "p7": "Kyber Release 0.25",
+  "p8": "Kyber Release 0.29"
  },
  "contact": {
   "kicker": "Kontakt",
@@ -1037,7 +1042,7 @@
   "legacy1": "2001 · VideoLAN wird Open Source",
   "legacy2": "2008 · VideoLAN als gemeinnützige Organisation",
   "legacy3": "2020 · Kyber beginnt als Nebenprojekt",
-  "legacy4": "2026 · 5 Mio. $ Seed-Runde, 26 Personen, Release 0.28",
+  "legacy4": "2026 · 5 Mio. $ Seed-Runde, 26 Personen, Release 0.29",
   "teamK": "Die Menschen",
   "teamT": "Kleines Team. Tiefes Fachwissen.",
   "teamD": "Du arbeitest direkt mit den Personen, die den Code geschrieben haben, den du täglich nutzt – ohne Zwischenebenen.",

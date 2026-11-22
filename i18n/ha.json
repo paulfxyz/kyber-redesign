@@ -631,7 +631,11 @@
   "r27c": "Shiga ta OIDC a cikin burauza — Keycloak, Auth0, Authelia da sauransu.",
   "r26a": "OIDC a kan kwamfuta da sabar, FFmpeg 8.1, gyaran sauya bidiyo na AMD da VAAPI.",
   "r25a": "IPv6, ɗaukar allo ta Linux DRM/KMS, samar da JWT a cikin kyctl.",
-  "readNotes": "Karanta bayanan fitowa"
+  "readNotes": "Karanta bayanan fitowa",
+  "r29a": "Hanyar WebSocket ta ko-ta-kwana: idan cibiyar sadarwar kamfani ta toshe QUIC, Kyber zai haɗu duk da haka.",
+  "r29b": "Cikakken launi 4:4:4 a ainihin ƙuduri — yanzu tebur na 4K yana yawo a 4K.",
+  "r29c": "Ɗaukar hoto ta GStreamer da sauƙaƙen rufaffen bayanai cikin sauri, wanda ke share hanya ga Raspberry Pi da na'urorin gefe.",
+  "r29d": "Tushen sarrafa rukunin na'urori: bugun zuciyar mai masauki, sabunta token kai tsaye da hanyoyin kyber://."
  },
  "faq": {
   "title": "Tambayoyin da ake yawan yi",
@@ -658,7 +662,8 @@
   "p4": "Kyber ta halarci VivaTech",
   "p5": "Kyber ta tara dala miliyan 5 don gina tushen kayan more rayuwa na ainihin lokaci ga AI ta zahiri",
   "p6": "Fitowar Kyber 0.26",
-  "p7": "Fitowar Kyber 0.25"
+  "p7": "Fitowar Kyber 0.25",
+  "p8": "Sakin Kyber 0.29"
  },
  "contact": {
   "kicker": "Tuntuɓe mu",
@@ -1037,7 +1042,7 @@
   "legacy1": "2001 · VideoLAN ta zama buɗaɗɗiyar manhaja",
   "legacy2": "2008 · VideoLAN ta zama ƙungiya mara riba",
   "legacy3": "2020 · Kyber ta fara a matsayin aikin gefe",
-  "legacy4": "2026 · Jarin farko na $5M, mutane 26, sigar 0.28",
+  "legacy4": "2026 · Jarin farko na $5M, mutane 26, sigar 0.29",
   "teamK": "Mutanen",
   "teamT": "Ƙaramar ƙungiya. Zurfin ƙwarewa.",
   "teamD": "Za ku yi aiki kai tsaye da mutanen da suka rubuta lambar da kuke amfani da ita kullum — babu masu shiga tsakani.",
