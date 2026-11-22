@@ -28,7 +28,7 @@ All 51 languages are complete: every interface string and all 16 documents.
 
 The native-editor prompt (`tools/i18n/orr_rules.py`) asks for a rewrite by "a gifted native copywriter and senior editor", not a translation check. Facts, numbers, links, brand tokens and HTML stay as they are, and the wording, rhythm and logic are rewritten until the text reads as if it were originally written in that language.
 
-Human native-speaker review is still the biggest open need. Open a pull request or an issue with the *Translation* template.
+Human native-speaker review is still the biggest open need. Use the [review sheet](translation-review.xlsx) (one tab per language, with an OK / Fix / Unsure status and a suggestion column). Open a pull request or an issue with the *Translation* template.
 
 ## Tooling
 

@@ -5,6 +5,7 @@ All notable changes to this project are documented here. Format: [Keep a Changel
 ## [1.3.0] — 2026-11-22
 
 ### Added
+- `docs/translation-review.xlsx`: a native-speaker review sheet covering 50 languages, 53,200 strings and 800 documents. The README now features it prominently.
 - **Igbo** completes the set: 51 languages in total (the 50 most widely spoken plus Hebrew).
 - Every language now has all 16 documents; the remaining English fallbacks are translated.
 - **Native-editor pass**: each translation is rewritten by a second model acting as a native copywriter, so the copy reads as if it were originally written in that language.

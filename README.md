@@ -8,13 +8,16 @@
 
 Static · zero build step · 51 languages · light & dark · RTL · accessible · ~0 dependencies
 
-[Live preview](https://kyber.paulfleury.com) · [Changelog](CHANGELOG.md) · [Contributing](CONTRIBUTING.md) · [Translations](docs/TRANSLATIONS.md)
+[Live preview](https://kyber.paulfleury.com) · [**Review a translation**](#native-speakers-wanted) · [Changelog](CHANGELOG.md) · [Contributing](CONTRIBUTING.md) · [Translations](docs/TRANSLATIONS.md)
 
 </div>
 
 ---
 
 > **Unofficial.** This is a design proposal made by [Paul Fleury](https://paulfleury.com) as a gift to the Kyber team. It is not affiliated with or endorsed by Kyber SAS. Kyber, the Kyber mark, VLC and VideoLAN are trademarks of their respective owners. See [NOTICE](NOTICE.md).
+
+> [!IMPORTANT]
+> **Native speakers wanted.** All 51 languages are machine-translated and machine-edited. None has been checked by a person yet. If you speak one of them, the [review sheet](docs/translation-review.xlsx) takes a few minutes per section. See [how to help](#native-speakers-wanted).
 
 ## What's inside
 
@@ -81,7 +84,26 @@ Translation runs in two passes:
 
 Every change is checked for placeholders, HTML tags, links and images before it is written. Desktop, tablet and mobile layouts are checked automatically in every language (see [Quality](#quality)).
 
-**No human native speakers have reviewed these translations yet**, so corrections are the most valuable contribution you can make. See [docs/TRANSLATIONS.md](docs/TRANSLATIONS.md).
+### Native speakers wanted
+
+**No human native speaker has reviewed these translations yet.** That makes your corrections the most valuable contribution to this project.
+
+**[Download the review sheet](docs/translation-review.xlsx)** (Excel, ~4 MB)
+
+| Tab | What's in it |
+|---|---|
+| **How to review** | Four-step instructions and the rules (keep `{placeholders}`, HTML tags and brand names) |
+| **Overview** | All 50 languages, each linked to its tab and live site, with counts of strings still to review, approved and flagged that update as you fill in Status |
+| **One tab per language** | Every one of the 1,064 interface strings next to the English, plus a **Status** dropdown (OK / Fix / Unsure), **Your suggestion** and **Comment** |
+| **Documents** | All 800 long-form pages (blog posts, job ads, legal), with how far each was edited and a link to the live page |
+
+**How to help**
+
+1. Open your language's tab, or preview it live at `https://kyber.paulfleury.com/?lang=<code>`.
+2. Mark each string **OK**, **Fix** or **Unsure**, and add your better wording where needed.
+3. Send the sheet back in a [Translation issue](../../issues/new?template=translation.md), or open a pull request editing `i18n/<code>.json`.
+
+Even a single section (the navigation, the homepage hero) helps. See [docs/TRANSLATIONS.md](docs/TRANSLATIONS.md) for the full process.
 
 ## Quality
 
