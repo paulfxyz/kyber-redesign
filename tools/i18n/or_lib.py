@@ -12,7 +12,7 @@ def _post(model, prompt, max_tokens, temperature):
     body = json.dumps({'model': model, 'messages': [{'role': 'user', 'content': prompt}], 'max_tokens': max_tokens, 'temperature': temperature, 'stream': True, 'reasoning': {'effort': os.environ.get('EFFORT', 'low')}})
     with tempfile.NamedTemporaryFile('w', suffix='.json', delete=False) as f: f.write(body); fn = f.name
     try:
-        r = subprocess.run(['curl', '-s', '-N', '--max-time', '480', '-X', 'POST', URL, '-H', 'Content-Type: application/json'] + (['-H', 'Authorization: Bearer ' + KEY] if KEY else []) + ['--data-binary', '@' + fn], capture_output=True, text=True)
+        r = subprocess.run(['curl', '-s', '-N', '--max-time', os.environ.get('MAXT', '1500'), '-X', 'POST', URL, '-H', 'Content-Type: application/json'] + (['-H', 'Authorization: Bearer ' + KEY] if KEY else []) + ['--data-binary', '@' + fn], capture_output=True, text=True)
         out = []; fin = None; err = None
         for line in r.stdout.split('\n'):
             line = line.strip()

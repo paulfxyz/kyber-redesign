@@ -6,7 +6,7 @@
 
 **An independent, open-source redesign concept for [kyber.tech](https://kyber.tech) — real-time control for every machine.**
 
-Static · zero build step · 50 languages · light & dark · RTL · accessible · ~0 dependencies
+Static · zero build step · 51 languages · light & dark · RTL · accessible · ~0 dependencies
 
 [Live preview](https://kyber.paulfleury.com) · [Changelog](CHANGELOG.md) · [Contributing](CONTRIBUTING.md) · [Translations](docs/TRANSLATIONS.md)
 
@@ -21,7 +21,7 @@ Static · zero build step · 50 languages · light & dark · RTL · accessible �
 | | |
 |---|---|
 | **Pages** | Home, Technology, 6 Solutions, About, SDK, Blog (8 posts), Careers (5 roles + embedded application form), Connect (multi-step form with files and voice note), Legal (privacy, cookies, terms), and a plain-language “Simple view” with narrated audio |
-| **Languages** | 50 — the most widely spoken languages worldwide plus Hebrew, selected from a searchable language modal. Native script fonts, RTL for Arabic, Urdu, Persian, Pashto and Hebrew |
+| **Languages** | 51 — the 50 most widely spoken languages worldwide plus Hebrew, selected from a searchable language modal. Native script fonts, RTL for Arabic, Urdu, Persian, Pashto and Hebrew |
 | **Themes** | Light and dark, following the system by default |
 | **Accessibility** | Skip link, full keyboard paths, focus management in every modal, reduced-motion support, an accessibility panel (text size, high contrast, easy-to-read font, reduced motion, underlined links, bigger buttons) and the Simple view for older or non-technical readers |
 | **Geeky bits** | A real browser console (press <kbd>K</kbd>) with live frame timing, a ghost-cursor latency simulator, a FEC packet-loss demo, live GitLab release info |
@@ -53,11 +53,12 @@ index.html            App shell, header, footer, modals
 css/style.css         Design tokens, components, per-script typography
 js/app.js             Router, i18n, pages, forms, modals, console
 js/fx.js              Canvas effects, metrics, latency and FEC demos
-i18n/<lang>.json      ~1,050 interface strings per language
+i18n/<lang>.json      ~1,060 interface strings per language
 content/<lang>/*.json Long-form documents: blog posts, legal pages, job ads
 audio/simple-*.mp3    Narration for the Simple view
 img/                  Team photos, blog headers (WebP)
-tools/i18n/           LLM-assisted translation and review scripts
+tools/i18n/           LLM-assisted translation and native-editor scripts
+tools/qa/             Cross-language, cross-device layout audit
 docs/                 Translation and architecture notes
 ```
 
@@ -69,12 +70,31 @@ Hash-based, so it runs from any static host: `#/`, `#/technology`, `#/solutions/
 
 All copy lives in `i18n/en.json` (interface) and `content/en/*.json` (documents). Every other language mirrors those keys. Missing keys and documents fall back to English.
 
-Translations were produced with frontier LLMs and an automated native-editor review for the original ten languages. **They have not yet been reviewed by human native speakers** — corrections are the most valuable contribution you can make. See [docs/TRANSLATIONS.md](docs/TRANSLATIONS.md).
+Every language is complete: all ~1,060 interface strings and all 16 documents (8 blog posts, 5 job ads, 3 legal pages), with no English fallback left.
+
+Translation runs in two passes:
+
+1. **Translate**: Claude Opus 5.5 produces the first draft.
+2. **Native-editor rewrite**: a second model is told to act as a native copywriter and senior editor. It is told to rewrite anything that does not read as if it were originally written in that language (wording, rhythm, sentence logic, idioms, punctuation), without changing facts, numbers, links or brand terms.
+   - Gemini 4 Neon reviewed every interface string in all 50 languages and the blog posts in 37 of them.
+   - GPT-6.2 Sol reviewed the blog posts in the other 13 languages.
+
+Every change is checked for placeholders, HTML tags, links and images before it is written. Desktop, tablet and mobile layouts are checked automatically in every language (see [Quality](#quality)).
+
+**No human native speakers have reviewed these translations yet**, so corrections are the most valuable contribution you can make. See [docs/TRANSLATIONS.md](docs/TRANSLATIONS.md).
+
+## Quality
+
+`tools/qa/layout-audit.mjs` (Playwright) loads 12 key routes in every language at five widths: 1440 and 1280 px desktop, 820 px tablet, and 390 and 360 px mobile. It flags horizontal overflow, clipped or overlapping text and controls pushed off-screen.
+
+```bash
+python3 -m http.server 8080 &
+NODE_PATH=$(npm root -g) node tools/qa/layout-audit.mjs http://127.0.0.1:8080/ [lang ...]
+```
 
 ## Known gaps
 
-- 19 long-form documents across 9 languages still fall back to English.
-- Igbo is not yet included (the 50th most-spoken language without it is Hebrew).
+- The native-editor pass covered job ads and legal pages only in fr, de, es, pt, zh, ja and part of ar. Elsewhere those pages are the first-pass translation.
 - Narration exists for 10 languages; the listen button is hidden elsewhere.
 - Job ads, legal text and company facts mirror kyber.tech as of October 2026 and are illustrative only.
 

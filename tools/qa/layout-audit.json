@@ -1,0 +1,97 @@
+[
+ {
+  "device": "laptop",
+  "lang": "zu",
+  "route": "#/",
+  "issues": [
+   "clipped <a> “Thola i-SDK”",
+   "clipped <a> “Faka inkanyezi ku-GitLab”"
+  ]
+ },
+ {
+  "device": "laptop",
+  "lang": "zu",
+  "route": "#/technology",
+  "issues": [
+   "clipped <a> “Thola i-SDK”",
+   "clipped <a> “Faka inkanyezi ku-GitLab”"
+  ]
+ },
+ {
+  "device": "laptop",
+  "lang": "zu",
+  "route": "#/solutions/robotics",
+  "issues": [
+   "clipped <a> “Thola i-SDK”",
+   "clipped <a> “Faka inkanyezi ku-GitLab”"
+  ]
+ },
+ {
+  "device": "laptop",
+  "lang": "el",
+  "route": "#/",
+  "issues": [
+   "clipped <a> “Αποκτήστε το SDK”",
+   "clipped <a> “Δώστε αστέρι στο GitLab ”"
+  ]
+ },
+ {
+  "device": "laptop",
+  "lang": "el",
+  "route": "#/technology",
+  "issues": [
+   "clipped <a> “Αποκτήστε το SDK”",
+   "clipped <a> “Δώστε αστέρι στο GitLab ”"
+  ]
+ },
+ {
+  "device": "laptop",
+  "lang": "el",
+  "route": "#/solutions/robotics",
+  "issues": [
+   "clipped <a> “Αποκτήστε το SDK”",
+   "clipped <a> “Δώστε αστέρι στο GitLab ”"
+  ]
+ },
+ {
+  "device": "laptop",
+  "lang": "el",
+  "route": "#/about",
+  "issues": [
+   "clipped <a> “Αποκτήστε το SDK”",
+   "clipped <a> “Δώστε αστέρι στο GitLab ”"
+  ]
+ },
+ {
+  "device": "laptop",
+  "lang": "pl",
+  "route": "#/",
+  "issues": [
+   "clipped <a> “Daj gwiazdkę na GitLabie”"
+  ]
+ },
+ {
+  "device": "laptop",
+  "lang": "pl",
+  "route": "#/technology",
+  "issues": [
+   "clipped <a> “Daj gwiazdkę na GitLabie”"
+  ]
+ },
+ {
+  "device": "laptop",
+  "lang": "pl",
+  "route": "#/solutions/robotics",
+  "issues": [
+   "clipped <a> “Daj gwiazdkę na GitLabie”"
+  ]
+ },
+ {
+  "device": "laptop",
+  "lang": "pl",
+  "route": "#/about",
+  "issues": [
+   "clipped <a> “Daj gwiazdkę na GitLabie”"
+  ]
+ }
+]

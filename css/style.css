@@ -1625,3 +1625,26 @@ button.sselect:hover,button.sselect:focus-visible{border-color:var(--accent)}
 @media (max-width:640px){.dock.dock--s{max-width:calc(100vw - 8rem)}}
 @media (max-width:640px){.dock.dock--s{left:4.4rem;right:.8rem;max-width:none}}
 .post--feat .post__img{position:relative;background:#0b0c17;overflow:hidden;isolation:isolate}.post--feat .post__img::before{content:"";position:absolute;inset:-30px;background:var(--cov) center/cover;filter:blur(24px) brightness(.55) saturate(1.2);z-index:-1}.post--feat .post__img img{object-fit:contain;object-position:center;position:relative}
+/* narrow-screen resilience for long languages */
+.term__bar span{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.term__bar button{flex:none}
+@media (max-width:560px){
+  .btn{white-space:normal;height:auto;min-height:var(--h);padding-block:.55rem;line-height:1.25;text-align:center;max-width:100%}
+  .btn > span{min-width:0}
+}
+.term__bar i{flex:none}
+.term__tabs{min-width:0;flex:0 1 auto;overflow-x:auto;scrollbar-width:none}
+.term__tabs::-webkit-scrollbar{display:none}
+.fec__foot > div{flex-wrap:wrap;min-width:0}
+.fec__foot [data-reset]{flex:none}
+/* 1.3.0 — longer native-edited labels */
+.btns .btn{white-space:normal;text-align:center;max-width:100%;min-width:0}
+.hdr__cta{flex-shrink:0;white-space:nowrap}
+.chipbtn{min-width:0;overflow-wrap:anywhere;hyphens:auto}
+.chipbtn *{min-width:0;max-width:100%}
+@media (min-width:901px){
+ .hero__row{grid-template-columns:minmax(380px,1fr) minmax(0,max-content)}
+ .hud{grid-template-columns:repeat(3,minmax(0,max-content))}
+ .hud>div{min-width:130px;max-width:250px}
+ .hud small{overflow-wrap:anywhere}
+}
